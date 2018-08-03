@@ -1,0 +1,234 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Miscellaneous</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Miscellaneous </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Miscellaneous</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Miscellaneous </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>In this chapter I collect all the information that could not
+fit in the previous chapters.</EM>
+
+</P>
+<P>
+<EM>You might find usefull references to additional documents as well.</EM>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Packages and JAR files </H2>
+<P>
+<A NAME="IDX506"></A>
+<A NAME="IDX507"></A>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Packages </H3>
+<P>
+<A NAME="IDX508"></A>
+In Java terminology the word "package" means <STRONG>a collection of
+individual .class files contained in a directory</STRONG>. A package is then
+a directory and a library, and you use it to group more than one
+class together.
+
+</P>
+<P>
+You then perform the grouping of the source NetRexx files in
+a directory. And now comes the most important point: the
+directory <STRONG>name</STRONG> MUST match the <STRONG>package</STRONG> name.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Real example </H3>
+<P>
+In this subsection I'll show how I built the first time my
+<STRONG>xclasses.jar</STRONG> file.
+
+</P>
+
+<PRE>
+ 
+  # 1.00 create a directory called "xclasses"
+  #      and go into it
+  $ mkdir xclasses
+  $ cd xclasses
+
+  # 2.00 edit the classes that make the package
+  #      ADD a "package xclasses" line at beginning
+  #      then compile it with nrc
+  $ edit *.nrx
+  $ nrc *.nrx
+
+  # 3.00 build the JAR file
+  #      FROM THE DIRECTORY ABOVE!
+  $ cd ..
+  $ jar -cvf /java/lib/xclasses.jar xclasses/*.class
+
+  # 4.00 change the CLASSPATH and add
+  #      C:\java\lib\xclasses.jar
+  $ export CLASSPATH=$CLASSPATH";C:\java\lib\xclasses.jar"
+
+  # 5.00 test it
+  #
+  $ cd /spool/test
+  $ cat t1.nrx
+  import xclasses.
+  rc = xexec('ls -l')
+  $ nrc t1
+  $ java t1
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Pipes for NetRexx and Java </H2>
+<P>
+<A NAME="IDX509"></A>
+<A NAME="IDX510"></A>
+
+</P>
+<P>
+Ed Tomlinson has ported the VM/CMS Pipes functionality on NetRexx
+(and Java). You can find all the information at the URL:
+
+</P>
+
+<PRE>
+ 
+<A href="http://www.cam.org/~tomlins/njpipes.html">http://www.cam.org/~tomlins/njpipes.html</A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Additional Informations available on the WEB. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Comments about NetRexx </H3>
+<P>
+<A NAME="IDX511"></A>
+<A NAME="IDX512"></A>
+
+</P>
+<P>
+An article about NetRexx has appeared on the Windows Magazine
+(Windows Magazine, July 1997, page 156). You can find a copy
+on:
+
+<PRE>
+ 
+<A href="http://www.winmag.com/library/1997/0701/winla114.htm">http://www.winmag.com/library/1997/0701/winla114.htm</A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> REXX FAQ. </H3>
+<P>
+<A NAME="IDX513"></A>
+<A NAME="IDX514"></A>
+<A NAME="IDX515"></A>
+For the REXX FAQ, you should consult the page:
+
+<PRE>
+ 
+<A href="http://www.mindspring.com/~dave_martin/RexxFAQ.html">http://www.mindspring.com/~dave_martin/RexxFAQ.html</A>
+ 
+</PRE>
+
+<P>
+or (in its non-frame version)
+
+<PRE>
+ 
+<A href="http://www.mindspring.com/~dave_martin/FAQNoFrames.html">http://www.mindspring.com/~dave_martin/FAQNoFrames.html</A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Regular expressions. </H2>
+<P>
+<A NAME="IDX516"></A>
+<A NAME="IDX517"></A>
+<A NAME="IDX518"></A>
+<A NAME="IDX519"></A>
+Although I'm not a REGEX fan (since all you can do
+in a Regular Expression you can do with native NetRexx
+functions), there are a lot of colleagues who are really
+REGEX lovers.
+
+</P>
+<P>
+So, for pattern matching issues, look at:
+
+<PRE>
+ 
+<A href="http://www.win.net/~stevesoft/pat">http://www.win.net/~stevesoft/pat</A>
+<A href="http://www.java.no/javaBIN/docs/api/sun.misc.Regexp.html">http://www.java.no/javaBIN/docs/api/sun.misc.Regexp.html</A>
+<A href="http://www.java.no/javaBIN/docs/api/sun.misc.RegexpPool.html">http://www.java.no/javaBIN/docs/api/sun.misc.RegexpPool.html</A>
+ 
+</PRE>
+
+<P>
+A good set of packages is also available at the
+Original Reusable Objects, ORO Site:
+
+</P>
+<P>
+<A NAME="IDX520"></A>
+<A NAME="IDX521"></A>
+<A NAME="IDX522"></A>
+<A NAME="IDX523"></A>
+<A NAME="IDX524"></A>
+<A NAME="IDX525"></A>
+
+</P>
+
+<PRE>
+ 
+<A href="http://www.oroinc.com/downloads/index.html">http://www.oroinc.com/downloads/index.html</A>
+ 
+</PRE>
+
+<P>
+You will find a Java regular expression package (OROMatcher),
+a Easy to use Perl5 regular expressions in Java package
+(PerlTools) and a AWK regular expressions for Java
+(AwkTools).
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_31.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:48:06(GMT +2).
+</FONT>
+

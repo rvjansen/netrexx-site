@@ -1,0 +1,404 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Appendix I: Installation</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Appendix I: Installation </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Appendix I: Installation</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Appendix I: Installation </H1>
+<P>
+<A NAME="IDX527"></A>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Installation on WIN/95 WIN/NT and SOLARIS </H2>
+<P>
+<A NAME="IDX528"></A>
+<A NAME="IDX529"></A>
+<A NAME="IDX530"></A>
+<A NAME="IDX531"></A>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Download the JDK </H3>
+<P>
+Sun directly distributes the JDK for Windows/95, Windows/NT and
+Solaris (both SPARC and x86). The download can be performed
+from:
+
+<PRE>
+ 
+<A href="http://java.sun.com/products/jdk/1.1/index.html">http://java.sun.com/products/jdk/1.1/index.html</A>
+ 
+</PRE>
+
+<P>
+Select the platform, read the download condition,
+and fetch the code using your preferred WEB browser.
+
+</P>
+<P>
+<STRONG>NOTE:</STRONG> due to a problem with Netscape 3.01,
+I was forced to directly issue the FTP commands, in order
+to fetch the code.
+
+<PRE>
+ 
+ftp ftp.javasoft.com
+&#62; anonymous
+&#62; YOUR_EMAIL_ADDRESS
+&#62; bin
+&#62; cd pub/jdk1.1
+&#62; get jdk1.1.1-win32-x86.exe
+&#62; quit
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Installing Java on AIX </H2>
+<P>
+<A NAME="IDX532"></A>
+<A NAME="IDX533"></A>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Checking installation </H3>
+<P>
+Using your preferred editor, enter the following program,
+calling it <STRONG>hellojava.java</STRONG>.
+
+</P>
+<P>
+<A NAME="IDX534"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| class hellojava                                                      |<STRONG>01</STRONG>
+| {                                                                   |<STRONG>02</STRONG>
+|   public static void main (String args[])                            |<STRONG>03</STRONG>
+|    {                                                                |<STRONG>04</STRONG>
+|     System.out.println("Hello World, from Java!");                   |<STRONG>05</STRONG>
+|     }                                                               |<STRONG>06</STRONG>
+|  }                                                                  |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                          hellojava.java
+</td><td><img src="java.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+Then you type:
+
+</P>
+
+<PRE>
+ 
+&#62;javac hellojava.java        # compile the program
+&#62;java hellojava              # run it
+ 
+</PRE>
+
+<P>
+If the output is the string "Hello World, from Java!" then you've almost done
+it!
+
+</P>
+<P>
+Now you can try an applet. So edit the files <STRONG>hellojavaa.java</STRONG> and
+<STRONG>hellojavaa.html</STRONG>, as presented below.
+
+</P>
+<P>
+<A NAME="IDX535"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| import java.applet.Applet;                                           |<STRONG>01</STRONG>
+| import java.awt.Graphics;                                            |<STRONG>02</STRONG>
+|                                                                      |<STRONG>03</STRONG>
+| public class hellojavaa extends Applet {                            |<STRONG>04</STRONG>
+|     public void paint(Graphics g) {                                 |<STRONG>05</STRONG>
+|       g.drawString("Hello world, from Java Applet!", 50, 25);        |<STRONG>06</STRONG>
+|      }                                                              |<STRONG>07</STRONG>
+|  }                                                                  |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
++----------------------------------------------------------------------+
+                                                         hellojavaa.java
+</td><td><img src="java.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX536"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| &#60;HTML&#62;                                                               |<STRONG>01</STRONG>
+| &#60;HEAD&#62;                                                               |<STRONG>02</STRONG>
+| &#60;TITLE&#62; Hello World &#60;/TITLE&#62;                                         |<STRONG>03</STRONG>
+| &#60;/HEAD&#62;                                                              |<STRONG>04</STRONG>
+| &#60;BODY&#62;                                                               |<STRONG>05</STRONG>
+| This is the applet:&#60;P&#62;                                               |<STRONG>06</STRONG>
+| &#60;APPLET codebase="classes" code="hellojavaa.class" width=200 height=2|<STRONG>07</STRONG>
+| &#60;/BODY&#62;                                                              |<STRONG>08</STRONG>
+| &#60;/HTML&#62;                                                              |<STRONG>09</STRONG>
++----------------------------------------------------------------------+
+                                                         hellojavaa.html
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+<PRE>
+ 
+&#62;javac hellojavaa.java          # compile the program
+&#62;appletviewer hellojavaa.html   # run it
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> AIX known bugs </H3>
+
+<P>
+There is a bug in the AIX JIT compiler. This leads to errors like the
+following one, even in compiling the small <STRONG>hello.nrx</STRONG>
+program.
+
+</P>
+<P>
+<A NAME="IDX537"></A>
+<A NAME="IDX538"></A>
+<A NAME="IDX539"></A>
+
+</P>
+
+<PRE>
+ 
+$java COM.ibm.netrexx.process.NetRexxC hello
+NetRexx portable processor, version 1.120
+Copyright (c) IBM Corporation, 1997.  All rights reserved.
+Program hello.nrx
+java.lang.ArrayIndexOutOfBoundsException: 20
+        at netrexx.lang.RexxWords.space(Compiled Code)
+        at netrexx.lang.Rexx.space(Compiled Code)
+        at netrexx.lang.Rexx.space(Compiled Code)
+        (...)
+ 
+</PRE>
+
+<P>
+To turn OFF the JIT, just do:
+<A NAME="IDX540"></A>
+
+<PRE>
+ 
+ SET JAVA_COMPILER=xxx
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Download the NetRexx Distribution </H2>
+<P>
+The latest versions of NetRexx are available on IBM's
+WEB site at the following URLs:
+
+</P>
+
+<PRE>
+ 
+<A href="http://www.ibm.com/Technology/NetRexx/nrdown.htm">http://www.ibm.com/Technology/NetRexx/nrdown.htm</A>
+<EM>USA Server</EM>
+ 
+</PRE>
+
+<P>
+or at
+
+<PRE>
+ 
+<A href="http://www2.hursley.ibm.com/netrexx/nrdown.htm">http://www2.hursley.ibm.com/netrexx/nrdown.htm</A>
+<EM>UK Server</EM>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Installing NetRexx on UNIX </H2>
+
+<P>
+In the following example I assume that you want to install
+NetRexx in the directory:
+
+<PRE>
+ 
+   ~/src/NetRexx
+ 
+</PRE>
+
+<P>
+and you've the working Java top tree in:
+
+<PRE>
+ 
+   ~/src/java/Java
+ 
+</PRE>
+
+<P>
+This is the procedure:
+
+<PRE>
+ 
+  1. Unpack the distribution
+
+     &#62; cd ~/src/NetRexx
+     &#62; uncompress NetRexx.tar
+     &#62; tar -xvf NetRexx.tar
+
+  2. Install the libraries and demo
+
+     &#62; cd ~/src/java/Java
+     &#62; cp ~/src/NetRexx/nrtools.tar.Z .
+     &#62; uncompress nrtools.tar
+     &#62; tar -xvf nrtools.tar
+
+  3. Set the environment variable CLASSPATH
+     You need to add ~/src/java/Java/lib/NetRexxC.zip to the
+     CLASSPATH environment variable
+
+     This command will depend on your shell (csh, tcsh, ksh ...)
+
+     &#62; export CLASSPATH=$CLASSPATH:~/src/java/Java/lib/NetRexxC.zip
+
+  4. Test the installation
+
+     &#62; cd ~/src/java/Java/bin
+     &#62; java COM.ibm.netrexx.process.NetRexxC hello
+     &#62; java hello
+ 
+</PRE>
+
+<P>
+The following small script might save you some typing
+
+</P>
+<P>
+<A NAME="IDX541"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| echo 'java COM.ibm.netrexx.process.NetRexxC' $1                      |<STRONG>01</STRONG>
+| java COM.ibm.netrexx.process.NetRexxC $1                             |<STRONG>02</STRONG>
++----------------------------------------------------------------------+
+                                                                     nrc
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Microsoft J++ </H2>
+<P>
+<A NAME="IDX542"></A>
+<A NAME="IDX543"></A>
+The following recepy (originally provided by Bernhard Hurzeler
+&#60;behurzeler@ucdavis.edu&#62;)
+gives some information on how to get MS VJ++ and NetRexx working together.
+
+</P>
+
+<PRE>
+ 
+ 1. Put the files in their appropriate directories:
+
+      NetRexxC.zip        -&#62; c:\MSDEV\LIB
+      NetRexxC.properties -&#62; c:\MSDEV\LIB
+      NetRexxR.zip        -&#62; c:\MSDEV\LIB
+      NetRexxC.bat        -&#62; c:\MSDEV\BIN
+      NetRexxC.cmd        -&#62; c:\MSDEV\BIN
+      nrc.cmd             -&#62; c:\MSDEV\BIN
+      nrc.bat             -&#62; c:\MSDEV\BIN
+
+  2. Set the CLASSPATH to:
+
+      c:\Msdev\Lib\NetRexxR.zip;c:\Msdev\Lib\NetRexxC.zip;c:\Msdev\Bin
+
+     On Windows NT 4.0, you follow the icons
+       Start,
+        Settings,
+         Control Panels,
+          System,
+           Environment tab,
+            System Variable
+
+  3. Go to c:\MSDEV\BIN and type the commands:
+
+     -- generate the java source
+     &#62; jview COM.ibm.netrexx.process.NetRexxC hello -keep nocompile
+     -- compile it
+     &#62; jvc hello.java
+     -- run
+     &#62; jview hello
+
+ 
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_33.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:48:07(GMT +2).
+</FONT>
+

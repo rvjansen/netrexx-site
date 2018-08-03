@@ -1,0 +1,1543 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Introduction to NetRexx</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Introduction to NetRexx </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Introduction to NetRexx</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Introduction to NetRexx </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>In this chapter I try to give a global overview
+of the NetRexx language, along with a bit of history
+and some information on how to install and run it, etc.</EM>
+ 
+<EM>Probably the most interesting part starts from the
+paragraph <STRONG>A Small Journey Around NetRexx</STRONG>, where
+I try to develop some small programs, purely with the aim
+of giving you a "feeling" for this language. You can happily
+jump straight to this section, and leave all the details
+for later.</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> History of Rexx and NetRexx </H2>
+<P>
+Rexx was conceived, designed and developed by Mike Cowlishaw
+of IBM UK. The original motivation was to replace the then (1979) 
+inadequate IBM command language (JCL and EXEC2). 
+The basic idea was to develop something similar to
+PL/I, but easier to use.
+ 
+During the last 25 years Rexx developped a large community of
+users, since IBM was/is shipping it as part of it's major Operating
+Systems (MVS, VM, OS/2). IBM estimates that there are
+about 6 millions of Rexx Programmers around the world.
+
+</P>
+<P>
+NetRexx was again conceived, designed and developed by Mike Cowlishaw
+IBM Fellow, in 1996. The motivation is is to create a language
+easier and simpler than Java, but keeping Java's main advantages.
+
+</P>
+<P>
+Like Rexx, NetRexx is a real general-purpose language, tuned
+for both scripting and application development.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Availability of NetRexx. </H2>
+<P>
+<A NAME="IDX22"></A>
+<A NAME="IDX23"></A>
+<A NAME="IDX24"></A>
+
+</P>
+<P>
+The latest versions of NetRexx are available on IBM's
+WEB site at the following URLs:
+
+</P>
+
+<PRE>
+ 
+<A href="http://www.ibm.com/Technology/NetRexx/nrdown.htm">http://www.ibm.com/Technology/NetRexx/nrdown.htm</A>
+ 
+</PRE>
+
+<P>
+<EM>USA Server</EM>
+or at
+
+<PRE>
+ 
+<A href="http://www2.hursley.ibm.com/netrexx/nrdown.htm">http://www2.hursley.ibm.com/netrexx/nrdown.htm</A>
+ 
+</PRE>
+
+<P>
+<EM>UK Server</EM>
+
+</P>
+<P>
+On those sites you will find the NetRexx toolkit and the
+NetRexx Language Reference document, written by
+Mike Cowlishaw.
+
+</P>
+<P>
+The NetRexx documentation and software are distributed free of charge
+under the conditions of the IBM Employee-Written Software program.
+
+</P>
+<P>
+NetRexx is distributed in 2 formats:
+
+</P>
+
+<UL>
+<LI><STRONG>zip</STRONG> format for Windows/95, Windows/NT
+
+  and OS/2;
+<LI><STRONG>tar+compress</STRONG> format for UNIX platforms
+
+  (like AIX, Solaris, HP/UX, IRIX, Linux, DecOSF, etc.)
+</UL>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Installing NetRexx on your machine. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Prerequisites </H3>
+<P>
+<A NAME="IDX25"></A>
+<A NAME="IDX26"></A>
+
+</P>
+<P>
+In order to install and run NetRexx, you need to have already
+installed:
+
+</P>
+
+<UL>
+<LI>the Java runtime and toolkit (from the 1.x Java development kit)
+
+<LI>a text editor
+
+</UL>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Installation </H3>
+<P>
+<A NAME="IDX27"></A>
+Installing NetRexx is an easy process. In a nutshell, you need to:
+
+<UL>
+<LI>download the code using your preferred WEB browser
+
+<LI>unpack the distribution
+
+<LI>install the some files from the distribution inside
+
+  the Java <STRONG>bin</STRONG> and  <STRONG>lib</STRONG> subdirectories.
+<LI>change the CLASSPATH environment variable
+
+<LI>check the installation
+
+</UL>
+
+<P>
+You should consult the URL
+
+<PRE>
+ 
+<A href="http://www2.hursley.ibm.com/netrexx/doc-nrinst.htm">http://www2.hursley.ibm.com/netrexx/doc-nrinst.htm</A>
+ 
+</PRE>
+
+<P>
+for more information about the installation. In Appendix I you'll
+find some examples of installation.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Additional sources of documentation </H2>
+<P>
+<A NAME="IDX28"></A>
+
+</P>
+<P>
+You can find additional informations at the URLs:
+
+<PRE>
+ 
+<A href="http://www2.hursley.ibm.com/netrexx/nrlinks.htm">http://www2.hursley.ibm.com/netrexx/nrlinks.htm</A>
+ 
+</PRE>
+
+<P>
+For a collection of applets and classes written in NetRexx
+look at:
+
+<PRE>
+ 
+<A href="http://www.multitask.com.au/netrexx/fac/">http://www.multitask.com.au/netrexx/fac/</A>
+ 
+</PRE>
+
+<P>
+The NetRexx Mailing list archives are at:
+
+<PRE>
+ 
+<A href="http://ncc.hursley.ibm.com/majordomo/IBM-NETREXX/archives/">http://ncc.hursley.ibm.com/majordomo/IBM-NETREXX/archives/</A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX29"></A>
+<A NAME="IDX30"></A>
+
+</P>
+<P>
+The IBM redbook devoted to NetRexx can be found at:
+
+<PRE>
+ 
+<A href="http://www.redbooks.ibm.com/SG242216/2216ht.htm">http://www.redbooks.ibm.com/SG242216/2216ht.htm</A>
+ 
+</PRE>
+
+<P>
+The IBM reference is SG24-2216-0.
+<A NAME="IDX31"></A>
+<A NAME="IDX32"></A>
+<A NAME="IDX33"></A>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> A Small Journey Around NetRexx </H2>
+<P>
+In this section I present a series of small programs,
+with which we will increase
+functionality and complexity.
+ 
+With these examples, I want to
+give you the 'feel' of NetRexx.
+ 
+Of course, if you are
+an experienced REXX programmer, you can quickly skip this section
+and go to the next chapter.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The "Hello, world!" Program. </H3>
+<P>
+Here is an example of your first NetRexx program, which you can
+call 'hello.nrx'.
+
+</P>
+<P>
+<A NAME="IDX34"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- Our first NetRexx Program                                         |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| say 'Hello World!'                                                   |<STRONG>03</STRONG>
+| exit 0                                                               |<STRONG>04</STRONG>
++----------------------------------------------------------------------+
+                                                               hello.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/hello.nrx">Download the  source for the hello.nrx example </A>
+ 
+</PRE>
+
+<P>
+The third line contains a print statement to your
+terminal. Note that you DO NOT need to put a semi-colon (';') at the end
+of a line. You need one only if you want to put two or more
+statements on the same line, like it would be for:
+ 
+
+<PRE>
+ 
+ say 'Hello World!'; exit 0
+ 
+</PRE>
+
+<P>
+In the fourth line,
+the <STRONG>exit</STRONG> statement is not mandatory; this means you
+can even avoid writing it. But it is indeed good practice always
+to exit from a program with the <STRONG>exit</STRONG> instruction. Even
+better, exit also with a return code, as in <STRONG>exit 0</STRONG>.
+
+</P>
+<P>
+  To run your program you now need to type:
+
+</P>
+
+<PRE>
+ 
+  <STRONG>java COM.ibm.netrexx.process.NetRexxC hello</STRONG>
+ 
+</PRE>
+
+<P>
+  If the compilation was successful, you can now run the program
+typing:
+
+<PRE>
+ 
+  <STRONG>java hello</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Adding some variables </H3>
+<P>
+Suppose that you now want to add some variables in your program.
+An example:
+ 
+<A NAME="IDX35"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- another very simple NetRexx program                               |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| month_name = 'December'              -- string                       |<STRONG>03</STRONG>
+| no_of_days = 31                      -- number                       |<STRONG>04</STRONG>
+| say 'The month of' month_name 'has' no_of_days 'days.'               |<STRONG>05</STRONG>
+| exit 0                                                               |<STRONG>06</STRONG>
++----------------------------------------------------------------------+
+                                                             simple1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple1.nrx">Download the  source for the simple1.nrx example </A>
+ 
+</PRE>
+
+<P>
+As you see, the variable assignment operation is a very easy
+one, in NetRexx. You just need to type:
+
+<PRE>
+ 
+  <STRONG>variable</STRONG> = <EM>value</EM>
+ 
+</PRE>
+
+<P>
+You do NOT need to declare the variable before the assignment.
+The only important thing to remember is that ALL variables are treated
+as strings, so the value you want to associate with them MUST go
+between single quotes ( ' ).
+You might ask yourself: "Also numbers are treated
+as strings?". And, yes, also numbers
+are strings, so it is little wonder that
+the following example lines are perfectly equivalent:
+ 
+
+<PRE>
+ 
+ days = 31
+ days = days + 1
+ 
+ days = '31'
+ days = days + '1'
+ 
+</PRE>
+
+<P>
+Of course, as you have seen, you can avoid the ( ' ) marks when
+you deal with numeric quantities.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Asking Questions and Displaying the Result </H3>
+<P>
+If you want to make your first program a little more complex,
+the usual way is to ask a question.
+Here is the final result:
+
+</P>
+<P>
+<A NAME="IDX36"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- simple2.nrx                                                       |<STRONG>01</STRONG>
+| -- ask a question and display the answer                             |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| say 'How many days are in December?'                                 |<STRONG>04</STRONG>
+| answ = ask                                                           |<STRONG>05</STRONG>
+| say 'Your answer is' answ'.'                                         |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                             simple2.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple2.nrx">Download the  source for the simple2.nrx example </A>
+ 
+</PRE>
+
+<P>
+The instruction that tells NetRexx to get the input from the
+keyboard and put it into the variable named 'answ' is:
+
+<PRE>
+ 
+<EM>answ</EM> = <STRONG>ask</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Adding Choices </H3>
+<P>
+Well, as it is the program is not really useful: you can answer
+anything, even a string of characters, and the program blindly
+accepts the answer.
+To make the code a little more 'intelligent' we try to distinguish
+between a good and a bad answer. Here is how:
+ 
+The code:
+<A NAME="IDX37"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- simple3.nrx                                                       |<STRONG>01</STRONG>
+| -- ask a question and check the answer                               |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| say 'How many days are in December?'                                 |<STRONG>04</STRONG>
+| answ = ask                                                           |<STRONG>05</STRONG>
+| if answ = 31                                                         |<STRONG>06</STRONG>
+|   then say 'Correct Answer.'                                         |<STRONG>07</STRONG>
+|   else say 'Wrong Answer.'                                           |<STRONG>08</STRONG>
+| exit 0                                                               |<STRONG>09</STRONG>
++----------------------------------------------------------------------+
+                                                             simple3.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple3.nrx">Download the  source for the simple3.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Guessing the correct answer </H3>
+<P>
+Now we want our program to ask another question, in a case
+where the first has been answered correctly. We allow the
+user to make mistakes with the
+second question. The program will continue until a correct
+answer is given (or the user gets fed-up and hits CNTRL-C!).
+<A NAME="IDX38"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple3.nrx                                                       |<STRONG>01</STRONG>
+|  * ask a question and check the answer                               |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| correct_answ = 31                                                    |<STRONG>04</STRONG>
+| loop forever                                                         |<STRONG>05</STRONG>
+|   say 'How many days are in December?'                               |<STRONG>06</STRONG>
+|   answ = ask                                                         |<STRONG>07</STRONG>
+|   if answ = correct_answ                                             |<STRONG>08</STRONG>
+|     then                                                             |<STRONG>09</STRONG>
+|       do                                                             |<STRONG>10</STRONG>
+|         say 'Correct.'                                               |<STRONG>11</STRONG>
+|         leave                                                        |<STRONG>12</STRONG>
+|       end                                                            |<STRONG>13</STRONG>
+|     else say 'Wrong Answer. Try again.'                              |<STRONG>14</STRONG>
+| end                                                                  |<STRONG>15</STRONG>
+| exit 0                                                               |<STRONG>16</STRONG>
++----------------------------------------------------------------------+
+                                                             simple4.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple4.nrx">Download the  source for the simple4.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> More than one correct answer </H3>
+<P>
+Suppose we now ask a question for which there is more than
+one correct answer. We need to get the answer from the user,
+and test it against a series of good answers.
+ 
+It can be done with this program:
+<A NAME="IDX39"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple5.nrx                                                       |<STRONG>01</STRONG>
+|  * verify answer from a list                                         |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| good_answ = 'APRIL JUNE SEPTEMBER NOVEMBER'                          |<STRONG>04</STRONG>
+| loop forever                                                         |<STRONG>05</STRONG>
+|   say 'Tell me a month with 30 days.'                                |<STRONG>06</STRONG>
+|   answ = ask                  -- get the input                       |<STRONG>07</STRONG>
+|   parse answ answ .           -- only the 1st word                   |<STRONG>08</STRONG>
+|   answ = answ.upper()         -- uppercase it                        |<STRONG>09</STRONG>
+|   if good_answ.wordpos(answ) = 0                                     |<STRONG>10</STRONG>
+|     then                                                             |<STRONG>11</STRONG>
+|       do                                                             |<STRONG>12</STRONG>
+|         say 'You said "'answ'". It is wrong.'                        |<STRONG>13</STRONG>
+|         say 'Try again.'                                             |<STRONG>14</STRONG>
+|       end                                                            |<STRONG>15</STRONG>
+|     else                                                             |<STRONG>16</STRONG>
+|       do                                                             |<STRONG>17</STRONG>
+|         say 'Correct.'                                               |<STRONG>18</STRONG>
+|         leave                                                        |<STRONG>19</STRONG>
+|       end                                                            |<STRONG>20</STRONG>
+| end                                                                  |<STRONG>21</STRONG>
+| exit 0                                                               |<STRONG>22</STRONG>
++----------------------------------------------------------------------+
+                                                             simple5.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple5.nrx">Download the  source for the simple5.nrx example </A>
+ 
+</PRE>
+
+<P>
+ 
+There are several new things introduced. Let us look at them:
+ 
+<STRONG>line 4:</STRONG> Here we enter a loop from which we will never exit,
+(<STRONG>loop forever</STRONG>). This might seem dangerous, but is
+not. The instruction <STRONG>leave</STRONG> in line 19 gives us an escape
+path: the only way to exit the loop is to enter a good answer.
+ 
+<STRONG>lines 7,8,9:</STRONG> The instructions
+are meant to "grab the answer, get
+only the first world, and uppercase it". This will make
+life much easier later.
+
+</P>
+<P>
+In fact, what <STRONG>parse answ answ .</STRONG> does is:
+
+<PRE>
+ 
+  user types               answ value
+  ------------------------ ------------------------
+  January                  JANUARY
+  I don't know             I
+  February                 FEBRUARY
+  please, stop it!         PLEASE,
+ 
+</PRE>
+
+<P>
+ 
+<STRONG>NOTE</STRONG>: The lines
+
+<PRE>
+ 
+   answ = ask                  -- get the input         
+   parse answ answ .           -- only the 1st word                 
+   answ = answ.upper()         -- uppercase it                      
+ 
+</PRE>
+
+<P>
+can be written as:
+
+</P>
+
+<PRE>
+ 
+   parse ask.upper() answ .    
+ 
+</PRE>
+
+<P>
+which is the NetRexx equivalent for the Classical REXX:
+
+</P>
+
+<PRE>
+ 
+   parse upper pull anws .
+ 
+</PRE>
+
+<P>
+<STRONG>line 10:</STRONG> The instruction <STRONG>good_answ.wordpos(answ)</STRONG> is the key
+to the program's functioning. It says: Look in the list
+good_answ and try to find answ. If you find it,
+tell me its position. Otherwise, tell me 0.
+Thus, if the answer is wrong, we get 0, and we continue to loop.
+ 
+An alternative way to perform this task as follows:
+<A NAME="IDX40"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple6.nrx                                                       |<STRONG>01</STRONG>
+|  * verify answer from a list                                         |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| good    = 0                                                          |<STRONG>04</STRONG>
+| good[0] = 4                                                          |<STRONG>05</STRONG>
+| good[1] = 'APRIL'                                                    |<STRONG>06</STRONG>
+| good[2] = 'JUNE'                                                     |<STRONG>07</STRONG>
+| good[3] = 'SEPTEMBER'                                                |<STRONG>08</STRONG>
+| good[4] = 'NOVEMBER'                                                 |<STRONG>09</STRONG>
+| loop forever                                                         |<STRONG>10</STRONG>
+|   say 'Tell me a month with 30 days.'                                |<STRONG>11</STRONG>
+|   answ = ask                  -- get the input                       |<STRONG>12</STRONG>
+|   parse answ answ .           -- only the 1st word                   |<STRONG>13</STRONG>
+|   answ = answ.upper()         -- uppercase it                        |<STRONG>14</STRONG>
+|   found = 0                                                          |<STRONG>15</STRONG>
+|   loop i = 1 to good[0]                                              |<STRONG>16</STRONG>
+|     if good[i] &#60;&#62; answ then iterate                                  |<STRONG>17</STRONG>
+|     found = 1                                                        |<STRONG>18</STRONG>
+|     leave                                                            |<STRONG>19</STRONG>
+|   end                                                                |<STRONG>20</STRONG>
+|   if found = 0                                                       |<STRONG>21</STRONG>
+|     then                                                             |<STRONG>22</STRONG>
+|       do                                                             |<STRONG>23</STRONG>
+|         say 'You said "'answ'". It is wrong.'                        |<STRONG>24</STRONG>
+|         say 'Try again.'                                             |<STRONG>25</STRONG>
+|       end                                                            |<STRONG>26</STRONG>
+|     else                                                             |<STRONG>27</STRONG>
+|       do                                                             |<STRONG>28</STRONG>
+|         say 'Correct.'                                               |<STRONG>29</STRONG>
+|         leave                                                        |<STRONG>30</STRONG>
+|       end                                                            |<STRONG>31</STRONG>
+| end                                                                  |<STRONG>32</STRONG>
+| exit 0                                                               |<STRONG>33</STRONG>
++----------------------------------------------------------------------+
+                                                             simple6.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple6.nrx">Download the  source for the simple6.nrx example </A>
+ 
+</PRE>
+
+<P>
+In line 04 we initialise an ARRAY to a default value. The initialization practice is
+not needed, in a program so short as <STRONG>simple6.nrx</STRONG>; but it is a must
+in more complicated programs. This line tells NetRexx: "initialise any
+<STRONG>good[]</STRONG> array variable to <STRONG>0</STRONG>."
+
+</P>
+<P>
+Classical REXX users will remember the "standard" initialization of a
+<STRONG>STEM</STRONG> variable:
+
+</P>
+
+<PRE>
+ 
+good. = 0
+ 
+</PRE>
+
+<P>
+In lines 05-09, we define the values of <STRONG>good[]</STRONG> array. An ARRAY variable is
+an array of values, and usually (even if it is not mandatory)
+the 0 element (<STRONG>good[0]</STRONG>) contains the information
+"how many elements are there in this array?". Since there are
+four elements, <STRONG>good[0]</STRONG> is equal to 4.
+ 
+Here is another example of ARRAY:
+
+<PRE>
+ 
+variable      value
+------------- ------------------------------------
+line[0]       3
+line[1]       Test line no 1
+line[2]       Another one
+line[3]       third line
+ 
+</PRE>
+
+<P>
+ 
+If we then want to see if an answer is correct, we need to
+set a flag (<STRONG>found</STRONG>) to FALSE (0) and
+'scan' the array until we find the right answer, when
+we set the flag to TRUE, and exit from the loop (line 14).
+ 
+Then, depending on the value of the flag, we display the appropriate
+answer as in the previous example.
+ 
+You may have noticed from the length of the two examples that
+as a rule of thumb it is easier to have data structures in the
+form of strings than in the form of STEMS Ñ at least when you
+have very simple entities such as those used in these examples.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> More than one list </H3>
+<P>
+Suppose you want a program that shows the number of days in a particular 
+month.
+Since we are lazy, we will not write the full month name,
+the three first letters are enough.
+ 
+In this case we need two lists: one containing the month
+names (<STRONG>month_list</STRONG>), and another containing, IN THE
+SAME ORDER, the number of days of the given month
+(<STRONG>days_list</STRONG>).
+
+</P>
+<P>
+<A NAME="IDX41"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple7.nrx                                                       |<STRONG>01</STRONG>
+|  * use two lists                                                     |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| month_list = 'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'       |<STRONG>04</STRONG>
+| days_list  = ' 31  28  31  30  31  30  31  31  30  31  30  31'       |<STRONG>05</STRONG>
+| good = 0                                                             |<STRONG>06</STRONG>
+| loop while good = 0                                                  |<STRONG>07</STRONG>
+|   say 'Tell me a month (JAN, FEB, etc.)'                             |<STRONG>08</STRONG>
+|   parse ask.upper() answ .                                           |<STRONG>09</STRONG>
+|   if month_list.wordpos(answ) &#60;&#62; 0                                   |<STRONG>10</STRONG>
+|     then good = 1                                                    |<STRONG>11</STRONG>
+|     else say 'Wrong, Try again.'                                     |<STRONG>12</STRONG>
+| end                                                                  |<STRONG>13</STRONG>
+| days = days_list.word(month_list.wordpos(answ))                      |<STRONG>14</STRONG>
+| say 'Month "'answ'" has' days 'days.'                                |<STRONG>15</STRONG>
+| exit 0                                                               |<STRONG>16</STRONG>
++----------------------------------------------------------------------+
+                                                             simple7.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/simple7.nrx">Download the  source for the simple7.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Dealing with files (I) </H3>
+<P>
+In the previous example, the two variable <STRONG>month_list</STRONG> and
+<STRONG>days_list</STRONG> are long strings. In real life this kind of information
+is stored in files containing the data used by the program.
+ 
+A file example can be the following:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++---------------------------------------------------------+
+|* This file contains the month list, with the number     |
+|* of days corresponding.                                 |
+|*                                                        |
+|                                                         |
+| January   31                                            |
+| February  28                                            |
+| March     31                                            |
+| April     30                                            |
+| May       31                                            |
+| June      30                                            |
+| July      31                                            |
+| August    31                                            |
+| September 30                                            |
+| October   31                                            |
+| November  30                                            |
+| December  31                                            |
++---------------------------------------------------------+
+                                                 month.list
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+To make the example a little more interesting, we have added comment 
+lines (all lines starting with an asterisk ("*")) and blank lines.
+ 
+The following program reads the file <STRONG>month.list</STRONG> and
+counts the number of months, printing the total number
+of months and days in a year.
+ 
+<A NAME="IDX42"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- monthfile.nrx                                                     |<STRONG>01</STRONG>
+| -- test file I/O                                                     |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| infid = xfile('month.list')                                          |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| rc = infid.read()                                                    |<STRONG>06</STRONG>
+| if rc &#60;&#62; 0 then                                                      |<STRONG>07</STRONG>
+|   do                                                                 |<STRONG>08</STRONG>
+|     say 'Error reading' infid.name'.'                                |<STRONG>09</STRONG>
+|     exit 1                                                           |<STRONG>10</STRONG>
+|   end                                                                |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+| total  = 0                                                           |<STRONG>13</STRONG>
+| monthl = ''                                                          |<STRONG>14</STRONG>
+| loop i = 1 to infid.lines                                            |<STRONG>15</STRONG>
+|   parse infid.line[i] month days .                                   |<STRONG>16</STRONG>
+|   if month = '' then iterate                                         |<STRONG>17</STRONG>
+|   if month.left(1) = '*' then iterate                                |<STRONG>18</STRONG>
+|   monthl = monthl month                                              |<STRONG>19</STRONG>
+|   total = total+days                                                 |<STRONG>20</STRONG>
+| end                                                                  |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+| say 'There are' monthl.words() 'months.'                             |<STRONG>23</STRONG>
+| say 'For a total of' total 'days.'                                   |<STRONG>24</STRONG>
+| exit 0                                                               |<STRONG>25</STRONG>
++----------------------------------------------------------------------+
+                                                           monthfile.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/monthfile.nrx">Download the  source for the monthfile.nrx example </A>
+ 
+</PRE>
+
+<P>
+In line '06' we issue a read over the file. All the lines are
+moved into the STEM list and are ready to process.
+See below for more information about this instruction.
+Note line '07': if something is not right ( such as the
+file being non-existent ) we exit with an error message.
+It is always a GOOD IDEA to check return codes from operations
+that might otherwise disturb the correct functioning of the
+program.
+ 
+The skipping of the comment and blank lines is done in lines
+'17' and '18'.
+ 
+<STRONG>NOTE:</STRONG> The reading of the file was performed using some
+instructions:
+
+</P>
+
+<PRE>
+ 
+ infid = xfile('month.list')  -- define the file
+ rc = infid.read()            -- issue the read
+ 
+</PRE>
+
+<P>
+those instructions are <STRONG>not</STRONG> part of the native NetRexx, but
+they are part of an extension package of this book. This extension package
+is called <STRONG>xfile</STRONG> and it should be installed in order to correctly
+run the example shown above. In a nutshell, you need to:
+
+</P>
+
+<UL>
+<LI>grab <STRONG>xfile.nrx</STRONG> from the NetRexx Tutorial WWW site;
+
+<LI>compile it;
+
+</UL>
+
+<P>
+Look at the "Tools" section for more information about this
+subject. A tool is also available to compile all the "library"
+files in an easy way (look for <STRONG>xbuild</STRONG>).
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> "Real" Example no. 1 </H2>
+<P>
+I don't know about you, but for me
+this story of months is becoming a bit
+tedious. I suggest trying a REAL program, which you might even want to
+write down (or copy from the repository) and use.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Write a tailored finger command. </H3>
+
+<P>
+The standard  <STRONG>finger</STRONG> UNIX command is a good and simple
+example of a socket client-server application: a client application
+<STRONG>finger</STRONG> running on your local machine goes to query
+a server (which runs a <STRONG>fingerd</STRONG> daemon) who answers giving
+a list of the logged on people on the server machine itself.
+
+</P>
+<P>
+We will write a simple <STRONG>finger</STRONG> client and will format
+the  <STRONG>fingerd</STRONG>'s output in a more compact form.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Finger output format </H3>
+
+<P>
+The output of the <STRONG>fingerd</STRONG> daemon is in the following format:
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (201) <STRONG>finger @shift3.cern.ch</STRONG>
+(... lines omitted...)
+nahn     steven nahn           r31 1:00 Tue 09:01
+rattaggi monica rattaggi       r37    5 Tue 09:56
+blyth    simon blyth           r38  20: Mon 13:20
+blyth    simon blyth           q90   3d Fri 12:21
+(... lines omitted...)
+rsl3pm1 (203) <STRONG></STRONG>
+....................................................................
+                                        finger command output sample
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+Here I just used the standard UNIX <STRONG>finger</STRONG> command, as it
+is available on any UNIX machine.
+
+</P>
+<P>
+Note also that
+I just showed only few lines. Some systems might have hundreds of lines.
+
+</P>
+<P>
+What we want is a more compact output format, which just shows the number
+of sessions each user has active, and a flag that shows if the
+inactivity time of a terminal session is less than an hour.
+
+</P>
+<P>
+Also, we want to write a program that runs not only on UNIX,
+but also on WNT, W95, MAC (and I could continue) in a word, on
+any machine where NetRexx runs.
+
+</P>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The full 'xfinger' code. </H3>
+
+<P>
+In the first lines we need some initialisation, like the program
+version, the author, and some constants, like the port for the
+finger daemon, and a <STRONG>Carriage Return - Line Feed</STRONG>
+sequence of characters, which are required by the simple
+fingerd protocol.
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* xfinger                                                           |01
+|  */                                                                  |02
+| VERSION         = 'v1r000'                                           |03
+| AUTHOR          = 'P.A.Marchesini, ETHZ'                             |04
+|                                                                      |05
+| DEFAULT_PORT    = int 79;                                            |06
+| CRLF = '\x0D\x0A'                                                    |07
++----------------------------------------------------------------------+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+We now get the system we want to talk with. If the user doesn't give
+one, or he types <STRONG>-h</STRONG> or <STRONG>--help</STRONG> we give some help.
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| parse arg system                                                     |09
+| if system = '-h' | system = '--help' | system = '' then              |10
+|   do                                                                 |11
+|     parse source . . myname'.'                                       |12
+|     say myname 'version' VERSION '(c)' AUTHOR                        |13
+|     say 'Purpose : sample implementation of a finger client.'        |14
+|     say                                                              |15
+|     say 'java xfinger SYSTEM'                                        |16
+|     say                                                              |17
+|     exit 1;                                                          |18
+|   end                                                                |19
++----------------------------------------------------------------------+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+Now comes the "real" fun. We define a socket port (25) and we define it
+on the <STRONG>fingerd</STRONG> PORT (27). Since we need to transfer data over the
+link, we have to define an INPUT (28) and OUTPUT (29) communication.
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- issue the client socket command                                   |21
+| --                                                                   |22
+| out = 0                                                              |23
+| j   = 0                                                              |24
+| s = Socket null;                                                     |25
+| do                                                                   |26
+|   s = Socket(system, DEFAULT_PORT);                                  |27
+|   sin   = DataInputStream(s.getInputStream());                       |28
+|   sout  = PrintStream(s.getOutputStream());                          |29
+|   line  = String                                                     |30
+|   line  = crlf                           -- retrieve all entries     |31
+|   sout.println(line)                     -- write msg                |32
+|   loop forever                                                       |33
+|     line = sin.readLine();                                           |34
+|     if (line = null) then do                                         |35
+|       leave                                                          |36
+|     end                                                              |37
+|       j = j+1                                                        |38
+|       out[j] = line                                                  |39
+|     end                                                              |40
+| catch e1=IOException                                                 |41
+|   say 'ERROR:' e1'.'                                                 |42
+| finally                                                              |43
+|   do                                                                 |44
+|     if (s \= null) then s.close()                                    |45
+|   catch e2=IOException                                               |46
+|     say 'ERROR:' e2'.'                                               |47
+|   end                                                                |48
+| end                                                                  |49
+| out[0] = j                                                           |50
++----------------------------------------------------------------------+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+Now comes a very important point:
+
+</P>
+<P>
+<EM>If what you are looking for is just an equivalent of the UNIX(tm)
+<STRONG>finger</STRONG> command, then you're already done.</EM>
+
+</P>
+<P>
+All you would need at this stage is to output the array <STRONG>out[]</STRONG>
+and, voila', you'd have your nice, working, finger client which
+runs on all the platforms we saw above, without recompiling!
+
+</P>
+<P>
+But we want even more, so let's build a better output, as we
+discussed.
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- order the output, now                                             |52
+| --                                                                   |53
+| sessions = 0                                                         |54
+| active   = '.'                                                       |55
+| users = ''                                                           |56
+| loop i = 2 to out[0]                       -- skip the first line    |57
+|   parse out[i] userid . 35 quiet 40 .                                |58
+|   if quiet = '' then                                                 |59
+|     do                                                               |60
+|       active[userid] = '*'                                           |61
+|     end                                                              |62
+|   if users.wordpos(userid) = 0 then                                  |63
+|     do                                                               |64
+|       users = users userid                                           |65
+|     end                                                              |66
+|   sessions[userid] = sessions[userid] + 1                            |67
+| end                                                                  |68
++----------------------------------------------------------------------+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+We define a list of users (initialised to the empty string (56)).
+We also assume that a user is inactive, and we initialize
+the active array to the inactive status (54).
+The first line is not interesting, so we loop over the lines
+starting from the second till the last one (57).
+We PARSE the line, getting the remote userid, and (after 35
+characters) the activity flag (58).
+
+</P>
+<P>
+If the flag is empty, than the user is active, so we set
+the active array to active ("*") for him (59-62).
+If it's the first time we encounter this user, we add him
+to the user list (63-66).
+
+</P>
+<P>
+Finally, we increment the session counter for him (67).
+
+</P>
+<P>
+We've now all the information we need. Let's print it on the
+screen.
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- display the result                                                |70
+| --                                                                   |71
+| oline = ''                                                           |72
+| list = users                                                         |73
+| loop while list &#60;&#62; ''                                                |74
+|   parse list user list                                               |75
+|                                                                      |76
+|   item  = user'('sessions[user]','active[user]')'                    |77
+|   oline = oline||item.left(14)                                       |78
+|   if oline.length() &#62; 80 then                                        |79
+|     do                                                               |80
+|       say oline                                                      |81
+|       oline = ''                                                     |82
+|     end                                                              |83
+| end                                                                  |84
+| if oline &#60;&#62; '' then say oline                                        |85
+|                                                                      |86
+| exit 0                                                               |87
++----------------------------------------------------------------------+
+                                                             xfinger.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/xfinger.nrx">Download the  source for the xfinger.nrx example </A>
+ 
+</PRE>
+
+<P>
+We get the user list(73).
+We loop over it, analysing user by user (74-75). We generate
+an output line, and showing it on the screen when it's longer
+than 80 characters (77-84).
+
+</P>
+<P>
+And finally that's a full output of the command we just created.
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+..................................
+rsl3pm1(44) java xfinger shift3
+fcot(1,.)     clarei(1,.)   blyth(11,.)   root(1,.)
+palit(1,.)    marchesi(1,.) forconi(3,.)  shvorob(6,.)
+tully(1,.)    tau(1,.)      braccini(1,.) xujg(2,.)
+button(2,.)   filthaut(1,.) fisherp(2,.)  clare(2,.)
+oulianov(2,.) pierim(1,.)   malgeril(1,.) gruenew(1,.)
+fenyi(1,*)    barczyk(1,.)  graven(2,.)   dsciar(1,.)
+passelev(1,.) choutko(2,.)  l3mc1(1,.)    clapoint(1,.)
+lodovico(1,.) paus(2,.)     campanel(1,.) l3mc3(1,.)
+despixv(1,.)  jessicah(1,.) dmigani(3,.)  lad(1,.)
+................................
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+(NOTE: so few active people since it was taken at 2:00 AM 8-) )
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Real example no. 2 </H2>
+<P>
+We now write a simple Infix to Polish notation converter,
+with the purpose of writing a program capable to understand
+expression of the kind:
+
+</P>
+
+<PRE>
+ 
+1 + 5*4 + abs(7-6*2)
+ 
+</PRE>
+
+<P>
+and write, hopefully, the correct result.
+
+</P>
+<P>
+A complete discussion of the problem can be found in KRUSE, 1987, p. 455.
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Translation from INFIX form to POLISH form. </H3>
+<P>
+<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
+
+</P>
+<P>
+<A NAME="IDX45"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: translate                                           |<STRONG>70</STRONG>
+| -- purpose.....: convert an infix tokenized string to a Polish       |<STRONG>71</STRONG>
+| --               Notation                                            |<STRONG>72</STRONG>
+| --                                                                   |<STRONG>73</STRONG>
+|   method translate(intk=Rexx) public static                          |<STRONG>74</STRONG>
+|                                                                      |<STRONG>75</STRONG>
+|     -- initialization                                                |<STRONG>76</STRONG>
+|     --                                                               |<STRONG>77</STRONG>
+|     valid_tokens = '+ - * / abs'                                     |<STRONG>78</STRONG>
+|     stk = ''                     -- empty stack  (work)              |<STRONG>79</STRONG>
+|     pol = ''                     -- output stack                     |<STRONG>80</STRONG>
+|                                                                      |<STRONG>81</STRONG>
+|     loop until intk = ''                                             |<STRONG>82</STRONG>
+|       parse intk t intk                                              |<STRONG>83</STRONG>
+|       select                                                         |<STRONG>84</STRONG>
+|         when t = '(' then                                            |<STRONG>85</STRONG>
+|           do                                                         |<STRONG>86</STRONG>
+|             stk = t stk          -- push()                           |<STRONG>87</STRONG>
+|           end                                                        |<STRONG>88</STRONG>
+|         when t = ')' then                                            |<STRONG>89</STRONG>
+|           do                                                         |<STRONG>90</STRONG>
+|             parse stk t stk                                          |<STRONG>91</STRONG>
+|             loop while t &#60;&#62; '('                                      |<STRONG>92</STRONG>
+|               pol = pol t        -- output                           |<STRONG>93</STRONG>
+|               parse stk t stk    -- pop()                            |<STRONG>94</STRONG>
+|             end                                                      |<STRONG>95</STRONG>
+|           end                                                        |<STRONG>96</STRONG>
+|         when valid_tokens.wordpos(t) &#60;&#62; 0 then                       |<STRONG>97</STRONG>
+|           do                                                         |<STRONG>98</STRONG>
+|             loop forever                                             |<STRONG>99</STRONG>
+|               if stk = '' then leave                                 |<STRONG>00</STRONG>
+|               tk1 = stk.word(1)                                      |<STRONG>01</STRONG>
+|               if tk1 = '(' then leave                                |<STRONG>02</STRONG>
+|               if priority(tk1) &#60; priority(t) then leave              |<STRONG>03</STRONG>
+|               if priority(tk1) = priority(t) &#38; priority(t) = 6       |<STRONG>04</STRONG>
+|                  then leave                                          |<STRONG>05</STRONG>
+|               parse stk x stk                                        |<STRONG>06</STRONG>
+|               pol = pol x                                            |<STRONG>07</STRONG>
+|             end                                                      |<STRONG>08</STRONG>
+|             stk = t stk                                              |<STRONG>09</STRONG>
+|           end                                                        |<STRONG>10</STRONG>
+|         otherwise                                                    |<STRONG>11</STRONG>
+|           do                                                         |<STRONG>12</STRONG>
+|             pol = pol t                                              |<STRONG>13</STRONG>
+|           end                                                        |<STRONG>14</STRONG>
+|       end                                                            |<STRONG>15</STRONG>
+|     end                                                              |<STRONG>16</STRONG>
+|     loop while stk &#60;&#62; ''                                             |<STRONG>17</STRONG>
+|       parse stk x stk                                                |<STRONG>18</STRONG>
+|       pol = pol x                                                    |<STRONG>19</STRONG>
+|     end                                                              |<STRONG>20</STRONG>
+|     pol = pol.space()                                                |<STRONG>21</STRONG>
+|     return pol                                                       |<STRONG>22</STRONG>
+|                                                                      |<STRONG>23</STRONG>
++----------------------------------------------------------------------+
+                                           xstring.nrx(Method:translate)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Evaluation of Postfix expressions. </H3>
+<P>
+This is the evaluation part.
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+<A NAME="IDX46"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: evalrpn                                             |<STRONG>36</STRONG>
+| -- purpose.....: evaluates an RPN expression                         |<STRONG>37</STRONG>
+| --                                                                   |<STRONG>38</STRONG>
+|   method evalrpn(intk=Rexx,precision=Rexx) public static             |<STRONG>39</STRONG>
+|                                                                      |<STRONG>40</STRONG>
+|     -- initialization                                                |<STRONG>41</STRONG>
+|     --                                                               |<STRONG>42</STRONG>
+|     if precision = ''                                                |<STRONG>43</STRONG>
+|       then precision = 9                                             |<STRONG>44</STRONG>
+|     numeric digits precision                                         |<STRONG>45</STRONG>
+|     stk = ''                      -- stack                           |<STRONG>46</STRONG>
+|                                                                      |<STRONG>47</STRONG>
+|     loop while intk &#60;&#62; ''                                            |<STRONG>48</STRONG>
+|       parse intk tk intk                                             |<STRONG>49</STRONG>
+|       select                                                         |<STRONG>50</STRONG>
+|         when 'abs'.wordpos(tk) &#60;&#62; 0 then                             |<STRONG>51</STRONG>
+|           do                                                         |<STRONG>52</STRONG>
+|             parse stk p1 stk                                         |<STRONG>53</STRONG>
+|             select                                                   |<STRONG>54</STRONG>
+|               when tk = 'abs' then r = p1.abs()                      |<STRONG>55</STRONG>
+|               otherwise NOP                                          |<STRONG>56</STRONG>
+|             end                                                      |<STRONG>57</STRONG>
+|             stk = r stk                                              |<STRONG>58</STRONG>
+|           end                                                        |<STRONG>59</STRONG>
+|         when '+ * - /'.wordpos(tk) &#60;&#62; 0 then                         |<STRONG>60</STRONG>
+|           do                                                         |<STRONG>61</STRONG>
+|             parse stk p2 p1 stk                                      |<STRONG>62</STRONG>
+|             select                                                   |<STRONG>63</STRONG>
+|               when tk = '+' then r = p1 + p2                         |<STRONG>64</STRONG>
+|               when tk = '-' then r = p1 - p2                         |<STRONG>65</STRONG>
+|               when tk = '*' then r = p1 * p2                         |<STRONG>66</STRONG>
+|               when tk = '/' then r = p1 / p2                         |<STRONG>67</STRONG>
+|               otherwise NOP                                          |<STRONG>68</STRONG>
+|             end                                                      |<STRONG>69</STRONG>
+|             stk = r stk                                              |<STRONG>70</STRONG>
+|           end                                                        |<STRONG>71</STRONG>
+|         otherwise                                                    |<STRONG>72</STRONG>
+|           do                                                         |<STRONG>73</STRONG>
+|             stk = tk stk                                             |<STRONG>74</STRONG>
+|           end                                                        |<STRONG>75</STRONG>
+|       end                                                            |<STRONG>76</STRONG>
+|     end                                                              |<STRONG>77</STRONG>
+|     stk = stk.space()                                                |<STRONG>78</STRONG>
+|     return stk                                                       |<STRONG>79</STRONG>
+|                                                                      |<STRONG>80</STRONG>
++----------------------------------------------------------------------+
+                                             xstring.nrx(Method:evalrpn)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+<EM>Here is a resume' of what we have covered in this chapter:</EM>
+
+<PRE>
+ 
+Compiling and running a program (on any platform)
+-------------------------------------------------
+  <EM>java COM.ibm.netrexx.process.NetRexxC PROG</EM>
+  <EM>java PROG</EM>
+  - ex.: <STRONG>java COM.ibm.netrexx.process.NetRexxC hello</STRONG>
+         <STRONG>java hello</STRONG>
+
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+</P>
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_5.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:35(GMT +2).
+</FONT>
+

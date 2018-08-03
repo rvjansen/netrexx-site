@@ -1,0 +1,85 @@
+package com.rvjansen
+import javax.servlet.
+/**
+ * Class examples implements... 
+ * <BR>
+ * Created on: do, 28, feb 2013 22:09:06 +0100
+ */
+class examples
+  properties indirect
+  output                           = JspWriter
+  legendaMap			   = TreeMap()
+  request                          = HttpServletRequest
+  /**
+   * Default constructor
+   */
+  method doit() returns String protect
+    context = this.request.getContextPath()
+    do
+      output.println('<h3>RosettaCode Examples for NetRexx</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/rosettacode')
+
+      output.println('<h3>QuickTour Examples for NetRexx (from the QuickStart Guide)</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/quicktour')
+
+      output.println('<h3>Original IBM Examples for NetRexx</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/ibm-historic')
+
+      output.println('<h3>Windows example for NetRexx</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/windows')
+
+      output.println('<h3>Examples for NetRexx 3.01</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/new-3.01')
+
+      output.println('<h3>MQTT examples for NetRexx</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/mqtt')
+
+      output.println('<h3>WebSphere MQ examples for NetRexx</h3>')
+      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/wmq')
+
+    catch IOException
+      say 'some io error happened in examples.nrx'
+    end
+    return ''
+
+  method perDirectory(dirName_) protect signals IOException, FileNotFoundException
+
+    context = Rexx(this.request.getContextPath())
+    output.println('  <table><tr class = "rowH"><th>Example</th><th>Description</th></tr>')
+    -- get directory
+    f = File(dirName_)
+    do
+      in = BufferedReader(FileReader(dirName_'/legenda.txt'))
+      loop forever
+	line = Rexx in.readLine()
+	if line = null then leave
+	parse line filename '|' explanation
+	legendaMap.put(filename,explanation)
+      end
+    catch Exception
+    end -- do
+
+    linkDir = dirName_.substr(24)
+
+
+    
+    files = f.listFiles()
+    loop i=0 to files.length-1
+      fileName = Rexx(files[i].toString())
+      if fileName.pos('.svn') >0 then iterate
+      if fileName.pos('makefile') >0 then iterate
+      if fileName.pos('legenda.txt') >0 then iterate
+      endDelim = fileName.lastpos('/')
+      fileName2 = fileName.substr(endDelim+1)
+      
+      if i // 2 = 0 then output.println('<tr class="rowA"><td>') 
+      else output.println('<tr class="rowB"><td>')
+      link = '<a href='linkDir'/'fileName2.toString()'>'fileName2.toString()'<a>'
+      output.println(link.toString())
+      expl = this.legendaMap.get(fileName2)
+      if expl = null then expl = ''
+      expl = '</td><td>'expl'</td></tr>'
+      output.println(expl)
+    end
+    output.println('</table>')
+

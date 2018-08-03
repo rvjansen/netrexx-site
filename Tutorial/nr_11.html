@@ -1,0 +1,2058 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Classes and Objects in NetRexx</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Classes and Objects in NetRexx </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Classes and Objects in NetRexx</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Classes and Objects in NetRexx </H1>
+<P>
+<A NAME="IDX189"></A>
+<A NAME="IDX190"></A>
+<EM>As we already said, NetRexx, like its cousin
+Java, is an object-oriented (OOP) language .
+The term <STRONG>object-oriented</STRONG> has become so
+widely used that we need to give it a more concrete
+meaning.</EM>
+
+</P>
+<P>
+<EM>This section assumes no knowledge of object-oriented
+concepts.</EM>
+
+</P>
+<P>
+<EM>At the end of this section, I hope that you'll get the feeling
+of how OOP can be "fun".</EM>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Some basic ideas. </H2>
+<P>
+The Object Oriented Programming basic ideas are simple ones.
+Unfortunately, OOP has developed some special terminology,
+and many introductory works become totally incomprehensible
+to people encountering the subject food the first time.
+
+</P>
+<P>
+OOP has four key concepts. You can remember them from
+the acronym "A PIE": think about the big pie
+that software vendors are sharing in selling us their
+OOP products. The components are:
+
+</P>
+
+<PRE>
+ 
+A - Abstraction
+P - Polymorphism
+I - Inheritance
+E - Encapsulation
+ 
+</PRE>
+
+<P>
+In the following part of the chapter, we will consider, as
+an example, the OOP representation of a 3 dimensional vector.
+
+</P>
+<P>
+A 3d vector, we will see, can be defined in a computer using
+three numbers (this is the ABSTRACTION). A whole series
+of operations can be performed on a 3d vector (like inverting
+it, summing with other vectors, etc), making sure that
+we never corrupt the values of it (this is the ENCAPSULATION
+part). Using the concepts we used to define the
+3d vector, we can build a 4d vector, keeping some
+of the functions we used to encapsulate the 3d vector
+(and this is the INHERITANCE part). Indeed, some
+functions (like the sum) must be overridden by the
+new 4d vector functions (to take account of the 4th
+dimension), and that' all for the POLYMORPHISM.
+
+</P>
+<P>
+Resuming it in few lines definitely looks hard, but (you'll
+see) there is nothing more.
+
+
+<H2> <IMG SRC="yellowball.gif"> A vector class </H2>
+<P>
+<A NAME="IDX191"></A>
+In this section we develop a simple example class,
+that we will call <STRONG>vector3d</STRONG>, that , as you can
+easily guess, will represent a
+geometric object in a three-dimensional space.
+
+</P>
+<P>
+<STRONG>A vector,</STRONG> quoting Feynman, <STRONG>is three numbers. In order
+to represent step in space, say from the origin
+to some particular point P whose location is (<EM>x, y, z</EM>),
+we really need three numbers, but we are going
+to invent a single mathematical symbol, <STRONG>r</STRONG>.
+(...) It is not a single number, it represents <EM>three</EM>
+numbers: <EM>x</EM>, <EM>y</EM> and <EM>z</EM>.</STRONG> (FEYNMAN, 1963).
+
+</P>
+<P>
+<A NAME="IDX192"></A>
+In those words Feynman has, de facto, extracted out the
+essential characteristics that we need to consider in order to
+represent a
+vector on a computer. This process is called <EM>abstraction</EM>.
+
+</P>
+<P>
+Translating the above words in the NetRexx language, we get:
+
+</P>
+
+<PRE>
+ 
+class vector3d public
+  properties public
+    xc           -- x component
+    yc           -- y component
+    zc           -- z component
+ 
+</PRE>
+
+<P>
+The important thing to note is that we did <STRONG>not</STRONG>
+define a real vector <STRONG>r</STRONG>. We just defined <STRONG>how</STRONG>
+we define a vector, i.e. with 3 quantities xc, yc, and zc.
+
+</P>
+<P>
+The lines above contain two new keywords: <STRONG>class</STRONG>
+and <STRONG>properties</STRONG>.
+
+</P>
+<P>
+The <STRONG>class</STRONG> keyword must be followed by the name
+of the class that we are defining. <STRONG>NOTE:</STRONG>
+this name MUST be the filename of the file we are writing:
+i.e. <STRONG>vector3d.nrx</STRONG>.
+
+</P>
+<P>
+After the <STRONG>properties</STRONG> keyword we define the
+so called <STRONG>data-members</STRONG>, which are, de-facto,
+variable names.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Methods </H3>
+<P>
+<A NAME="IDX193"></A>
+
+</P>
+<P>
+There is a number of things that we can do with vectors:
+we can compute their magnitude (or module), we can
+inverse them.  We can also execute operations with two
+vectors, like adding two vectors, computing their scalar
+product, check if they are equal, etc.
+
+</P>
+<P>
+For each of those operations we then define a <STRONG>method</STRONG>
+which is, if you like, a sort of <EM>function</EM>
+that belongs to a class and that we perform over an object
+(belonging to this class).
+
+</P>
+
+<PRE>
+ 
+
+   -- method x()
+   -- will return the x component of the 3d vector
+   method x() public
+     -- the code will go here
+
+   -- method inverse()
+   -- will inverse a 3d vector
+   method inverse() public
+     -- the actual code will go here
+
+   -- method mag()
+   -- will return the magnitude of a vector
+   method mag() public
+     -- the actual code will go here
+   -- etc. etc.
+
+ 
+</PRE>
+
+<P>
+Why we use the term <STRONG>method</STRONG>, and not just
+<STRONG>function</STRONG> or <STRONG>procedure</STRONG> ?
+The reason is just historical [VAN DER LINDEN, 1997]
+and goes back to Smalltalk-72. For you, just remember
+that a <STRONG>method</STRONG> is just a <STRONG>function
+that belongs to a class</STRONG>.
+
+</P>
+<P>
+With the definition of the methods, we then
+have completed the class definition.
+
+</P>
+<P>
+Resuming, if we want to capture the class of 3d vectors,
+(at least partially) in NetRexx code, we will write:
+
+</P>
+
+<PRE>
+ 
+class vector3d public
+  properties public
+    xc           -- x component
+    yc           -- y component
+    zc           -- z component
+
+  method inverse() public
+    xc = -xc
+    yc = -yc
+    zc = -zc
+
+  method mag() public
+    mag = Math.sqrt(xc*xc + xy*xy + xz*xz)
+    return mag
+ 
+</PRE>
+
+<P>
+When you define a class, you need to specify:
+
+</P>
+
+<PRE>
+ 
+
+ +----------------------------------------+
+ |                                        |
+ | CLASS                                  |
+ |                                        |
+ |         +----------------------------+ |
+ |         | PROPERTIES                 | |
+ |         |  (storage definitions)     | |
+ |         |                            | |
+ |         +----------------------------+ |
+ |         | METHODS                    | |
+ |         |  (operations on the        | |
+ |         |   PROPERTIES)              | |
+ |         |                            | |
+ |         +----------------------------+ |
+ |                                        |
+ +----------------------------------------+
+
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Some "real" vectors </H3>
+<P>
+<A NAME="IDX194"></A>
+<A NAME="IDX195"></A>
+The Objects are <STRONG>instances of a Class</STRONG>. So far we have defined
+<STRONG>how</STRONG> and <STRONG>what</STRONG> we can do to define and use
+a vector, but we need a "real" one, to try out the class definitions,
+and use it. We need an <STRONG>instance</STRONG> of the class.
+
+</P>
+<P>
+By defining the <STRONG>vector3d</STRONG> class in NetRexx, we have now
+created a new data type. To have a REAL vector3d you then write:
+
+</P>
+
+<PRE>
+ 
+    v = vector3d()
+ 
+</PRE>
+
+<P>
+Here you just told NetRexx: "please, treat the variable <STRONG>v</STRONG>
+as a <STRONG>vector3d</STRONG>: as I told you in the class definition,
+this variable will have 3 components associated to it, and
+I will be capable to perform operations like <STRONG>inverse</STRONG>
+, <STRONG>mag()</STRONG> etc. to it".
+
+</P>
+<P>
+As you probably realize, all this procedure made you create
+"something" that is NOT a string. Infact, as I said,
+NetRexx has ONLY one NATIVE data type (the <STRONG>string</STRONG>)
+but you can create your own data types, and <STRONG>vector3d</STRONG>
+is just one example.
+
+</P>
+<P>
+<STRONG>NOTE for Java Programmers:</STRONG>
+Note that this definition is a bit different of what you would
+do in Java. If you had to write the very same code in
+Java you would do:
+
+</P>
+
+<PRE>
+ 
+  vector3d v;
+  v = new vector3d();
+ 
+</PRE>
+
+<P>
+In NetRexx, the dynamical definition of the object is done
+automatically for you (saving one line of typing).
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Initialising the Vector values </H3>
+
+<P>
+Now that we have a real <STRONG>vector3d</STRONG> object <STRONG>v</STRONG>,
+we can use its data fields and initialise it to some
+values.
+
+</P>
+<P>
+We do it like this:
+
+<PRE>
+ 
+  -- v is a vector3d object
+  v = vector3d()
+  -- initialise the vector 2 , 3 , 1
+  v.xc = 2  
+  v.yc = 3
+  v.zc = 1
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Memory Model </H2>
+<P>
+<A NAME="IDX196"></A>
+Consider the following definitions, were we define
+two vectors <STRONG>v1</STRONG> and <STRONG>v2</STRONG>:
+
+<PRE>
+ 
+ v1 = vector3d( 1 , 3 , 0)
+ v2 = vector3d( 0 , 1 , 1)
+ 
+</PRE>
+
+<P>
+It is important to consider how NetRexx defines those
+objects (and the class methods) in your computer's
+memory.
+
+<PRE>
+ 
+
+   Objects:                     Code:
+   +------+                     +-------------------+
+   |xc=1  |                     | vector3d()        |
+v1:|yc=3  |========&#62;===========&#62;| x()               |
+   |xc=0  |         =           | y()               |
+   |      |         =           | z()               |
+   +------+         =           | mag()             |
+                    =           | phi()             |
+   +------+         =           |                   |
+   |xc=0  |         =           |                   |
+v2:|yc=1  |========&#62;=           +-------------------+
+   |xc=1  |
+   |      |
+   +------+
+
+ 
+</PRE>
+
+<P>
+We can see that <STRONG>an object is an instance of a
+class</STRONG> (which is a new, user defined, type).
+
+</P>
+<P>
+Each object (the vectors <STRONG>v1</STRONG> and <STRONG>v2</STRONG> in our
+example ) has its own data.
+
+</P>
+<P>
+On the contrary, only ONE copy of the code for a class
+is shared by all the objects (that we now know we can
+call <STRONG>instances of the class</STRONG>).
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Using vector3d Methods. </H3>
+
+<P>
+So far, we just defined the vector <STRONG>v</STRONG>, but
+we have done nothing with it.
+
+</P>
+<P>
+To access <STRONG>vector3d</STRONG> methods, we use the very
+same syntax we used to access the data of the object.
+
+</P>
+
+<PRE>
+ 
+  v = vector3d()
+  -- Initialise values
+  (...)
+  m = v.mag()     -- compute vector' mag
+  p = v.phi()     -- compute vector's PHI
+ 
+</PRE>
+
+<P>
+In classical non-OO languages (FORTRAN, REXX, Pascal, etc.)
+the above call would have been written like:
+
+</P>
+
+<PRE>
+ 
+   m = mag(v)
+   p = phi(v)
+ 
+</PRE>
+
+<P>
+while, in NetRexx, we wrote:
+
+</P>
+
+<PRE>
+ 
+   m = v.mag()
+   p = v.phi()
+ 
+</PRE>
+
+<P>
+The difference is not just cosmetics: we are stressing the
+fact that the "center" of our attention is the <STRONG>v</STRONG>
+object, not the action that we are performing
+(the computation of the MAG or of PHI).
+
+</P>
+<P>
+We see that properties and methods are considered at
+the same logical level (even if, as memory is concerned,
+treated in different ways).
+
+</P>
+<P>
+So:
+
+<PRE>
+ 
+  v.xc = 2     -- means:
+               -- assign 2 to the xc component of v
+
+  m = v.mag()  -- means:
+               -- apply method "mag()" to v, and store
+               -- the result in "m"
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Initialising a vector: the constructor. </H3>
+<P>
+<A NAME="IDX197"></A>
+<A NAME="IDX198"></A>
+
+</P>
+<P>
+If we look closer to the instruction we used to
+create a vector:
+
+</P>
+
+<PRE>
+ 
+ v = vector3d()
+ 
+</PRE>
+
+<P>
+we notice the usage of the parentheses <STRONG>()</STRONG> after
+the <STRONG>vector3d</STRONG>. This looks really like a method
+call. Infact, we are calling a special method, called
+<STRONG>constructor</STRONG>, which is used to perform all
+the initialisations that are needed to prepare the
+new object.
+
+</P>
+<P>
+The constructor is a "special" method, that's why it MUST
+have the same name of the class. So, since our class is
+called vector3d, to define the vector3d constructor method
+we'll write:
+
+</P>
+
+<PRE>
+ 
+class vector3d
+      ========      &#60;-----------------+
+                                      |
+                                      |
+-- constructor                        |
+  method vector3d( ... ) public       |
+         ========   &#60;-----------------+
+                                      |
+                                      |
+                                      |
+                +--------------------- ------------+
+                |I MUST use the same name for      |
+                |the CLASS and for the CONSTRUCTOR |
+                +----------------------------------+
+ 
+</PRE>
+
+<P>
+Our first constructor will then look like:
+
+</P>
+
+<PRE>
+ 
+-- method......: vector3d
+-- purpose.....: constructor
+--
+  method vector3d(x=Rexx,y=Rexx,z=Rexx) public
+    this.xc = x
+    this.yc = y
+    this.zc = z
+ 
+</PRE>
+
+<P>
+In order to use the constructor for our vector initialization,
+we'll then write:
+
+</P>
+
+<PRE>
+ 
+  v = vector3d(2,3,1)
+ 
+</PRE>
+
+<P>
+which is exactly the same as writing, when we had not defined
+the constructor:
+
+</P>
+
+<PRE>
+ 
+  v = vector3d()       -- ditto like
+  v.xc = 2             --
+  v.yc = 3             --   v = vector3d(2,3,1)
+  v.zc = 1             --
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Defining more than one constructor. </H3>
+<P>
+<A NAME="IDX199"></A>
+<A NAME="IDX200"></A>
+<A NAME="IDX201"></A>
+
+</P>
+<P>
+You'll find that having just one constructor method is usually
+not enough. Even in our simple class, it would be nice if it was
+possible to write something like:
+
+</P>
+
+<PRE>
+ 
+  zero = vector3d()     -- define a vector 0 0 0
+
+  v = vector3d(3,2,1)
+  z = vector3d(v)       -- define a vector like v,
+                        -- i.e. 3 2 1
+
+  unary = vector3d(1)   -- define a vector 1 1 1
+ 
+</PRE>
+
+<P>
+You can do this in NetRexx writing "additional" methods,
+with the same name, but with different arguments.
+In our example, we'll write:
+
+</P>
+
+<PRE>
+ 
+  -- overloaded constructors
+  --
+  method vector3d() public
+    this(0,0,0)
+
+  method vector3d(x=Rexx) public
+    this(x,x,x)
+
+  method vector3d(v1=vector3d) public
+    this(v1.x,v1.y,v1.z)
+
+ 
+</PRE>
+
+<P>
+What we just achieved is an operation of "method overloading",
+i.e. define a method with the same name, but different
+arguments.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Undefined constructor </H3>
+<P>
+<A NAME="IDX202"></A>
+<A NAME="IDX203"></A>
+
+</P>
+<P>
+So far we have defined 4 constructor methods, which are
+(just to summarise):
+
+</P>
+
+<PRE>
+ 
+  method vector3d(x=Rexx,y=Rexx,z=Rexx) public
+
+  method vector3d() public
+
+  method vector3d(x=Rexx) public
+
+  method vector3d(v1=vector3d) public
+
+ 
+</PRE>
+
+<P>
+This tells NetRexx that there are 4 ways to define a new vector.
+What happens if you try to write:
+
+</P>
+
+<PRE>
+ 
+  a = vector3d(1,2)
+ 
+</PRE>
+
+<P>
+Simple: NetRexx does not know how to treat this case, so you'll get a
+very nasty message saying:
+
+</P>
+
+<PRE>
+ 
+  4 +++ a = vector3d(1,2)
+    +++     ^^^^^^^^
+    +++ Error: cannot find constructor 'vector3d.vector3d(byte,byte)'
+ 
+</PRE>
+
+<P>
+which means: "I do not know how to deal with this special case of
+vector3d followed by 2 arguments."
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The main() method </H3>
+<P>
+<A NAME="IDX204"></A>
+<A NAME="IDX205"></A>
+The <STRONG>main()</STRONG> method is a special one. It is the method
+that will automatically be called if you invoke a class
+directly from the command line.
+
+</P>
+<P>
+Recall the <STRONG>parrot</STRONG> program:
+
+</P>
+<P>
+<A NAME="IDX206"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* parrot.nrx                                                        |<STRONG>01</STRONG>
+|  * echoes back what you type on command line                         |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| parse arg s1                                                         |<STRONG>04</STRONG>
+| say 'you said "'s1'".'                                               |<STRONG>05</STRONG>
+| exit 0                                                               |<STRONG>06</STRONG>
++----------------------------------------------------------------------+
+                                                              parrot.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/parrot.nrx">Download the  source for the parrot.nrx example </A>
+ 
+</PRE>
+
+<P>
+If you want to write the very same code using a class,
+you'll do:
+
+</P>
+<P>
+<A NAME="IDX207"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- This class implements a class version of parrot.nrx               |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class parrotc public                                                 |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method main(arguments=String[]) public static                      |<STRONG>05</STRONG>
+|     parse Rexx(arguments) s1                                         |<STRONG>06</STRONG>
+|     say 'you said "'s1'".'                                           |<STRONG>07</STRONG>
+|     exit 0                                                           |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                             parrotc.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/parrotc.nrx">Download the  source for the parrotc.nrx example </A>
+ 
+</PRE>
+
+<P>
+The two programs are perfectly equivalent (although the
+first one is definitely less typing). Infact, what NetRexx
+does is to translate the 1st one into "something" that
+looks like the 2nd one.
+
+</P>
+<P>
+The main() method is very useful if you want to test
+a class. You will just put the class test cases,
+and run it typing <STRONG>java PROGNAME</STRONG>.
+
+</P>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Putting all those pieces together </H3>
+<P>
+<A NAME="IDX208"></A>
+
+</P>
+<P>
+This is probably the most important section we've seen
+so far, since we finally apply in reality what we've
+been doing till now.
+
+</P>
+<P>
+We have a file, called <STRONG>vector3d.nrx</STRONG>, that
+contains all the properties and methods used by the
+<STRONG>vector3d</STRONG> class. We compile it, and obtain
+a <STRONG>vector3d.class</STRONG> class file.
+
+</P>
+<P>
+We can now edit a file that exercises the 3d vectors.
+The easiest one can be something like:
+
+</P>
+<P>
+<A NAME="IDX209"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- tvec3ds.nrx                                                       |<STRONG>01</STRONG>
+|                                                                      |<STRONG>02</STRONG>
+| a = vector3d(1,1,1)    -- define a vector                            |<STRONG>03</STRONG>
+| say 'Vector "a" components:' a.components()'.'                       |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| a.inverse()            -- inverse it                                 |<STRONG>06</STRONG>
+| say 'Vector "a.inverse()" is' a.components()'.'                      |<STRONG>07</STRONG>
+| exit 0                                                               |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
++----------------------------------------------------------------------+
+                                                             tvec3ds.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tvec3ds.nrx">Download the  source for the tvec3ds.nrx example </A>
+ 
+</PRE>
+
+<P>
+As you can see, we do very little: just define a vector3d
+<STRONG>a</STRONG>, display his components, invert it, and check
+that all was OK.
+
+</P>
+<P>
+We compile <STRONG>tvec3ds.nrx</STRONG>. NetRexx will grab the
+<STRONG>vector3d</STRONG> class definition at compile time,
+so it will know how a <STRONG>vector3d</STRONG> looks like.
+We end up with with a <STRONG>tvec3ds.class</STRONG>, which
+we can run as usual.
+
+</P>
+<P>
+Resuming:
+
+<PRE>
+ 
+-- compile
+[1]&#62; java COM.ibm.netrexx.process.NetRexxC vector3d.nrx
+[2]&#62; java COM.ibm.netrexx.process.NetRexxC tvec3ds.nrx
+-- run
+[3]&#62; java tvec3ds
+ 
+</PRE>
+
+<P>
+To visually resume what we did, here's a picture:
+
+<PRE>
+ 
+
+   +---------+            +---------+
+   |         |            |         |
+   |SOURCE   |            |SOURCE   |
+   |         |            |         |
+   +---------+            +---------+
+   vector3d.nrx           tvec3ds.nrx
+       =                      =
+       =                      =
+ (java IBM... vector3d)   (java IBM... tvec3ds)
+       =  [1]                 =   [2]
+       =                      =
+   +---------+             +---------+
+   |         |             |         |
+   |JAVA CODE|=============|JAVA CODE|
+   |         |             |         |
+   +---------+             +---------+
+   vector3d.class          tvec3ds.class
+                               =
+                               =
+                               =
+                           (java tvec3ds)
+                               =
+                                 [3]
+ 
+</PRE>
+
+<P>
+The following program illustrates all what we've implemented
+in the vector3d class.
+
+</P>
+<P>
+<A NAME="IDX210"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- tvec3d.nrx                                                        |<STRONG>01</STRONG>
+| -- exercise the 3dim vector class                                    |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| a = vector3d(1)                                                      |<STRONG>04</STRONG>
+| b = vector3d(3,4,3)                                                  |<STRONG>05</STRONG>
+| c = vector3d()                                                       |<STRONG>06</STRONG>
+| d = vector3d(b)                                                      |<STRONG>07</STRONG>
+| e = vector3d()                                                       |<STRONG>08</STRONG>
+| f = vector3d()                                                       |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+| say 'Vector "a" components:' a.components()'.'                       |<STRONG>11</STRONG>
+| say 'Vector "b" components:' b.components()'.'                       |<STRONG>12</STRONG>
+| say 'Vector "c" components:' c.components()'.'                       |<STRONG>13</STRONG>
+| say 'Vector "d" components:' d.components()'.'                       |<STRONG>14</STRONG>
+| say 'Say "a.mag()" is: 'a.mag()'.'                                   |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+| e.zero()                                                             |<STRONG>17</STRONG>
+| e.add(a)                                                             |<STRONG>18</STRONG>
+| e.add(b)                                                             |<STRONG>19</STRONG>
+| say 'Vector "a+b" is' e.components()'.'                              |<STRONG>20</STRONG>
+| e.inverse()                                                          |<STRONG>21</STRONG>
+| say 'Vector "e.inverse()" is' e.components()'.'                      |<STRONG>22</STRONG>
+|                                                                      |<STRONG>23</STRONG>
+| e = vector3d.add(a,b)                                                |<STRONG>24</STRONG>
+| say 'Vector "a+b" is' e.components()'.'                              |<STRONG>25</STRONG>
+|                                                                      |<STRONG>26</STRONG>
+| f = vector3d.greater(a,b)                                            |<STRONG>27</STRONG>
+| say 'Vector "greater(a,b)" is' f.components()'.'                     |<STRONG>28</STRONG>
+|                                                                      |<STRONG>29</STRONG>
+| -- let's play with an array of vectors                               |<STRONG>30</STRONG>
+| --                                                                   |<STRONG>31</STRONG>
+| k = 200                                                              |<STRONG>32</STRONG>
+| v = vector3d[k]                                                      |<STRONG>33</STRONG>
+| v[1] = vector3d(1,1,1)                                               |<STRONG>34</STRONG>
+| v[2] = vector3d(2,2,1)                                               |<STRONG>35</STRONG>
+| v[3] = vector3d(0,2,0)                                               |<STRONG>36</STRONG>
+| e.zero()                                                             |<STRONG>37</STRONG>
+| loop i = 1 to 3                                                      |<STRONG>38</STRONG>
+|   say 'vector "v['i']" is' v[i].components()'.'                      |<STRONG>39</STRONG>
+|   e.add(v[i])                                                        |<STRONG>40</STRONG>
+| end                                                                  |<STRONG>41</STRONG>
+| say 'Vector "INTEGRAL" is' e.components()'.'                         |<STRONG>42</STRONG>
+|                                                                      |<STRONG>43</STRONG>
+| exit 0                                                               |<STRONG>44</STRONG>
++----------------------------------------------------------------------+
+                                                              tvec3d.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tvec3d.nrx">Download the  source for the tvec3d.nrx example </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Static Properties and Methods </H2>
+<P>
+<A NAME="IDX211"></A>
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Subclasses and Inheritance </H2>
+<P>
+The <STRONG>vector3d</STRONG> class we defined is very good for
+classical physics. But, for relativistic studies,
+we need also to add another dimension: <STRONG>t</STRONG>.
+
+</P>
+<P>
+This means that we need a new class, which we'll call
+<STRONG>vectorLo</STRONG> (as an abbreviation for vectorLorentz:
+a vector in the 4 dimension space).
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Extending a Class </H3>
+<P>
+NetRexx allows you to use the code we already wrote for the
+3 dimension vector class, defining <STRONG>vectorLo</STRONG>
+as an extension (or subclass) of  <STRONG>vector3d</STRONG>
+
+</P>
+<P>
+We do this as:
+
+<PRE>
+ 
+
+class vectorLo public extends vector3d      
+   properties public 
+     (...)
+
+   method (...)
+
+ 
+</PRE>
+
+<P>
+The <STRONG>extends</STRONG> keyword tells NetRexx that the newly created
+vectorLo class is a subclass of vector3d. As such it INHERITS
+the variables and methods declared as public in that class.
+
+</P>
+<P>
+That's where the real point is: we do not have to define again
+the method x(), in order to get the x component of a Lorentz vector,
+we just use the method we inherited from the 3 dimensional
+<STRONG>vector3d</STRONG> class.
+
+</P>
+<P>
+Some methods, of course, need to be overloaded, like in the
+case of:
+
+</P>
+
+<PRE>
+ 
+-- method......: components                                          
+-- purpose.....: prints the components                               
+--                                                                   
+  method components() public returns string                          
+    return '('this.xc','this.yc','this.zc','this.tc')'
+ 
+</PRE>
+
+<P>
+to take into account the new dimension.
+
+</P>
+
+<P>
+The Lorenz's vector implementation will be:
+<A NAME="IDX212"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- This class implements a Vector in a 4 dimentional space           |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class vectorLo public extends vector3d                               |<STRONG>03</STRONG>
+|   properties public                                                  |<STRONG>04</STRONG>
+|     tc                                                               |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+| -- method......: vectorLo                                            |<STRONG>07</STRONG>
+| -- purpose.....: constructor                                         |<STRONG>08</STRONG>
+| --                                                                   |<STRONG>09</STRONG>
+|   method vectorLo(x=Rexx,y=Rexx,z=Rexx,t=Rexx) public                |<STRONG>10</STRONG>
+|     super(x,y,z)                                                     |<STRONG>11</STRONG>
+|     this.tc = t                                                      |<STRONG>12</STRONG>
+|                                                                      |<STRONG>13</STRONG>
+|   method vectorLo() public                                           |<STRONG>14</STRONG>
+|     this(0,0,0,0)                                                    |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|   method vectorLo(x=Rexx) public                                     |<STRONG>17</STRONG>
+|     this(x,x,x,x)                                                    |<STRONG>18</STRONG>
+|                                                                      |<STRONG>19</STRONG>
+|   method vectorLo(v1=vectorLo) public                                |<STRONG>20</STRONG>
+|     this(v1.xc,v1.yc,v1.zc,v1.tc)                                    |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+| -- method......: components                                          |<STRONG>23</STRONG>
+| -- purpose.....: prints the components                               |<STRONG>24</STRONG>
+| --                                                                   |<STRONG>25</STRONG>
+|   method components() public returns string                          |<STRONG>26</STRONG>
+|     return '('this.xc','this.yc','this.zc','tc')'                    |<STRONG>27</STRONG>
+|                                                                      |<STRONG>28</STRONG>
+| -- method......: main                                                |<STRONG>29</STRONG>
+| -- purpose.....: runs the test case                                  |<STRONG>30</STRONG>
+| --                                                                   |<STRONG>31</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>32</STRONG>
+|     args=args                                                        |<STRONG>33</STRONG>
+|     a = vectorLo(1,1,1,1)                                            |<STRONG>34</STRONG>
+|     b = a                                                            |<STRONG>35</STRONG>
+|                                                                      |<STRONG>36</STRONG>
+|     say 'Vector "a" components:' a.components()'.'                   |<STRONG>37</STRONG>
+|     say 'Vector "b" components:' b.components()'.'                   |<STRONG>38</STRONG>
+|     say b.mag()                                                      |<STRONG>39</STRONG>
+|                                                                      |<STRONG>40</STRONG>
+|     exit 0                                                           |<STRONG>41</STRONG>
++----------------------------------------------------------------------+
+                                                            vectorLo.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/vectorLo.nrx">Download the  source for the vectorLo.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Class Hierarchy </H2>
+<P>
+Just to clear out the terminology we speak about
+superclasses and sublasses, saying:
+
+</P>
+
+<PRE>
+ 
+            +---------------+
+            | vector3d      |
+            +---------------+
+         +-(...is a superclass of...)&#60;--+
+         |                              |
+         |                              |
+         |                              |
+         +-&#62;(...is a subclass of...)----+
+            +---------------+
+            | vectorLo      |
+            +---------------+
+ 
+</PRE>
+
+<P>
+or, if you prefer:
+
+</P>
+
+<PRE>
+ 
+
+                      +--------+
+                      |KEYWORD |
+                      +--------+
+                          |
+                          V
+ class vectorLo public extends vector3d
+          |                       |
+          |                       |
+          V                       V
+      +---------+             +-----------+
+      |SUBCLASS |             |SUPERCLASS |
+      |INHERITS |             |           |
+      +---------+             +-----------+
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Check if an object belongs to a subclass </H2>
+<P>
+<A NAME="IDX213"></A>
+
+</P>
+<P>
+It is sometimes useful to check if we have a particular
+subclass, within a superclass, and perform this check at
+runtime.
+
+</P>
+<P>
+Java programmers might use the <STRONG>instanceof</STRONG> operator;
+in NetRexx you just do:
+
+</P>
+
+<PRE>
+ 
+ <EM>object</EM> <STRONG>&#60;=</STRONG> <EM>class_name</EM>
+ 
+</PRE>
+
+<P>
+using the <STRONG>&#60;=</STRONG> operator.
+
+</P>
+<P>
+So, for example, we might have:
+
+<PRE>
+ 
+   class vector3d public
+      (...)
+   class vectorLo public extends vector3d
+      (...)
+   class vectorHEP public extends vectorLo
+      (...)
+
+   v1 = vectorLo()
+   if v1 &#60;= vectorLo
+ 
+</PRE>
+
+<P>
+Another way to test for a class match, as suggested by
+Mike Cowlishaw in a recent thread is:
+
+</P>
+
+<PRE>
+ 
+   if OBJECT.getclass.getname == 'CLASS' then
+ 
+</PRE>
+
+<P>
+I resume the above discussion in the following code:
+
+</P>
+<P>
+<A NAME="IDX214"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- tvecLo1.nrx                                                       |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| a = vectorLo(1,2,1,1)  -- a Lorentz vector                           |<STRONG>03</STRONG>
+| b = vector3d(1,1,1)    -- a 3d vector                                |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| -- check if a and b are Lorentz vectors                              |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+| if a &#60;= vectorLo                                                     |<STRONG>08</STRONG>
+|   then say 'a is a Lor vec'                                          |<STRONG>09</STRONG>
+| if b &#60;= vectorLo                                                     |<STRONG>10</STRONG>
+|   then say 'b is a Lor vec'                                          |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+| -- get in another way                                                |<STRONG>13</STRONG>
+| --                                                                   |<STRONG>14</STRONG>
+| say 'a is a:' a.getclass.getname                                     |<STRONG>15</STRONG>
+| say 'b is a:' b.getclass.getname                                     |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+| exit 0                                                               |<STRONG>18</STRONG>
++----------------------------------------------------------------------+
+                                                             tvecLo1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tvecLo1.nrx">Download the  source for the tvecLo1.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> First case study: A better approach to vectors. </H2>
+
+<P>
+I presented the example of the 3 dimensional and 4 dimensional vector classes
+mainly for "educational" purposes. We saw infact a "minor" problem
+which is the need to write again some methods for the
+4 dimensional vector class, because we need to take into
+account the fact that we have an extra dimension (remember the
+mag() method). So, if we have to deal with 5 dimensional
+vectors, we'll need to rewrite AGAIN those methods.
+
+</P>
+<P>
+There MUST be a better approach; the idea is to write a class
+which has NO notion of the space dimension, and use that
+to build the 3d, 4d, 5d, etc. vectors.
+
+</P>
+<P>
+This class will be called <STRONG>xvector.nrx</STRONG>.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> The xvector class: a generic vector. </H2>
+<P>
+The xvector class will implement a N-dimensional vector.
+We are then forced to use arrays to hold the numerical values.
+
+</P>
+<P>
+The <STRONG>mag()</STRONG> method will look like:
+<A NAME="IDX215"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: mag                                                 |<STRONG>97</STRONG>
+| -- purpose.....: vector's elements mag                               |<STRONG>98</STRONG>
+| --                                                                   |<STRONG>99</STRONG>
+|   method mag() public                                                |<STRONG>00</STRONG>
+|     sum = 0                                                          |<STRONG>01</STRONG>
+|     loop i = 1 to this.dimension                                     |<STRONG>02</STRONG>
+|       sum = sum + this.element[i]*this.element[i]                    |<STRONG>03</STRONG>
+|     end                                                              |<STRONG>04</STRONG>
+|     sum = Math.sqrt(sum)                                             |<STRONG>05</STRONG>
+|     return sum                                                       |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                 xvector.nrx(Method:mag)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xvector.nrx">Download the complete source for the xvector.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX216"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: add                                                 |<STRONG>24</STRONG>
+| -- purpose.....: adds a vector to another                            |<STRONG>25</STRONG>
+| --                                                                   |<STRONG>26</STRONG>
+|   method add(v1=xvector,v2=xvector) public static returns xvector    |<STRONG>27</STRONG>
+|     v3 = xvector('0')                                                |<STRONG>28</STRONG>
+|     v3.dimension = v1.dimension                                      |<STRONG>29</STRONG>
+|     loop i = 1 to v1.dimension                                       |<STRONG>30</STRONG>
+|       v3.element[i] = v1.element[i] + v2.element[i]                  |<STRONG>31</STRONG>
+|     end                                                              |<STRONG>32</STRONG>
+|     return v3                                                        |<STRONG>33</STRONG>
+|                                                                      |<STRONG>34</STRONG>
++----------------------------------------------------------------------+
+                                                 xvector.nrx(Method:add)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xvector.nrx">Download the complete source for the xvector.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> A revisited 3d vector. </H2>
+<P>
+Look now how simple is to build our 3 dimension vector
+class: we just extend the xvector class and override
+the constructor, to allow writing:
+
+</P>
+
+<PRE>
+ 
+  v = xvector3d(1,2,3)
+ 
+</PRE>
+
+<P>
+I'll call the new 3d vector class <STRONG>xvector3d</STRONG>,
+to avoid confusion with the <STRONG>vector3d</STRONG> one we studied in
+the previous sections.
+
+</P>
+<P>
+<A NAME="IDX217"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- This class implements a Vector in a 3 dimensional space           |<STRONG>01</STRONG>
+| -- extending the xvector class                                       |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| class xvector3d public extends xvector                               |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| -- method......: vectorLo                                            |<STRONG>06</STRONG>
+| -- purpose.....: constructor                                         |<STRONG>07</STRONG>
+| --                                                                   |<STRONG>08</STRONG>
+|   method xvector3d(x=Rexx,y=Rexx,z=Rexx) public                      |<STRONG>09</STRONG>
+|     super(x','y','z)                                                 |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+|   method xvector3d() public                                          |<STRONG>12</STRONG>
+|     this('0','0','0')                                                |<STRONG>13</STRONG>
+|                                                                      |<STRONG>14</STRONG>
+|   method xvector3d(x=Rexx) public                                    |<STRONG>15</STRONG>
+|     this(x,x,x)                                                      |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+|   method xvector3d(v1=xvector3d) public                              |<STRONG>18</STRONG>
+|     this(v1.element[1],v1.element[2],v1.element[3])                  |<STRONG>19</STRONG>
+|                                                                      |<STRONG>20</STRONG>
+| -- method......: main                                                |<STRONG>21</STRONG>
+| -- purpose.....: runs the test case                                  |<STRONG>22</STRONG>
+| --                                                                   |<STRONG>23</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>24</STRONG>
+|     args=args                                                        |<STRONG>25</STRONG>
+|     a = xvector3d(1,1,1)                                             |<STRONG>26</STRONG>
+|     b = a                                                            |<STRONG>27</STRONG>
+|                                                                      |<STRONG>28</STRONG>
+|     say 'Vector "a" components:' a.display()'.'                      |<STRONG>29</STRONG>
+|     say a.mag()                                                      |<STRONG>30</STRONG>
+|     say 'Vector "b" components:' b.display()'.'                      |<STRONG>31</STRONG>
+|                                                                      |<STRONG>32</STRONG>
+|     exit 0                                                           |<STRONG>33</STRONG>
++----------------------------------------------------------------------+
+                                                           xvector3d.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/xvector3d.nrx">Download the  source for the xvector3d.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Second case study: the command line class cmdline. </H2>
+<P>
+<A NAME="IDX218"></A>
+After having dealt with vectors, which might not be interesting
+for you, if you're not a physicist or an engineer,
+let's start with some real objects that you are dealing with
+everyday.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The command line </H3>
+
+<P>
+The command line is one of those objects. With <STRONG>command
+line</STRONG> I mean all what you enter after a program's name
+on the command line (shell or DOS prompt).
+
+</P>
+
+<PRE>
+ 
+prompt&#62; java my_command arguments -options
+                        ------------------
+                                |
+                         +--------------+
+                         | COMMAND LINE |
+                         +--------------+
+ 
+</PRE>
+
+<P>
+A <STRONG>command line</STRONG> is usually divided in
+
+<UL>
+<LI>arguments
+
+<LI>options   (introduced with a "-" sign)
+
+</UL>
+
+<P>
+Just take a UNIX book and you'll find hundreds, if not
+thousands of examples. I give you a really small sample:
+
+</P>
+
+<PRE>
+ 
+command             options      arguments
+----------------    -------      ---------
+
+ls -la test tost    -l -a        test tost
+df -k /usr          -k           /usr
+cat test            NONE         test
+tar -cvf o.tar *    -c -v        *
+                    -f tar
+ 
+</PRE>
+
+<P>
+The operations that we do, when analysing a command line in a
+in a program are (in random order):
+
+<UL>
+<LI>check that the user enters the right number of arguments;
+
+<LI>initialise options to a default value;
+
+<LI>check that the options are valid;
+
+<LI>check that an option requiring an argument has a valid
+
+      one;
+</UL>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Additional requirements </H3>
+
+<P>
+Since  we want to be clever, we add also some requirements:
+
+</P>
+<P>
+We want that 
+the arguments and options can be intermixed:
+this means that:
+
+</P>
+
+<PRE>
+ 
+myprog -t -o test.file input_arg
+myprog -to test.file input_arg
+myprog input_arg -o test.file -t
+ 
+</PRE>
+
+<P>
+MUST be perfectly equivalent from the user's point of view.
+(note that this is not always true in UNIX!).
+
+</P>
+<P>
+Also, we want to be capable to query, at any time in the program,
+the value of an option, in order to write something like:
+
+</P>
+
+<PRE>
+ 
+il = cmdline()
+(...)
+if il.option('TRACE')
+  then say 'Tracing is active'
+(...)
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Option pre-setting. </H3>
+
+<P>
+In the actual implementation, we need indeed an additional
+information, which is "how to pass the options and their
+default value when we create the cmdline?".
+
+</P>
+<P>
+A way is to use a string that holds, separated by a delimiter,
+the value of :
+
+<PRE>
+ 
+- the symbol of the option (like r, t, o, etc.);
+- a parameter indicating if it's a flag or a variable;
+- the NAME of the option
+- the default value
+ 
+</PRE>
+
+<P>
+We will call this string the <STRONG>rules definition</STRONG>, since
+we use those rules to define the options.
+
+</P>
+<P>
+Example:
+
+<PRE>
+ 
+'t/FLA/TRACE/0'
+ 
+</PRE>
+
+<P>
+<EM>we define an option (-t) which is a flag, known in
+our program as 'TRACE' and defaulted to 0</EM>
+
+</P>
+
+<PRE>
+ 
+'o/VAR/OUTFID/test.output'
+ 
+</PRE>
+
+<P>
+<EM>we define an option (-o) which defines a variable, known in
+our program as 'OUTFID' and defaulted to test.output</EM>
+
+</P>
+
+<PRE>
+ 
+'t/FLA/TRACE/0 o/VAR/OUTFID/test.output'
+ 
+</PRE>
+
+<P>
+<EM>our rules definition is now to have two options, the same
+as above</EM>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Cmdline class overview </H3>
+
+<P>
+The <STRONG>cmdline</STRONG> constructor will accept two arguments:
+the first one being a <STRONG>rexx string</STRONG> containing the
+line entered by the user; the second one being again
+a <STRONG>rexx string</STRONG>, containing the rules in the
+format we defined. This allows us to already prepare
+all the options and all the arguments.
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------+
+|USER'S INPUT          |
+|like: file1 -t -o test|
++----------------------+
+                 |
+cl = cmdline( inputline , rules )
+ |                          |
+ |                +------------------------------+
+ |                | PROGRAMMER'S RULES           |
+ |                | like:  't/FLA/TRACE/0' -     |
+ |                |        'o/VAR/OFID/test.out' |
+ |                +------------------------------+
+ |
+ +------------------------------------+
+ | This object is now aware of the    |
+ | options as entered by the user     |
+ | allowing something like:           |
+ | if \cl.option('TRACE') then ...    |
+ +------------------------------------+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+The class will look like:
+
+<PRE>
+ 
+class cmdline
+  properties private
+    options
+    argument
+  (...)
+  method cmdline(rexx,rexx) public
+  method option(rexx) public
+  method verify(rexx) public
+  method optiondump() public
+  (...)
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Cmdline class implementation. </H3>
+
+<P>
+I show now how some of the class methods are implemented.
+
+</P>
+<P>
+By far the most complex is the <STRONG>cmdline</STRONG> constructor. We need
+infact to analyse the command line, as entered by the user
+(<STRONG>instr</STRONG>) and parse the options as defined by the
+programmer (<STRONG>rules</STRONG>).
+
+</P>
+<P>
+The first step is to check the <STRONG>rules</STRONG>, set the valid
+options and set the default option values.
+
+</P>
+<P>
+<A NAME="IDX219"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: cmdline                                             |<STRONG>95</STRONG>
+| -- purpose.....: constructor                                         |<STRONG>96</STRONG>
+| --                                                                   |<STRONG>97</STRONG>
+|   method cmdline(instr=Rexx,rules=Rexx) public                       |<STRONG>98</STRONG>
+|                                                                      |<STRONG>99</STRONG>
+|     -- initial setup                                                 |<STRONG>00</STRONG>
+|     --                                                               |<STRONG>01</STRONG>
+|     olist  = ''        -- option_list                                |<STRONG>02</STRONG>
+|     oinfo  = ''        -- option info                                |<STRONG>03</STRONG>
+|     outstr = ''        -- that's the string that holds all BUT the   |<STRONG>04</STRONG>
+|                        -- options; we'll return this                 |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+|     -- set the defaults                                              |<STRONG>07</STRONG>
+|     --                                                               |<STRONG>08</STRONG>
+|     loop for rules.words()                                           |<STRONG>09</STRONG>
+|       parse rules rule rules                                         |<STRONG>10</STRONG>
+|       parse rule opt'/'info                                          |<STRONG>11</STRONG>
+|       olist = olist opt                                              |<STRONG>12</STRONG>
+|       oinfo[opt] = info                                              |<STRONG>13</STRONG>
+|       parse  info kin'/'nam'/'def                                    |<STRONG>14</STRONG>
+|       select                                                         |<STRONG>15</STRONG>
+|         when kin = 'FLA' then                                        |<STRONG>16</STRONG>
+|           do                                                         |<STRONG>17</STRONG>
+|             value[nam] = def                                         |<STRONG>18</STRONG>
+|           end                                                        |<STRONG>19</STRONG>
+|         when kin = 'VAR' then                                        |<STRONG>20</STRONG>
+|           do                                                         |<STRONG>21</STRONG>
+|             def = def.translate(' ','$')                             |<STRONG>22</STRONG>
+|             value[nam] = def                                         |<STRONG>23</STRONG>
+|           end                                                        |<STRONG>24</STRONG>
+|         otherwise                                                    |<STRONG>25</STRONG>
+|           do                                                         |<STRONG>26</STRONG>
+|             say '(parse_UXO) Internal error.'                        |<STRONG>27</STRONG>
+|             say '(parse_UXO) kin was "'kin'".'                       |<STRONG>28</STRONG>
+|             say '(parse_UXO) Aborted.'                               |<STRONG>29</STRONG>
+|             exit 901                                                 |<STRONG>30</STRONG>
+|           end                                                        |<STRONG>31</STRONG>
+|       end                                                            |<STRONG>32</STRONG>
+|     end                                                              |<STRONG>33</STRONG>
+|                                                                      |<STRONG>34</STRONG>
+|     -- get the options as entered                                    |<STRONG>35</STRONG>
+|     --                                                               |<STRONG>36</STRONG>
+|     loop while instr &#60;&#62; ''                                           |<STRONG>37</STRONG>
+|       parse instr var instr                                          |<STRONG>38</STRONG>
+|       if var.left(1,1) &#60;&#62; '-' then                                   |<STRONG>39</STRONG>
+|         do                                                           |<STRONG>40</STRONG>
+|           outstr = outstr var                                        |<STRONG>41</STRONG>
+|           Iterate                                                    |<STRONG>42</STRONG>
+|         end                                                          |<STRONG>43</STRONG>
+|       svar = var                                                     |<STRONG>44</STRONG>
+|       var = var.substr(2,1)                                          |<STRONG>45</STRONG>
+|       if olist.wordpos(var) = 0 then                                 |<STRONG>46</STRONG>
+|         do                                                           |<STRONG>47</STRONG>
+|           say 'Invalid option "'var'" selected.'                     |<STRONG>48</STRONG>
+|           say 'Valid options are "'olist.space()'".'                 |<STRONG>49</STRONG>
+|           say 'Program aborted.'                                     |<STRONG>50</STRONG>
+|           exit 902                                                   |<STRONG>51</STRONG>
+|         end                                                          |<STRONG>52</STRONG>
+|       info = oinfo[var]                                              |<STRONG>53</STRONG>
+|       parse info kin'/'nam'/'def                                     |<STRONG>54</STRONG>
+|       select                                                         |<STRONG>55</STRONG>
+|         when kin = 'FLA' then                                        |<STRONG>56</STRONG>
+|           do                                                         |<STRONG>57</STRONG>
+|             if def = '0'                                             |<STRONG>58</STRONG>
+|               then def = '1'                                         |<STRONG>59</STRONG>
+|               else def = '0'                                         |<STRONG>60</STRONG>
+|             value[nam] = def                                         |<STRONG>61</STRONG>
+|           end                                                        |<STRONG>62</STRONG>
+|         when kin = 'VAR' then                                        |<STRONG>63</STRONG>
+|           do                                                         |<STRONG>64</STRONG>
+|             def = def.translate(' ','$')                             |<STRONG>65</STRONG>
+|             cho = ''                                                 |<STRONG>66</STRONG>
+|             loop for def.words()                                     |<STRONG>67</STRONG>
+|               parse instr tt instr                                   |<STRONG>68</STRONG>
+|               if tt = '' then                                        |<STRONG>69</STRONG>
+|                 do                                                   |<STRONG>70</STRONG>
+|                   say 'Invalid argument for option "'var'".'         |<STRONG>71</STRONG>
+|                   say 'Should be a' def.words() 'words string.'      |<STRONG>72</STRONG>
+|                   say 'Like default "'def'".'                        |<STRONG>73</STRONG>
+|                   say 'Program Aborted.'                             |<STRONG>74</STRONG>
+|                   exit 903                                           |<STRONG>75</STRONG>
+|                 end                                                  |<STRONG>76</STRONG>
+|               cho = cho tt                                           |<STRONG>77</STRONG>
+|             end                                                      |<STRONG>78</STRONG>
+|             value[nam] = cho.space()                                 |<STRONG>79</STRONG>
+|           end                                                        |<STRONG>80</STRONG>
+|         otherwise NOP                                                |<STRONG>81</STRONG>
+|       end                                                            |<STRONG>82</STRONG>
+|       -- here I deal with the case when one enters                   |<STRONG>83</STRONG>
+|       -- -tf instead of -t -f                                        |<STRONG>84</STRONG>
+|       --                                                             |<STRONG>85</STRONG>
+|       if svar.length() &#60;&#62; 2 then                                     |<STRONG>86</STRONG>
+|         do                                                           |<STRONG>87</STRONG>
+|           ll = svar.length() - 2                                     |<STRONG>88</STRONG>
+|           oo = svar.substr(3,ll)                                     |<STRONG>89</STRONG>
+|           instr = '-'oo instr                                        |<STRONG>90</STRONG>
+|         end                                                          |<STRONG>91</STRONG>
+|     end                                                              |<STRONG>92</STRONG>
+|     argumentlist = outstr.space()                                    |<STRONG>93</STRONG>
+|                                                                      |<STRONG>94</STRONG>
++----------------------------------------------------------------------+
+                                             xstring.nrx(Method:cmdline)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX220"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: option                                              |<STRONG>95</STRONG>
+| -- purpose.....:                                                     |<STRONG>96</STRONG>
+| --                                                                   |<STRONG>97</STRONG>
+|   method option(in=Rexx) public                                      |<STRONG>98</STRONG>
+|     out = value[in]                                                  |<STRONG>99</STRONG>
+|     return out                                                       |<STRONG>00</STRONG>
+|                                                                      |<STRONG>01</STRONG>
++----------------------------------------------------------------------+
+                                              xstring.nrx(Method:option)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Additional examples </H3>
+
+<P>
+This two additional examples should clarify what we did.
+<A NAME="IDX221"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- test for the cmdline class                                        |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| -- we allow 2 options:                                               |<STRONG>03</STRONG>
+| --   -t  (TRACE)  flag default to 0                                  |<STRONG>04</STRONG>
+| --   -o  (OUTFID) variable defaulted to test.out                     |<STRONG>05</STRONG>
+| --                                                                   |<STRONG>06</STRONG>
+| parse arg argsl                                                      |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+| cl = cmdline(argsl,'t/FLA/TRACE/0'           -                       |<STRONG>09</STRONG>
+|                    'o/VAR/OUTFID/test.out')                          |<STRONG>10</STRONG>
+| say 'The arguments are:' cl.arguments()'.'                           |<STRONG>11</STRONG>
+| if cl.option('TRACE')                                                |<STRONG>12</STRONG>
+|   then say 'Tracing is ON'                                           |<STRONG>13</STRONG>
+|   else say 'Tracing is OFF'                                          |<STRONG>14</STRONG>
+| say 'The output file is:' cl.option('OUTFID')                        |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+| exit 0                                                               |<STRONG>17</STRONG>
++----------------------------------------------------------------------+
+                                                                tcl1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tcl1.nrx">Download the  source for the tcl1.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX222"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- another test                                                      |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class tcl2                                                           |<STRONG>03</STRONG>
+|   properties public                                                  |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+|   method tcl2() public                                               |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+|   method main(ar=String[]) public static                             |<STRONG>08</STRONG>
+|     argsl = xstring.a2s(ar)                                          |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+|     -- test for the cmdline class                                    |<STRONG>11</STRONG>
+|     --                                                               |<STRONG>12</STRONG>
+|     -- we allow 2 options:                                           |<STRONG>13</STRONG>
+|     --   -r  (REPLACE)   flag default to 0                           |<STRONG>14</STRONG>
+|     --   -T  (TESTLEVEL) variable defaulted to 0                     |<STRONG>15</STRONG>
+|     --                                                               |<STRONG>16</STRONG>
+|     cl = cmdline(argsl,'r/FLA/REPLACE/0'           -                 |<STRONG>17</STRONG>
+|                        'T/VAR/TESTLEVEL/0')                          |<STRONG>18</STRONG>
+|     say 'The arguments are:' cl.arguments()'.'                       |<STRONG>19</STRONG>
+|     if cl.option('REPLACE')                                          |<STRONG>20</STRONG>
+|       then say 'Replace is ON'                                       |<STRONG>21</STRONG>
+|       else say 'Replace is OFF'                                      |<STRONG>22</STRONG>
+|     say 'The testlevel is:' cl.option('TESTLEVEL')                   |<STRONG>23</STRONG>
+|                                                                      |<STRONG>24</STRONG>
+|     exit 0                                                           |<STRONG>25</STRONG>
++----------------------------------------------------------------------+
+                                                                tcl2.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tcl2.nrx">Download the  source for the tcl2.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> This chapter's tricks. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Getting the arguments from main() </H3>
+<P>
+<A NAME="IDX223"></A>
+<A NAME="IDX224"></A>
+<A NAME="IDX225"></A>
+
+</P>
+<P>
+As we have seen, the arguments in the <STRONG>main()</STRONG>
+method are passed as an array of <STRONG>string[]</STRONG>.
+
+</P>
+<P>
+This is clearly different from the approach we saw in Chapter 2
+about the argument passing from the command line,
+where <STRONG>arg</STRONG> was returning a simple NetRexx
+string.
+
+</P>
+<P>
+To get the arguments in the "right" way (i.e. the way
+you have been used to) you need to code an extra line:
+
+</P>
+
+<PRE>
+ 
+   method main(args=String[]) public static
+     arg = Rexx(args)    -- ADD THIS LINE
+     parse arg p1 p2 .   -- THIS as usual
+     --
+ 
+</PRE>
+
+<P>
+The line:
+
+<PRE>
+ 
+  arg = Rexx(args)
+ 
+</PRE>
+
+<P>
+instruct NetRexx to "translate" the array of string <STRONG>args</STRONG>
+into a single NetRexx variable <STRONG>string</STRONG>.
+
+</P>
+
+<PRE>
+ 
+   args[0]   -+---( Rexx() )--&#62; arg
+   args[1]   -+
+   (...)
+   args[n]   -+
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter Summary </H2>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_11.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:45(GMT +2).
+</FONT>
+

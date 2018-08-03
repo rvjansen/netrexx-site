@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html
+xmlns="http://www.w3.org/1999/xhtml"> <head> <meta
+http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title> <meta name="keywords" content="" /> <meta
+name="description" content="" /> <link href="default.css"
+rel="stylesheet" type="text/css" /> </head> <body> <div id="outer">
+<div id="header"> <h1><a href="#">NetRexx Release 3.04</a></h1>
+<h2></h2> </div> <div id="menu"> <%@include file="menu.nsp" %> </div>
+<div id="content"> <div id="tertiaryContent"> <%@include
+file="right.nsp" %> </div> <div id="primaryContentContainer"> <div
+  id="primaryContent"> Changes for NetRexx 3.04 are: <ul>
+  <li>First release after Kermit Kiser's passing. He will be remembered fondly for all his work.
+<li>NetRexx has moved to Git on SourceForge for version management
+<li>A new level of the Eclipse Java Compiler in NetRexxF.jar
+<li>A build error on IBM's J9 JVM's was fixed
+<li>The org.netrexx.address package was added as a foundation for OS shell interaction
+<li>New documentary comments in nrc.bat and NetRexxC.bat for windows (Kermit Kiser)
+<li>Java2Nrx and sysutils tools moved from contrib repository to tools (Marc Remes)
+<li>All examples are now versioned under the master branch
+<li>A fix for the RexxComparator class
+<li>Various fixes and additions to documents.
+</ul>
+<br>
+
+<br>
+Download <a href="files/NetRexx-3.05GA.zip">NetRexx 3.05GA</a>
+<br>You can unzip this and run NetRexx.
+
+  </div>
+  </div>
+  <div id="secondaryContent">
+    <%@include file="left.nsp" %>
+  </div>
+  <div class="clear"></div>
+  </div>
+  <div id="footer">
+    <%@include file="footer.nsp" %>
+  </div>
+  </div>
+  </body>
+  </html>

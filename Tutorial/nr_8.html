@@ -1,0 +1,2042 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Operations on Strings</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Operations on Strings </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Operations on Strings</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Operations on Strings </H1>
+<P>
+<A NAME="IDX134"></A>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>
+As we already said, in NetRexx there is only ONE native data type:
+the <STRONG>string</STRONG>. We already saw how to define a string; now we will
+concentrate our attention on how to operate on the strings, starting
+with the simplest operations (such as concatenating two
+strings together) and ending with one of the
+most powerful features of NetRexx,
+the string parsing.
+</EM>
+ 
+<EM>This chapter unfortunately contains long reference sections.
+I hope you will not get too tired going through them.</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> The string. </H2>
+<P>
+I remind you that we defined a
+<STRONG>string</STRONG> as "a sequence of characters" of arbitrary
+length and content.
+ 
+Strings are defined like this:
+
+<PRE>
+ 
+string = 'This is a string'
+string_new = 'and this is another one'
+ 
+</PRE>
+
+<P>
+You can use ' or " quotation marks to delimit a string when
+you define it.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> String Concatenation </H2>
+<P>
+<A NAME="IDX135"></A>
+<A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
+<A NAME="IDX138"></A>
+
+</P>
+<P>
+The first operation you might want to perform on a string
+(better on two or more strings) is to concatenate them, i.e.
+form a single string with a set of strings.
+NetRexx provides you with three ways of performing this:
+
+<PRE>
+ 
+ 
+(blank)      <EM>Concatenate terms with one blank in between;</EM>
+ 
+||           <EM>Concatenate without an intervening blank;</EM>
+ 
+(abuttal)    <EM>Concatenate without an intervening blank;</EM>
+ 
+ 
+</PRE>
+
+<P>
+Concatenation without a blank might be forced by using the
+<STRONG>||</STRONG> operator. The same result can be obtained
+if a literal string and a symbol are abutted. This is the
+<STRONG>abuttal</STRONG> operator.
+ 
+Suppose you have a variable <STRONG>p1</STRONG> that contains the
+string <STRONG>'my'</STRONG> and a variable <STRONG>p2</STRONG> that
+contains the string <STRONG>'simple test'</STRONG>. Look at the
+concatenation:
+
+<PRE>
+ 
+<STRONG>simple</STRONG>
+  say p1 p2     -&#62; <STRONG>'my simple test'</STRONG>
+ 
+<STRONG>no blanks</STRONG>
+  say p1||p2     -&#62; <STRONG>'mysimple test'</STRONG>
+ 
+<STRONG>abuttal</STRONG>
+  say 'my'p2     -&#62; <STRONG>'mysimple test'</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+The following additional examples might better clarify how concatenation works:
+ 
+
+<PRE>
+ 
+/* setting */                     <STRONG>/* s values */</STRONG>
+s1 = 'Tyranno'
+s2 = '-'
+s3 = 'Saurus'
+ 
+s = s1 s3                         <STRONG>s = 'Tyranno Saurus'</STRONG>
+
+-- notice I put MANY spaces between s1 and s3: they
+-- have no effect
+s = s1       s3                   <STRONG>s = 'Tyranno Saurus'</STRONG>
+
+s = s1||s3                        <STRONG>s = 'TyrannoSaurus'</STRONG>
+
+s = s1||' '||s3                   <STRONG>s = 'Tyranno Saurus'</STRONG>
+
+-- Here spaces count!
+s = s1||'    '||s3                <STRONG>s = 'Tyranno    Saurus'</STRONG>
+
+s = s1 s2 s3                      <STRONG>s = 'Tyranno - Saurus'</STRONG>
+
+s = s1||s2||s3                    <STRONG>s = 'Tyranno-Saurus'</STRONG>
+
+s = s1      s2       s3           <STRONG>s = 'Tyranno - Saurus'</STRONG>
+
+s = s1'-'s3                       <STRONG>s = 'Tyranno-Saurus'</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Comparative operators. </H2>
+<P>
+The very same comparative operations that can be done with numbers 
+can, of course, be done with strings.
+ 
+The comparative operators return:
+
+<PRE>
+ 
+ 
+   1 if the result of the comparison is true
+ 
+   0 otherwise
+ 
+ 
+</PRE>
+
+<P>
+NetRexx has two sets of operators: the <STRONG>normal</STRONG> comparison
+and the <STRONG>strict</STRONG> comparison. The <STRONG>strict</STRONG> comparison
+is really what its name suggests: two strings must be <STRONG>strictly</STRONG>
+identical in order to pass the comparison.
+ 
+
+<PRE>
+ 
+<STRONG>NORMAL comparative operators:</STRONG>
+ 
+     =                 True if terms are equal;
+     \= , ^=           Not equal;
+     &#62;                 Greater than;
+     &#60;                 Less than;
+ 
+     &#62;&#60; , &#60;&#62;           Greater than or less than
+                         (same as NOT EQUAL)
+     &#62;= , ^&#60; , \&#60;      Greater than or equal to,
+                         not less than;
+     &#60;= , ^&#62; , \&#62;     Less than or equal to,
+                         not greater than;
+ 
+<STRONG>STRICT comparative operators:</STRONG>
+ 
+     ==               True if the terms are strictly equal
+                         (identical)
+     \== , ^==        True if terms are strictly not
+                         equal
+     &#62;&#62;               strictly greater than;
+     &#60;&#60;               strictly less than
+     &#62;&#62;= , ^&#60;&#60; , \&#60;&#60;  strictly greater than or equal to,
+                         strictly  not less than;
+     &#60;&#60;= , ^&#60;&#60; , \&#62;&#62;  strictly less than or equal to,
+                         strictly not greater than;
+ 
+ 
+<STRONG>BOOLEAN operators:</STRONG>
+ 
+     &#38;                AND;
+ 
+     |                Inclusive OR;
+ 
+     &#38;&#38;               Exclusive OR;
+ 
+     ^  , \           LOGICAL NOT
+ 
+ 
+</PRE>
+
+<P>
+You will probably never need some of these operators, although
+it is good to know that they exist in order to avoid
+'reinventing the wheel' when faced with a particular
+problem.
+ 
+The most important operators are definitely
+<STRONG> = , ^= , &#60; , &#62;</STRONG>; you will be using them for 99% of your comparisons.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> A small program for checking comparisons. </H3>
+<P>
+ 
+We give a small example that shows the difference between
+the <STRONG>strict</STRONG> and the <STRONG>normal</STRONG> operators:
+the program we run is as follows:
+
+</P>
+<P>
+<A NAME="IDX139"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- strict test                                                       |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| str    = 'test'                                                      |<STRONG>03</STRONG>
+| str[1] = 'test'                                                      |<STRONG>04</STRONG>
+| str[2] = ' test'                                                     |<STRONG>05</STRONG>
+| str[3] = 'test '                                                     |<STRONG>06</STRONG>
+| say 'Comparing "'str'".'                                             |<STRONG>07</STRONG>
+| loop i = 1 to 3                                                      |<STRONG>08</STRONG>
+|   normal = (str = str[i])                                            |<STRONG>09</STRONG>
+|   strict = (str == str[i])                                           |<STRONG>10</STRONG>
+|   say normal strict                                                  |<STRONG>11</STRONG>
+| end                                                                  |<STRONG>12</STRONG>
+| exit 0                                                               |<STRONG>13</STRONG>
++----------------------------------------------------------------------+
+                                                           strstrict.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/strstrict.nrx">Download the  source for the strstrict.nrx example </A>
+ 
+</PRE>
+
+<P>
+and the result is:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (39) <STRONG>java strstrict</STRONG>
+Comparing string "test".
+with "test"      is normal: 1 ; strict: 1.
+with " test"     is normal: 1 ; strict: 0.
+with "test   "   is normal: 1 ; strict: 0.
+rsl3pm1 (40) <STRONG></STRONG>
+....................................................................
+                                                           strc1.out
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Miscellaneous functions on strings. </H2>
+<P>
+Although this book is not a true reference, I would like to present
+some of the many built-in functions available in NetRexx. For
+a complete list, consult the NetRexx Reference.
+ 
+The purpose of including this list here is so that I can be sure that
+you at least know that some instructions exist. In fact,
+I have to admit that once I wrote myself a function in order to find out
+the last occurrence of a character in a string. A colleague
+later showed me that this function already existed
+(it is called <STRONG>lastpos()</STRONG>).
+ 
+
+<PRE>
+ 
+---------------------------------------------------------
+<STRONG>Standard NetRexx functions</STRONG>
+ 
+<EM>information</EM>.<STRONG>abbrev(<EM>info,length</EM>)</STRONG>
+        Check if 'info' is a valid abbreviation for the
+        string 'information';
+ 
+<EM>string</EM>.<STRONG>center(<EM>length,pad</EM>)</STRONG>
+        Centers a string;
+ 
+<EM>string1</EM>.<STRONG>compare(<EM>string2,pad</EM>)</STRONG>
+        Compares 2 strings — 0 is returned if the strings
+        are identical, and if they are not, it returns the
+        position of the first character not the
+        same;
+ 
+<EM>string</EM>.<STRONG>copies(<EM>n</EM>)</STRONG>
+        Makes 'n' copies of the given string 'string';
+ 
+<EM>string</EM>.<STRONG>delstr(<EM>n,length</EM>)</STRONG>
+        Deletes the sub-string of 'string' that begins at the
+        n-th character, for 'length' characters;
+ 
+<EM>string</EM>.<STRONG>delword(<EM>n,length</EM>)</STRONG>
+        Same as above, but now the integers 'n' and 'length'
+        indicate words instead of characters, i.e. space
+        delimited sub-strings;
+ 
+<EM>new</EM>.<STRONG>insert(<EM>target,n,length,pad</EM>)</STRONG>
+        Inserts a string ('new') into another ('target');
+ 
+<EM>haystack</EM>.<STRONG>lastpos(<EM>needle,start</EM>)</STRONG>
+        Returns the position of the last occurrence of the
+        string 'needle' into another, 'haystack'; if the
+        string is NOT found, 0 is returned; see also pos();
+ 
+<EM>string</EM>.<STRONG>left(<EM>length[,pad]</EM>)</STRONG>
+        Returns the string 'length' characters with the
+        left-most characters of 'string';
+ 
+<EM>string</EM>.<STRONG>length()</STRONG>
+        Returns the 'string' length;
+ 
+<EM>string</EM>.<STRONG>lower([n[,length])</STRONG>
+        Returns a lower case copy of the <STRONG>string</STRONG>.
+        Lowering will be performed from character <STRONG>n</STRONG>
+        for <STRONG>length</STRONG> characters. If nothing
+        is specified, lower() will lowercase the
+        whole string, from the 1st character.
+ 
+<EM>new</EM>.<STRONG>overlay(<EM>target,n,length,pad</EM>)</STRONG>
+        Overlays the string 'new' onto the string 'target',
+        starting at n-th character;
+ 
+<EM>haystack</EM>.<STRONG>pos(<EM>needle,start</EM>)</STRONG>
+        Returns the position of one string 'needle' inside
+        another one (the <STRONG>'haystack'</STRONG>);
+ 
+<EM>string</EM>.<STRONG>reverse()</STRONG>
+        Returns the 'string' , swapped from end to start;
+ 
+<EM>string</EM>.<STRONG>right(<EM>length,pad</EM>)</STRONG>
+        Returns a string of length 'length' with the 'length'
+        of right-most characters of a string 'string';
+ 
+<EM>start</EM>.<STRONG>sequence(<EM>end</EM>)</STRONG>
+        Returns a string of all one-byte character
+        representations  starting from characters 'start'
+        up to character 'end';
+        It replaces REXX's xrange() function;
+ 
+<EM>string</EM>.<STRONG>space(<EM>n,pad</EM>)</STRONG>
+        Formats the blank-delimited words in string 'string'
+        with 'n' 'pad' characters;
+ 
+<EM>string</EM>.<STRONG>strip(<EM>option,char</EM>)</STRONG>
+        Removes Leading, Trailing, or Both (Leading and
+        Trailing) spaces from string 'string';
+ 
+<EM>string</EM>.<STRONG>substr(<EM>n,length,pad</EM>)</STRONG>
+        Returns the substring of string that begins at the
+        'n'-th character;
+ 
+<EM>string</EM>.<STRONG>subword(<EM>n,length</EM>)</STRONG>
+        Returns the sub-string of string 'string' that starts
+        at the 'n'-th word (for 'length' words: DEFAULT is
+        up to the end of string);
+ 
+<EM>string</EM>.<STRONG>translate(<EM>tableo,tablei,pad</EM>)</STRONG>
+        Translates the characters in string 'string'; the
+        characters to be translated are in 'tablei', the
+        corresponding characters (into which the characters
+        will be translated), are in 'tableo';
+ 
+<EM>string</EM>.<STRONG>verify(<EM>reference,option,start</EM>)</STRONG>
+        Verifies that the string 'string' is composed ONLY of
+        characters from 'reference';
+ 
+<EM>string</EM>.<STRONG>word(<EM>n</EM>)</STRONG>
+        Returns the 'n'-th blank delimited word in string
+        'string';
+ 
+<EM>string</EM>.<STRONG>wordindex(<EM>n</EM>)</STRONG>
+        Returns the character position of the 'n'-th word
+        in string 'string';
+ 
+<EM>string</EM>.<STRONG>wordlength(<EM>n</EM>)</STRONG>
+        As above; but returning its length;
+ 
+<EM>string</EM>.<STRONG>wordpos(<EM>phrase,start</EM>)</STRONG>
+        Searches string 'string' for the first occurrence
+        of the sequence of blank-delimited words in 'phrase';
+ 
+<EM>string</EM>.<STRONG>words()</STRONG>
+        Returns the number of words in string 'string';
+ 
+<EM>string</EM>.<STRONG>upper()</STRONG>
+        Returns the string uppercase;
+ 
+<EM>string</EM>.<STRONG>lower()</STRONG>
+        Returns the string converted lowercase;
+ 
+---------------------------------------------------------
+ 
+</PRE>
+
+<P>
+<A NAME="IDX140"></A>
+<A NAME="IDX141"></A>
+<A NAME="IDX142"></A>
+<A NAME="IDX143"></A>
+
+</P>
+
+<P>
+You might now say: Thanks a lot for this list, but what are the
+most important functions, i.e. the most used ones I should remember?
+ 
+To make myself clearer, I have taken a sample of REXX programs
+written by a group of people and have tried to print out some
+statistics on the functions you just saw.
+ 
+This is the result:
+
+<PRE>
+ 
+----------------------------------------------------
+substr......: 361  19%       length......:  252  13%
+wordpos.....: 214  11%       upper.......:  164   8%
+right.......: 152   8%       space.......:  147   7%
+insert......: 110   5%       words.......:  109   5%
+strip.......:  74   3%       translate...:   70   3%
+abbrev......:  58   3%       lastpos.....:   48   2%
+copies......:  31   1%       pos.........:   30   1%
+ 
+overlay.....:  23   1%       delword.....:   14   0%
+reverse.....:   5   0%       verify......:    4   0%
+subword.....:   1   0%       xrange......:    1   0%
+lower.......:   1   0%       center......:    0   0%
+wordindex...:   0   0%       delstr......:    0   0%
+compare.....:   0   0%
+----------------------------------------------------
+                          most used string functions
+ 
+</PRE>
+
+<P>
+ 
+As you can see, at the top of the 'TOP-10' string functions
+is the <STRONG>substr</STRONG>
+instruction. Functions such as <STRONG>compare()</STRONG> never appeared.
+ 
+For comparison, the <STRONG>parse</STRONG>
+instruction (see next chapter) received 567 hits, whilst the
+<STRONG>do</STRONG> got 690. I've not included those instructions in
+the list simply because I wanted to look at only the string
+functions we've seen so far.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Some 'particular' string functions. </H2>
+<P>
+ 
+Some of the functions you have just seen require a bit more
+discussion. This will be taken care of in the section that follows.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> translate(). </H3>
+<P>
+<A NAME="IDX144"></A>
+The <STRONG>translate</STRONG> function is used — as the name suggests —
+to translate the characters that form a string, following
+a very simple rule: if a character is in a table
+(usually called TABLEI), it is translated into the
+corresponding character present in another
+table (usually called TABLEO).
+If a given character is not in the TABLEI, then
+it remains unchanged.
+ 
+The syntax of the function is:
+
+<PRE>
+ 
+trans = <EM>str</EM>.<STRONG>translate(<EM>tableo,tablei</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Some examples will better clarify:
+
+</P>
+
+<PRE>
+ 
+
+'TEST'.translate('O','E')      -&#62; 'TOST'
+
+'CAB'.translate('***','ABC')   -&#62; '***'
+
+'(INFO)'.translate('  ','()')  -&#62; ' INFO '
+
+ 
+</PRE>
+
+<P>
+A often-made mistake is to invert the logic for TABLEO and TABLEI:
+I do this myself, and put TABLEO where TABLEI
+should be, and vice versa. To avoid this
+confusion, I suggest you always try to translate
+before, so that you can be sure that your tables are correctly placed.
+ 
+What's the use of <STRONG>translate()</STRONG>? A typical case
+is when you want to get rid of
+characters you do not wish to process. In this way your TABLEI will contain
+all the unwanted characters, and TABLEO will just be
+an empty string.
+ 
+Another possible application is an ASCII to EBCDIC converter
+(or EBCDIC to ASCII).
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Parsing. </H2>
+<P>
+<A NAME="IDX145"></A>
+<A NAME="IDX146"></A>
+The <STRONG>parsing</STRONG> feature of NetRexx is, in my opinion, one of
+the most useful and powerful features of the
+language and probably deserves a chapter to itself.
+ 
+By the term <STRONG>parsing</STRONG> we mean the splitting
+up of a selected strings into assigned variables, under the
+control of a <STRONG>template</STRONG>.
+ 
+The syntax of the instruction is the following:
+
+<PRE>
+ 
+  <STRONG>parse</STRONG> <EM>variable template</EM>
+ 
+</PRE>
+
+<P>
+The <EM>variable</EM> is the original string you want to split-up,
+whilst the <EM>template</EM> is the set of rules
+to be used to do this split-up (together with the variables that
+will hold the result).
+ 
+
+<PRE>
+ 
+              original_string
+                     |
+               <EM>template</EM>
+                     |
+        +---------+--+-------+-----(...)---+     <STRONG>PARSING</STRONG>
+        |         |          |             |
+        v         v          v             v
+     string1   string2    string3       stringN
+ 
+ 
+</PRE>
+
+<P>
+You might consider the <STRONG>template</STRONG> as a 'filter', or as
+a 'set of rules'. NetRexx 'reads' these rules before
+splitting up the original string into the targeted ones,
+and then uses the rules to complete the task.
+ 
+There are several ways to parse a string. In brief, you can parse a string
+
+<UL>
+<LI>into words;
+
+<LI>using literal patterns;
+
+<LI>using periods as place-holders;
+
+<LI>using unsigned numbers as positional patterns;
+
+<LI>using signed numbers as positional patterns;
+
+<LI>with variable patterns;
+
+</UL>
+
+<P>
+We will now analyse all possible cases for a particular
+'flavour' for the parse instruction, the <STRONG>parse var</STRONG>.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing into words. </H3>
+<P>
+<EM>This is probably the most simple case: the variable is split
+into words defined by the variable(s) that follow the one we want
+to parse.</EM>
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+string = <STRONG>'Very Simple String'</STRONG>
+ 
+parse string word1 word2 word3
+         |
+         +---&#62;  word1 <STRONG>'Very'</STRONG>
+         +---&#62;  word2 <STRONG>'Simple'</STRONG>
+         +---&#62;  word3 <STRONG>'String'</STRONG>
+ 
+str = <STRONG>'This simple string, I hope, is parsed.'</STRONG>
+ 
+parse str p1 p2 rest
+       |
+       +---&#62;  p1    <STRONG>'This'</STRONG>
+       +---&#62;  p2    <STRONG>'simple'</STRONG>
+       +---&#62;  rest  <STRONG>'string, I hope, is parsed.'</STRONG>
+ 
+str = <STRONG>'Short string'</STRONG>
+ 
+parse str p1 p2 rest
+       |
+       +---&#62;  p1    <STRONG>'Short'</STRONG>
+       +---&#62;  p2    <STRONG>'string'</STRONG>
+       +---&#62;  rest  <STRONG>" (NULL)</STRONG>
+ 
+--------------------------------------------------------
+                                      parsing into words
+ 
+</PRE>
+
+<P>
+As you can see, the template is simply a set of variables, which will
+hold the result after the split by word has been performed.
+Each variable holds a word. A word is a
+set of characters divided by a SPACE (' ').
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing with literal patterns. </H3>
+<P>
+<A NAME="IDX147"></A>
+<EM>In this case NetRexx will scan the data
+string to find a sequence that matches the
+value of the literal. Literals are expressed as
+quoted strings. The literals DO NOT appear in the data that is parsed.</EM>
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+str = <STRONG>'Here I am.'</STRONG>
+ 
+parse str p1 'I' p2
+       |
+       +---&#62;  p1    <STRONG>'Here'</STRONG>
+       +---&#62;  p2    <STRONG>' am.'</STRONG>
+ 
+str = <STRONG>'This simple string, I hope, is parsed.'</STRONG>
+ 
+parse str p1 ',' p2 ',' p3
+       |
+       +---&#62;  p1    <STRONG>'This simple string'</STRONG>
+       +---&#62;  p2    <STRONG>' I hope'</STRONG>
+       +---&#62;  p3    <STRONG>' is parsed.'</STRONG>
+ 
+parse str p1 'simple' p2 ',' p3 'is' p4'.'
+       |
+       +---&#62;  p1    <STRONG>'This'</STRONG>
+       +---&#62;  p2    <STRONG>'string'</STRONG>
+       +---&#62;  p3    <STRONG>' I hope,'</STRONG>
+       +---&#62;  p3    <STRONG>' parsed'</STRONG>
+ 
+--------------------------------------------------------
+                           parsing with literal patterns
+ 
+</PRE>
+
+<P>
+I stress the fact that the characters (or strings)
+that you use to build your literal patterns DO NOT appear
+in the final parsed result.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing using periods as place holder. </H3>
+<P>
+<EM>The symbol <STRONG>'.'</STRONG> (single dot) acts as a place holder in a
+template. It can be regarded as a "dummy variable", since its behaviour
+is exactly the same as a variable, except
+that the data is not stored anywhere. Use
+it when you 'really don't care' about some portions of a string.</EM>
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+str = <STRONG>'This simple string, I hope, is parsed.'</STRONG>
+ 
+parse str . p1 . . p2 .
+       |
+       +---&#62;  p1    <STRONG>'simple'</STRONG>
+       +---&#62;  p2    <STRONG>'hope,'</STRONG>
+ 
+--------------------------------------------------------
+                   parsing using periods as place holder
+ 
+</PRE>
+
+<P>
+As you can see, the terms <STRONG>This</STRONG> , <STRONG>string,</STRONG> ,
+<STRONG>I</STRONG> , and is <STRONG>is parsed.</STRONG> have simply disappeared.
+ 
+It is a common construct to put the '.' at the end of a parsing
+instruction, simply to avoid the extra arguments that would pollute
+the last valid argument in the parsing itself.
+ 
+You should keep an eye on the '.' as the <STRONG>/dev/null</STRONG> for parsing.
+It can eat a word (if in the middle of a pattern) or even all the
+remaining part of a string, if  the '.' is the last term.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> parsing using unsigned numbers. </H3>
+<P>
+<EM>If you put unsigned numbers in a pattern, NetRexx
+will treat them as references to a particular character
+column in the input.</EM>
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+str = <STRONG>'This simple string, I hope, is parsed.'</STRONG>
+ 
+parse str p1 10 p2 20 p3
+       |
+       +---&#62;  p1    <STRONG>'This simp'</STRONG>
+       +---&#62;  p2    <STRONG>'le string,'</STRONG>
+       +---&#62;  p3    <STRONG>' I hope, is parsed.'</STRONG>
+ 
+str = <STRONG>TEST</STRONG>
+ 
+parse str 1 p1 1 p2 1 p3
+       |
+       +---&#62;  p1    <STRONG>'TEST'</STRONG>
+       +---&#62;  p2    <STRONG>'TEST'</STRONG>
+       +---&#62;  p3    <STRONG>'TEST'</STRONG>
+ 
+ 
+ 
+--------------------------------------------------------
+                          parsing using unsigned numbers
+ 
+</PRE>
+
+<P>
+As you can see, the variable <STRONG>p1</STRONG> holds the characters
+from the original <STRONG>str</STRONG> string from the first to the
+ninth column. The variable <STRONG>p2</STRONG> holds the characters
+from the 10th column to the 19th. The variable <STRONG>p3</STRONG> holds
+the rest of the input.  Note that the space is treated as
+is any other character.
+ 
+In the second example we see an interesting feature: we can restart
+from a given position when this is defined by an
+unsigned integer.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing using signed numbers. </H3>
+<P>
+<EM>Signed numbers can be used in a template to indicate
+a displacement relative to the character position at which
+the last match occurred.</EM>
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+str = <STRONG>'ABCDEFGHILM'</STRONG>
+ 
+parse str 3 p1 +4 p2
+       |
+       +---&#62;  p1    <STRONG>'DEFG'</STRONG>
+       +---&#62;  p2    <STRONG>'HILM'</STRONG>
+ 
+parse str 3 p1 +4 p2 6 p3
+       |
+       +---&#62;  p1    <STRONG>'DEFG'</STRONG>
+       +---&#62;  p2    <STRONG>'HILM'</STRONG>
+       +---&#62;  p3    <STRONG>'GHILM'</STRONG>
+ 
+--------------------------------------------------------
+                            parsing using signed numbers
+ 
+ 
+</PRE>
+
+<P>
+Let us look at the first example: the first '3' tells the interpreter
+<EM>'Position yourself at the 3rd character of "str".'</EM>
+(this is "D").
+Then 'p1 +4' instructs it to <EM>'Put in "p1" the characters that follow,
+until you have reached the 4th character from where you were'</EM>
+(this will build "DEFG"). Then we see "p2" which tells it to:
+<EM>'Put all the rest in 'p2'</EM>. So that 'p2' comes to be
+"HILM".
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing with variable patterns. </H3>
+<P>
+<EM>(Don't worry, this is the last case!) Using '(' ')' to delimit
+a variable in a template will instruct NetRexx to
+use <STRONG>the value</STRONG> of that variable as a pattern.</EM>
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+ 
+delim = <STRONG>','</STRONG>
+str = <STRONG>'This simple string, I hope, is parsed.'</STRONG>
+ 
+parse str p1 (delim) p2 (delim) p3
+       |
+       +---&#62;  p1    <STRONG>'This simple string'</STRONG>
+       +---&#62;  p2    <STRONG>' I hope'</STRONG>
+       +---&#62;  p3    <STRONG>' is parsed.'</STRONG>
+ 
+--------------------------------------------------------
+                          parsing with variable patterns
+ 
+ 
+</PRE>
+
+<P>
+This is probably the most complex case, since the pattern
+is variable.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing with ALL methods intermixed. </H3>
+<P>
+Of course you will ask yourself: <EM>"I've seen all those methods
+for parsing a string, but can I intermix them?"</EM>. The answer is —
+as you can imagine, since I asked this
+question rhetorically — "Yes!". Your template can intermix
+all the methods we've seen so far, and it can became extremely complicated.
+ 
+You can write:
+
+<PRE>
+ 
+parse test 1 flag +1 info tape . '-' rest 80 comment
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Strings &#38; Parsing in the real life. </H2>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Implement a stack or a queue using a string. </H3>
+<P>
+A <STRONG>stack</STRONG> is an example of abstract data type (see
+KRUSE, 1987, pg. 150).
+
+</P>
+<P>
+Usually the implementation of a <STRONG>stack</STRONG> is done using
+arrays, which require particular attention for conditions
+like <STRONG>empty-stack</STRONG> <STRONG>full-stack</STRONG>, etc.
+
+</P>
+<P>
+If we make the assumption that you're dealing with
+numeric quantities (or with space delimited alphanumeric quantities),
+the implementation of
+a stack (or a queue) is extremely easy and elegant
+using a simple string.
+
+</P>
+<P>
+This is how you do it:
+
+</P>
+
+<PRE>
+ 
+(...)
+stack = "              -- empty stack
+(...)
+stack = n stack         -- push() n into the stack
+(...)
+parse stack m stack     -- pop() m from the stack
+(...)
+entries = stack.words() -- count stack items
+(...)
+ 
+</PRE>
+
+<P>
+ 
+To be even more clear, let's follow the example:
+
+</P>
+
+<PRE>
+ 
+
+op                       stack
+--                       -----
+stack = "               "
+stack = 1 stack          1
+stack = 2 stack          2 1
+stack = 3 stack          3 2 1
+parse stack m stack      2 1       m = 1
+stack = 4 stack          4 2 1
+parse stack n stack      2 1       n = 1
+
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Parsing a list of words. </H3>
+<P>
+You will often find yourself with a string that contains a list
+of items (words). If you need to process all the items from this
+list, here is a simple trick for doing it. The basic idea
+is the following:
+
+<PRE>
+ 
+do while list &#60;&#62; "
+  <STRONG>parse list item list</STRONG>
+  (...)
+  processing over 'item'
+  (...)
+end
+ 
+</PRE>
+
+<P>
+the variable <STRONG>list</STRONG> is parsed with itself, and what we obtain
+is only its first word, keeping what remains. In fact,
+we are just 'eating-up' <STRONG>list</STRONG> word by word, in each iteration.
+ 
+This small piece of code illustrates the trick:
+<A NAME="IDX148"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- pex1.nrx                                                          |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| list = 'MARTIN DAVID BOB PETER JEFF'                                 |<STRONG>03</STRONG>
+| i = 0                                                                |<STRONG>04</STRONG>
+| loop while list &#60;&#62; ''                                                |<STRONG>05</STRONG>
+|   parse list item list                                               |<STRONG>06</STRONG>
+|   i = i+1                                                            |<STRONG>07</STRONG>
+|   say i.right(2,'0') item.left(10) list                              |<STRONG>08</STRONG>
+| end                                                                  |<STRONG>09</STRONG>
+| exit 0                                                               |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                                                pex1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/pex1.nrx">Download the  source for the pex1.nrx example </A>
+ 
+</PRE>
+
+<P>
+<STRONG>NOTEs:</STRONG>
+
+<UL>
+<LI><STRONG>line 2</STRONG>: we define the list. Note that the procedure
+
+that follows will eat-up all the <STRONG>list</STRONG> variable, so that you
+need to save it if you plan on using it later;
+<LI><STRONG>line 5</STRONG>: this is the real parsing phase;
+
+</UL>
+
+<P>
+ 
+Here is what you get when you run it.
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+.............................................................  
+
+01 MARTIN     DAVID BOB PETER JEFF
+02 DAVID      BOB PETER JEFF
+03 BOB        PETER JEFF
+04 PETER      JEFF
+05 JEFF
+.............................................................
+                                                 parseex1.out
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Sorting. </H2>
+<P>
+<A NAME="IDX149"></A>
+<A NAME="IDX150"></A>
+<A NAME="IDX151"></A>
+ 
+In the NetRexx language there are no built-in sort functions.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> sorting a string </H3>
+<P>
+The following program atom <STRONG>str_sort.regproto</STRONG>
+does a sort over a string.
+ 
+Even if this is not a built-in function, you call it
+as if it were:
+ 
+
+<PRE>
+ 
+ 
+sorted = <STRONG>xtring.sort(<EM>string , 'R'</EM> ) </STRONG>
+ 
+ 
+</PRE>
+
+<P>
+where <STRONG>string</STRONG> is our unsorted string, and <STRONG>'R'</STRONG>
+is an optional parameter to signify a reverse sorting.
+ 
+The code is:
+<A NAME="IDX152"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: sort                                                |<STRONG>64</STRONG>
+| -- purpose.....: Sort a string                                       |<STRONG>65</STRONG>
+| --               A = Ascending: A B C D ...                          |<STRONG>66</STRONG>
+| --               R = Reverse:   ... D C B A                          |<STRONG>67</STRONG>
+| --                                                                   |<STRONG>68</STRONG>
+|   method sort(stri=Rexx,mode=Rexx) public static                     |<STRONG>69</STRONG>
+|     if mode &#60;&#62; 'R' then mode = ''                                    |<STRONG>70</STRONG>
+|     ws = stri.Words()                                                |<STRONG>71</STRONG>
+|     incr = ws%2                                                      |<STRONG>72</STRONG>
+|     loop while incr &#62; 0                                              |<STRONG>73</STRONG>
+|       loop i = incr+1 for ws                                         |<STRONG>74</STRONG>
+|          j = i-incr                                                  |<STRONG>75</STRONG>
+|          loop while j &#62; 0                                            |<STRONG>76</STRONG>
+|             k = j+incr                                               |<STRONG>77</STRONG>
+|             wj = stri.Word(j)                                        |<STRONG>78</STRONG>
+|             wk = stri.Word(k)                                        |<STRONG>79</STRONG>
+|             if mode = 'R'                                            |<STRONG>80</STRONG>
+|               then do ; If wj &#62;= wk Then Leave ; end;                |<STRONG>81</STRONG>
+|               else do ; If wj &#60;  wk  Then Leave ; end;               |<STRONG>82</STRONG>
+|             stri = stri.Subword(1,j-1) wk     -                      |<STRONG>83</STRONG>
+|                    stri.Subword(j+1,k-j-1) wj -                      |<STRONG>84</STRONG>
+|                    stri.Subword(k+1)                                 |<STRONG>85</STRONG>
+|             j = j-incr                                               |<STRONG>86</STRONG>
+|          End                                                         |<STRONG>87</STRONG>
+|       End                                                            |<STRONG>88</STRONG>
+|       incr = incr%2                                                  |<STRONG>89</STRONG>
+|     End                                                              |<STRONG>90</STRONG>
+|     stri = stri.space()                                              |<STRONG>91</STRONG>
+|     Return stri                                                      |<STRONG>92</STRONG>
+|                                                                      |<STRONG>93</STRONG>
++----------------------------------------------------------------------+
+                                                xstring.nrx(Method:sort)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+A sample program that calls such a routine is:
+<A NAME="IDX153"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- composers.nrx                                                     |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| composers = 'Bach Vivaldi Verdi Mozart Beethoven Monteverdi'         |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| say 'Unsorted:' composers'.'                                         |<STRONG>05</STRONG>
+| say 'Sorted..:' xstring.sort(composers,'A')'.'                       |<STRONG>06</STRONG>
+| say 'Sorted.R:' xstring.sort(composers,'R')'.'                       |<STRONG>07</STRONG>
+| exit 0                                                               |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                           composers.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/composers.nrx">Download the  source for the composers.nrx example </A>
+ 
+</PRE>
+
+<P>
+and here is a sample output:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (110) <STRONG>java composers</STRONG>
+Unsorted: Bach Vivaldi Verdi Mozart Beethoven Monteverdi.
+Sorted..: Bach Beethoven Monteverdi Mozart Verdi Vivaldi.
+Sorted.R: Vivaldi Verdi Mozart Monteverdi Beethoven Bach.
+rsl3pm1 (111) <STRONG></STRONG>
+....................................................................
+                                                            eso1.out
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Other string manipulation examples </H2>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> A simple "censure" </H3>
+<P>
+The following code is a simple implementation of a "censor" over
+a string.
+Suppose that you totally want to get rid of a string inside
+another string, or replace it with 'XXX' characters (like
+real censors do). The small method described above might help you.
+
+</P>
+<P>
+<A NAME="IDX154"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: censure                                             |<STRONG>44</STRONG>
+| -- purpose.....: get totally rid of a string sequence                |<STRONG>45</STRONG>
+| --               inside a string                                     |<STRONG>46</STRONG>
+| --                                                                   |<STRONG>47</STRONG>
+|   method censure(s1=Rexx,s2=Rexx,ch=Rexx) public static              |<STRONG>48</STRONG>
+|     -- initialization                                                |<STRONG>49</STRONG>
+|     os = ''                                                          |<STRONG>50</STRONG>
+|     repl = ''                                                        |<STRONG>51</STRONG>
+|     if ch &#60;&#62; '' then                                                 |<STRONG>52</STRONG>
+|       do                                                             |<STRONG>53</STRONG>
+|         n = s2.length()                                              |<STRONG>54</STRONG>
+|         repl = ch.copies(n)                                          |<STRONG>55</STRONG>
+|       end                                                            |<STRONG>56</STRONG>
+|                                                                      |<STRONG>57</STRONG>
+|     -- do the job: this is really easy with parse ()                 |<STRONG>58</STRONG>
+|     loop while s1 &#60;&#62; ''                                              |<STRONG>59</STRONG>
+|       parse s1 p1(s2)s1                                              |<STRONG>60</STRONG>
+|       if s1 &#60;&#62; ''                                                    |<STRONG>61</STRONG>
+|         then os = os||p1||repl                                       |<STRONG>62</STRONG>
+|         else os = os||p1                                             |<STRONG>63</STRONG>
+|     end                                                              |<STRONG>64</STRONG>
+|                                                                      |<STRONG>65</STRONG>
+|     -- all done                                                      |<STRONG>66</STRONG>
+|     return os                                                        |<STRONG>67</STRONG>
+|                                                                      |<STRONG>68</STRONG>
+|   method censure(s1=Rexx,s2=Rexx) public static                      |<STRONG>69</STRONG>
+|     return censure(s1,s2,")                                         |<STRONG>70</STRONG>
+|                                                                      |<STRONG>71</STRONG>
++----------------------------------------------------------------------+
+                                             xstring.nrx(Method:censure)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+You should look at the way it is implemented: the string is
+parsed, till it is exausted, using:
+
+</P>
+
+<PRE>
+ 
+  parse string (search) string
+ 
+</PRE>
+
+<P>
+where <STRONG>search</STRONG> is a value determined at runtime.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> An animated status line. </H3>
+<P>
+Some programs take a long time to run, so that the person sitting in front
+of the terminal might ask "What ARE they doing?".
+So it is often nice to show the
+user 'where' the program is in the processing. For example, if a program
+has to process 300 files, and each file takes one or more seconds to process,
+you might want to use the routine that
+follows, in order to keep the person sitting
+at the terminal informed as to how many files the program
+has done, and how many there are yet to go.
+ 
+The following routine shows:
+
+<PRE>
+ 
+ 
+ 1. a 'rotating' symbol                  : (- \ | / -)
+ 2. a number of 'done' item              : nnnn/NNNN
+ 3. a graphic scale of 'done' items      : [****.....]
+ 4. a numeric percent                    : nnn%
+ 5. an additional information message    : string
+ 
+ 
+</PRE>
+
+<P>
+The routine that is really of interest to you is called
+<STRONG>info_display</STRONG>. In this example, between the various displays
+we really do nothing (just a sleep instruction). This 'sleep'
+should be replaced by your computation intensive/time expensive part
+of the code.
+ 
+<A NAME="IDX155"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: display                                             |<STRONG>62</STRONG>
+| -- purpose.....:                                                     |<STRONG>63</STRONG>
+| --                                                                   |<STRONG>64</STRONG>
+|   method display(i1=Rexx,i2=Rexx,rest=Rexx) public                   |<STRONG>65</STRONG>
+|     pt = dinfop//4 +1                                                |<STRONG>66</STRONG>
+|     f1 = '-\\|/'.substr(pt,1)                                        |<STRONG>67</STRONG>
+|     dinfop = dinfop+1                                                |<STRONG>68</STRONG>
+|     n1 = i1/i2*20                                                    |<STRONG>69</STRONG>
+|     n2 = i1/i2*100                                                   |<STRONG>70</STRONG>
+|     n1 = n1.format(3,0)                                              |<STRONG>71</STRONG>
+|     n2 = n2.format(3,0)                                              |<STRONG>72</STRONG>
+|     cu = '.'.copies(20)                                              |<STRONG>73</STRONG>
+|     cu = cu.overlay('*',1,n1,'*')                                    |<STRONG>74</STRONG>
+|     s1 = i1.right(4,'0')                                             |<STRONG>75</STRONG>
+|     str = f1 s1||'/'||i2.right(4,'0') '['cu'] -' rest                |<STRONG>76</STRONG>
+|     System.out.print(str'\x0D')                                      |<STRONG>77</STRONG>
+|                                                                      |<STRONG>78</STRONG>
++----------------------------------------------------------------------+
+                                             xstring.nrx(Method:display)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+Of course, you cannot see the motion in the figure,
+but you can use your imagination.
+ 
+You should simply try it on a real terminal, and you will get,
+on the very same line, something that 'moves' and shows (more
+or less) this:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+.....................................................................
+rsl3pm1 (80) <STRONG>display</STRONG>
+ 
+\ 0001/0010 [**..................]  10%  |
+(...)                                    | ALWAYS
+| 0005/0010 [**********..........]  50%  | ON
+/ 0006/0010 [************........]  60%  | THE
+(...)                                    | SAME
+- 0010/0010 [********************] 100%  | LINE
+ 
+rsl3pm1 (81)
+.....................................................................
+                                                      display example
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> A hashing function. </H3>
+<P>
+<A NAME="IDX156"></A>
+<A NAME="IDX157"></A>
+I will not discuss in detail the concepts of hashing.
+I leave this to more specialised literature [ KRUSE,
+LEUNG , TONDO ; 1991]. I will simply note that hashing
+is used to perform fast searches in databases, and
+hashing functions are used to index a hashing table.
+The basic idea of a <STRONG>hashing table</STRONG> is to allow a set of
+keys to be mapped into the same location
+as that of an array by means of
+an index function. For the moment we are
+not interested in implementing a full hashing table algorithm, so we will will
+concentrate on the hashing function itself.
+ 
+We need an algorithm that takes a key (a string) and builds a
+number. The algorithm must be quick to compute and should have
+an even distribution of the keys that occur across the
+range of indices.
+ 
+The following function <STRONG>hash</STRONG> can be used for hashing
+keys of alphanumeric characters into an integer of the range:
+
+<PRE>
+ 
+  0 ... hash_size
+ 
+</PRE>
+
+<P>
+You call the function issuing:
+
+<PRE>
+ 
+  nn = <STRONG>hash(<EM>key</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+<A NAME="IDX158"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: hash                                                |<STRONG>02</STRONG>
+| -- purpose.....:                                                     |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+|   method hash(str=Rexx) public static                                |<STRONG>05</STRONG>
+|     hash_size = 1023                                                 |<STRONG>06</STRONG>
+|     t = 0                      -- zero total                         |<STRONG>07</STRONG>
+|     l = str.length()           -- str length                         |<STRONG>08</STRONG>
+|     loop while str &#60;&#62; ''       -- loop over all CHARS                |<STRONG>09</STRONG>
+|       parse str ch +1 str      --  get one                           |<STRONG>10</STRONG>
+|       t = t+ch.c2d()           --  add to total                      |<STRONG>11</STRONG>
+|     end                        --                                    |<STRONG>12</STRONG>
+|     out = (t*l)//hash_size     -- fold it to SIZE                    |<STRONG>13</STRONG>
+|     return out                                                       |<STRONG>14</STRONG>
+|                                                                      |<STRONG>15</STRONG>
++----------------------------------------------------------------------+
+                                                xstring.nrx(Method:hash)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+The algorithm shown is rather fast, and produces a relatively even
+distribution. The basic idea is in the loop
+that adds-up the decimal value of each character.
+I then multiply this value with the
+original length of the string, and modulo for the
+hash table size.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Converting from/to BASE64 (MIME). </H3>
+<P>
+<A NAME="IDX159"></A>
+<A NAME="IDX160"></A>
+<A NAME="IDX161"></A>
+<A NAME="IDX162"></A>
+ 
+The small programs that we analyse in this section are
+merely two small examples of how you can implement a
+BASE-64 converter.
+ 
+You can find more info on the Sun Implementation for
+a BASE64 Decoder/Undecoder methods at the URL:
+
+<PRE>
+ 
+<A href="http://www.java.no/javaBIN/docs/api/sun.misc.BASE64Decoder.html">http://www.java.no/javaBIN/docs/api/sun.misc.BASE64Decoder.html</A>
+<A href="http://www.java.no/javaBIN/docs/api/sun.misc.BASE64Encoder.html">http://www.java.no/javaBIN/docs/api/sun.misc.BASE64Encoder.html</A>
+ 
+</PRE>
+
+<P>
+Keep in mind that the MIME protocol (see RFC 1341
+and 1342) is a mechanism by which you can send binary files
+by mail. The basic idea is the following:
+you take a set of bytes, you split by chunks of 6 bits
+each, you build 4 new bytes and you map this new quantity
+in base 64 (2**6 = 64).
+ 
+Suppose you want to translate the string "Thi" to base
+64. Here is the procedure:
+
+<PRE>
+ 
+  1. Original string:
+     'Thi'
+ 
+  2. Translated in HEX:
+     '54 68 69'
+ 
+  3. translated in BINARY:
+     '01010100 01101000 01101001'
+ 
+  4. ditto (group by 6):
+     '010101 000110 100001 101001'
+ 
+  5. Add '00' in front of each 6 bits:
+     '00010101 00000110 00100001 00101001'
+ 
+  6. New quantities (in HEX):
+     '15 06 21 29'
+ 
+  7. Convert to Base 64:
+     'VGhp'
+ 
+</PRE>
+
+<P>
+The two following programs will convert one (a2m) from a generic string
+to a BASE-64 string, and the opposite for the other (m2a).
+ 
+Look at the listing for <STRONG>a2m</STRONG>. From line 16 to line 21
+I put into comments the steps which I described above for the
+conversion (note how each step is an instruction).
+The whole algorithm is based on the <STRONG>parse</STRONG> and the
+<STRONG>translate</STRONG> function.
+<A NAME="IDX163"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: a2m                                                 |<STRONG>16</STRONG>
+| -- purpose.....: Convert a string from ASCII to MIME                 |<STRONG>17</STRONG>
+| --                                                                   |<STRONG>18</STRONG>
+|   method a2m(str=Rexx) public static                                 |<STRONG>19</STRONG>
+|     b64 = '\x00'.sequence('\X3F')                                    |<STRONG>20</STRONG>
+|     e64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" || -                          |<STRONG>21</STRONG>
+|           "abcdefghijklmnopqrstuvwxyz" || -                          |<STRONG>22</STRONG>
+|           "0123456789+/"                                             |<STRONG>23</STRONG>
+|                                                                      |<STRONG>24</STRONG>
+|     out = ''                                                         |<STRONG>25</STRONG>
+|     loop while str &#60;&#62; ''                                             |<STRONG>26</STRONG>
+|       parse str bl +3 str                               /* 1 */      |<STRONG>27</STRONG>
+|       bit = c2x(bl).x2b()                               /* 2 , 3 */  |<STRONG>28</STRONG>
+|       parse bit p1 +6 p2 +6 p3 +6 p4                    /* 4 */      |<STRONG>29</STRONG>
+|       bitn = '00'p1'00'p2'00'p3'00'p4                   /* 5 */      |<STRONG>30</STRONG>
+|       bln = x2c(bitn.b2x)                               /* 6 */      |<STRONG>31</STRONG>
+|       base = bln.translate(e64,b64)                     /* 7 */      |<STRONG>32</STRONG>
+|       if base.length()&#60;&#62;4 then                                       |<STRONG>33</STRONG>
+|         do                                                           |<STRONG>34</STRONG>
+|           app = '='.copies(4-base.length())                          |<STRONG>35</STRONG>
+|           base = base||app                                           |<STRONG>36</STRONG>
+|         end                                                          |<STRONG>37</STRONG>
+|       out = out||base                                                |<STRONG>38</STRONG>
+|     end                                                              |<STRONG>39</STRONG>
+|     return out                                                       |<STRONG>40</STRONG>
+|                                                                      |<STRONG>41</STRONG>
++----------------------------------------------------------------------+
+                                                 xstring.nrx(Method:a2m)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+The opposite of <STRONG>a2m</STRONG> is <STRONG>m2a</STRONG>:
+<A NAME="IDX164"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: m2a                                                 |<STRONG>42</STRONG>
+| -- purpose.....: Convert a string from MIME to ASCII                 |<STRONG>43</STRONG>
+| --                                                                   |<STRONG>44</STRONG>
+|   method m2a(str=Rexx) public static                                 |<STRONG>45</STRONG>
+|     b64 = '\x00'.sequence('\x3F')                                    |<STRONG>46</STRONG>
+|     e64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" || -                          |<STRONG>47</STRONG>
+|           "abcdefghijklmnopqrstuvwxyz" || -                          |<STRONG>48</STRONG>
+|           "0123456789+/"                                             |<STRONG>49</STRONG>
+|                                                                      |<STRONG>50</STRONG>
+|     out = ''                                                         |<STRONG>51</STRONG>
+|     loop while str &#60;&#62; ''                                             |<STRONG>52</STRONG>
+|       parse str bl +4 str                                            |<STRONG>53</STRONG>
+|       base = bl.translate(b64,e64)                                   |<STRONG>54</STRONG>
+|       basex = c2x(base)                                              |<STRONG>55</STRONG>
+|       bit = basex.x2b()                                              |<STRONG>56</STRONG>
+|       parse bit 3 p1 9 11 p2 17 19 p3 25 27 p4 33                    |<STRONG>57</STRONG>
+|       bitn = p1||p2||p3||p4                                          |<STRONG>58</STRONG>
+|       new = x2c(bitn.b2x())                                          |<STRONG>59</STRONG>
+|       out = out||new                                                 |<STRONG>60</STRONG>
+|     end                                                              |<STRONG>61</STRONG>
+|     return out                                                       |<STRONG>62</STRONG>
+|                                                                      |<STRONG>63</STRONG>
++----------------------------------------------------------------------+
+                                                 xstring.nrx(Method:m2a)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+Those programs could be used as building blocks for a real
+MIME packer/unpacker routine. Note that you will need quite
+a bit of work to make them really useful: what is missing
+is a proper handling of line splitting in the output file
+(in <STRONG>a2m</STRONG>).
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Tricks with strings </H2>
+<P>
+ 
+<STRONG>TRICK:</STRONG> <EM>Avoid multiple substr() calls with
+just one parse.</EM>
+<A NAME="IDX165"></A>
+ 
+If you find yourself using more than one <STRONG>substr()</STRONG>
+function in a raw, you should probably consider
+rewriting your code using a more appropriate <STRONG>parse</STRONG> function.
+ 
+Suppose you have to split a time stamp in its components.
+
+</P>
+
+<PRE>
+ 
+ YYMMDDhhmmss         (timestamp)
+ | | | | | |
+ | | | | | +--------- second
+ | | | | +----------- minute
+ | | | +------------- hour
+ | | +--------------- day
+ | +----------------- month
+ +------------------- year
+ 
+</PRE>
+
+<P>
+The first and most obvious approach is the following:
+
+</P>
+
+<PRE>
+ 
+year  = substr(timestamp,1,2)
+month = substr(timestamp,3,2)
+(...)
+ 
+</PRE>
+
+<P>
+And so on. The alternative using parse is:
+
+<PRE>
+ 
+parse var timestamp year +2 month +2 day +2 ,
+                    hour +2 minute +2 second +2
+ 
+</PRE>
+
+<P>
+The gain (both in terms of execution speed and coding)
+is clear: you use one instruction instead of six. Your code
+is also easier to modify (and to adapt to different
+formats of time-stamps).
+ 
+<STRONG>TRICK:</STRONG> <EM>Use the parse with '.' to avoid
+the need for issuing a space() afterwards.</EM>
+ 
+The title of this trick is a cryptology trick in itself.
+"How's that?" Simple.
+Suppose you need to parse lines of this format:
+
+</P>
+
+<PRE>
+ 
+  node=rsl3pm1
+  os=AIX
+ 
+</PRE>
+
+<P>
+Depending on what the left term of the '=' sign is (we will call
+it the <STRONG>key</STRONG>), you will need to perform certain actions.
+What you can do is something along these lines:
+
+</P>
+
+<PRE>
+ 
+  parse var line key '=' attributes
+  if key == 'node' then  (...)
+  if key == 'os' then (...)
+ 
+</PRE>
+
+<P>
+This works well until there are no extra spaces between the key
+and the '=' sign. But this is precisely what will happen if
+someone modifies the file containing these lines, as we have seen.
+ 
+You must be 100% sure that someone will write:
+
+<PRE>
+ 
+  node = rsl3pm1
+  os   = AIX
+ 
+</PRE>
+
+<P>
+Now the value of <STRONG>key</STRONG> will be: "node " and "os   ",
+and this is not exactly what we expect.
+The first solution that will came to mind is the
+following (at least it was the first that came to my mind
+before learning this trick):
+
+<PRE>
+ 
+
+  parse var line key '=' attributes
+  key = space(key)
+  if key == 'node' then  (...)
+  if key == 'os' then (...)
+
+ 
+</PRE>
+
+<P>
+The trick (finally we come to it), is to use a
+'.' in the parse, as here:
+
+<PRE>
+ 
+
+  parse var line key . '=' attributes
+  if key == 'node' then  (...)
+  if key == 'os' then (...)
+
+ 
+</PRE>
+
+<P>
+This will avoid any <STRONG>space()</STRONG> instruction, acting as a 'space-eater'.
+ 
+<STRONG>TRICK:</STRONG> <EM>Avoid unexpected results from
+a missing wordpos().</EM>
+ 
+This particular trick I learned from Eric Thomas, the author of LISTSERV(tm)
+(probably the most popular Mailing List Server Software).
+ 
+I offer a concrete example:
+suppose you want to write a program that translates a given
+TCP/IP port number in its "human" meaning , i.e. a program that
+tells you that port 21 is FTP, port 23 is TELNET, etc.
+You will write two lists , one containing the port
+numbers, the other the 'human meaning'. These lists
+will then be:
+ 
+
+<PRE>
+ 
+portl    = '21  23     37'
+servicel = 'ftp telnet time'
+ 
+</PRE>
+
+<P>
+ 
+Note that those two lists are "ordered": 21 is the port number for
+FTP, 23 for TELNET, and so on , i.e. the nth element of
+the list <STRONG>portl</STRONG> corresponds to the nth element of
+the list <STRONG>servicel</STRONG>. The existence of this one-to-one
+correspondence is the basis of our discussion.
+ 
+Suppose that the port number for which we
+want to know the 'human meaning' is contained
+in the variable <STRONG>port</STRONG>. The obvious way to
+find out its meaning is, first, to identify the position
+in the string <STRONG>portl</STRONG> of the variable <STRONG>port</STRONG>, and second, use
+this number to extract (using the function <STRONG>word()</STRONG>
+the corresponding value in the list <STRONG>servicel</STRONG>).
+ 
+Each of these words translates into a sentence:
+
+<PRE>
+ 
+
+service = servicel.word(portl.wordpos(port))
+
+ 
+</PRE>
+
+<P>
+ 
+This code is correct, but 'buggy'; what happens if you enter
+a port number that is not in <STRONG>portl</STRONG>? The result
+of <STRONG>wordpos()</STRONG> will be 0, and a <STRONG>word</STRONG> with
+a second argument zero will cause a buggy "ftp" answer.
+ 
+We could check that <STRONG>port</STRONG> is in <STRONG>portl</STRONG> before
+doing the <STRONG>wordpos()</STRONG>, but there is a simpler
+solution:
+ 
+
+<PRE>
+ 
+service = ('unknown' servicel).word(portl.wordpos(port) + 1)
+ 
+</PRE>
+
+<P>
+ 
+The trick is simple: we add a term in front of <STRONG>servicel</STRONG>
+(the <STRONG>'unknown'</STRONG> term) and we add 'plus 1' to <STRONG>wordpos()</STRONG>.
+In this way we can be sure that
+we have covered the case when <STRONG>port</STRONG> is
+not in <STRONG>portl</STRONG>. The code is now correct,
+and can handle unexpected errors.
+ 
+I provide the full final code as a resume':
+
+</P>
+<P>
+<A NAME="IDX166"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- portn.nrx                                                         |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg port .                                                     |<STRONG>03</STRONG>
+| portl    = '21  23     37'                                           |<STRONG>04</STRONG>
+| servicel = 'ftp telnet time'                                         |<STRONG>05</STRONG>
+| service = ('unknown '||servicel).word(portl.wordpos(port)+1)         |<STRONG>06</STRONG>
+| say service                                                          |<STRONG>07</STRONG>
+| exit 0                                                               |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                               portn.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/portn.nrx">Download the  source for the portn.nrx example </A>
+ 
+</PRE>
+
+<P>
+Of course there are many more services (look to <EM>/etc/services</EM>
+if you want to see them.
+Note also that this is NOT the way to find out the service name
+from the port number; rather, see the
+chapter on sockets in order to discover how
+to obtain it from the system itself.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter FAQ </H2>
+<P>
+ 
+<STRONG>QUESTION:</STRONG> <EM>How do I know the program's name at
+running time?</EM>
+<A NAME="IDX167"></A>
+ 
+This is a real FAQ. Suppose that you have written
+(or created, to make your work more important) a program called
+<STRONG>toto</STRONG>. How does <STRONG>toto</STRONG> know its name?
+You could put the information inside a variable in <STRONG>toto</STRONG>
+but that is UGLY, and whenever you rename the program,
+you will need to remember to change that variable.
+The solution is the <STRONG>parse source</STRONG> instruction — do
+ 
+
+<PRE>
+ 
+parse SOURCE . . myname .
+ 
+</PRE>
+
+<P>
+ 
+<STRONG>SMALL ADDENDUM for UNIX users</STRONG>. If you place the
+program <STRONG>toto</STRONG> in a directory in your PATH
+(for example, <STRONG>/usr/local/bin</STRONG>) and you execute it, you will
+notice an interesting effect: myname is no longer
+<STRONG>toto</STRONG>, but <STRONG>/usr/local/bin/toto</STRONG>.
+This might be interesting, since you're now capable of ascertaining
+the directory from which your program was called, but
+the question then becomes how to eliminate the
+(probably unwanted) <STRONG>/usr/local/bin</STRONG>?
+ 
+You do it by coding:
+
+<PRE>
+ 
+myname = myname.substr(myname.lastpos('/') + 1)
+ 
+</PRE>
+
+<P>
+ 
+<STRONG>QUESTION:</STRONG> <EM>Can I put the character '00'X in
+a string?</EM>
+<A NAME="IDX168"></A>
+ 
+Yes. The only thing you need to remember is to make the 
+byte a HEX constant, as here:
+ 
+
+<PRE>
+ 
+string = 'this is a' '\x00' 'test'
+string = '\x00\x00\x00'
+ 
+</PRE>
+
+<P>
+As a rule of thumb, you can put any character you like in a string;
+the only thing you should remember is that you might have problems
+if you try a <STRONG>say</STRONG> of this string.
+ 
+<STRONG>QUESTION:</STRONG> <EM>How do I display strings containing
+control characters?</EM>
+<A NAME="IDX169"></A>
+ 
+You can use the <STRONG>c2x()</STRONG> instruction, in order to see the
+string in HEX. A more elegant way is to translate
+all the non-printable characters to a '.' (or to any other
+character you prefer).
+ 
+This small program shows you how to do it:
+<A NAME="IDX170"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- nodisp                                                            |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| str = 'This is a \x03\x09\xFE test.'                                 |<STRONG>03</STRONG>
+| tablei = '\x00'.sequence('\x1F')||'\x80'.sequence('\xFF')            |<STRONG>04</STRONG>
+| tableo = '.'.copies(tablei.length())                                 |<STRONG>05</STRONG>
+| say str.translate(tableo,tablei)                                     |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                              nodisp.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/nodisp.nrx">Download the  source for the nodisp.nrx example </A>
+ 
+</PRE>
+
+<P>
+Note how I build the <STRONG>tablei</STRONG>: I use <STRONG>sequence()</STRONG>
+over all the unprintable characters (from '00'x to '1F'x, and
+from '80'x till 'FF'x). <STRONG>tableo</STRONG> is simply a sequence
+of '.' (for the same length of <STRONG>tablei</STRONG>).
+That is all I need. Note, however, that this will only work for ASCII
+systems: EBCDIC systems will require a different <STRONG>tablei</STRONG>.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+<EM>We resume some of the concepts we have encountered in this chapter.</EM>
+
+<PRE>
+ 
+_ concatenate a string            | <EM>||</EM>  or  <EM>abuttal</EM>
+  (with no spaces)                | - ex.: <STRONG>s1||s2</STRONG>
+                                  | - ex.: <STRONG>n1'%'</STRONG>
+                                  |
+_ concatenate a string            | <EM>blank</EM>
+  (with spaces)                   | - ex.: <STRONG>s1 s2</STRONG>
+                                  |
+ 
+</PRE>
+
+<P>
+ 
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_8.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:40(GMT +2).
+</FONT>
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="outer">
+<div id="header">
+  <h1><a href="#">Contact Us</a></h1>
+  <h2></h2>
+</div>
+<div id="menu">
+	  <%@include file="menu.nsp" %>
+</div>
+<div id="content">
+<div id="tertiaryContent">
+  <%@include file="right.nsp" %>
+</div>
+<div id="primaryContentContainer">
+<div id="primaryContent">
+The easiest way to get in touch is to subscribe to the forum, or one
+  of the mailing lists. Below is a way to reach the NetRexx project
+  directly if your inquiry somehow does not fit the public forum.<br><br><br>
+
+  <FORM METHOD=POST ACTION="sentmessage.nsp">
+  First Name: <INPUT TYPE=TEXT NAME=firstname SIZE=40><BR><br>
+  Last Name :  <INPUT TYPE=TEXT NAME=lastname SIZE=39><BR><br>
+  Email address: <INPUT TYPE=TEXT NAME=emailaddr SIZE=36><BR><br>
+  Message      :<br>
+  <textarea rows="10" cols="80" name="message_">
+
+</textarea>
+
+  <P><INPUT TYPE=SUBMIT>
+
+</div>
+  </div>
+  <div id="secondaryContent">
+    <%@include file="left.nsp" %>
+  </div>
+  <div class="clear"></div>
+  </div>
+  <div id="footer">
+    <%@include file="footer.nsp" %>
+  </div>
+  </div>
+  </body>
+  </html>

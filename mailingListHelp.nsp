@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="outer">
+<div id="header">
+  <h1><a href="#">NetRexx Mailing List Help</a></h1>
+  <h2></h2>
+</div>
+<div id="menu">
+	  <%@include file="menu.nsp" %>
+</div>
+<div id="content">
+<div id="tertiaryContent">
+  <%@include file="right.nsp" %>
+</div>
+<div id="primaryContentContainer">
+<div id="primaryContent">
+<h3>To <i>subscribe</i> to the NetRexx mailing list</h3>
+<ul><li>
+Just send a piece of e-mail to <a href="mailto:ibm-netrexx-subscribe@hursley.ibm.com">
+majordomo@hursley.ibm.com</a> with the text:
+<pre>
+  subscribe
+  end
+</pre>
+in the body of the mail.
+</ul>
+
+<h3>To <i>unsubscribe</i> from the NetRexx mailing list</h3>
+<ul><li>
+To remove your subscription, just send a piece of e-mail to
+<a href="mailto:ibm-netrexx-unsubscribe@hursley.ibm.com">
+majordomo@hursley.ibm.com</a> with the text:
+<pre>
+  unsubscribe
+  end
+</pre>
+in the body of the mail.
+</ul>
+
+<h3>To <i>'post'</i> (send mail) to everyone on the NetRexx mailing list</h3>
+<ul><li>
+Send your e-mail to <a href="mailto:ibm-netrexx@hursley.ibm.com">
+ibm-netrexx@hursley.ibm.com</a>.
+<p>
+Please keep your posts short and to-the-point &#150; you'll get better
+replies, that way!
+</ul>
+
+<h3>The mailing list archives</h3>
+<ul><li>... can be found at
+<a href="http://ibm-netrexx.215625.n3.nabble.com">http://ibm-netrexx.215625.n3.nabble.com</a>
+<p>
+<font size=-1>
+Note: some recent archives may not be listed on the index page; these
+can be accessed using the same URL as ones which are listed, updating
+the year and month appropriately.</font>
+</ul>
+
+<h3>Problems with the mailing list?</h3>
+<ul><li>
+Please send mail to the Hursley webmaster at
+<a href="http://www.hursley.ibm.com/~www/">www@hursley.ibm.com</a>
+describing the problem in detail.
+<p>
+Don't send mail about problems to the list .. or you'll likely just make
+the problem worse!
+</ul>
+  </div>
+  </div>
+  <div id="secondaryContent">
+    <%@include file="left.nsp" %>
+  </div>
+  <div class="clear"></div>
+  </div>
+  <div id="footer">
+    <%@include file="footer.nsp" %>
+  </div>
+  </div>
+  </body>
+  </html>

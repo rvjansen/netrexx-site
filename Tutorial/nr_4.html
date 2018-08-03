@@ -1,0 +1,486 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Basic concepts</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Basic concepts </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Basic concepts</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Basic concepts </H1>
+<P>
+<EM>In this chapter I'll try to give an overview of all
+the basic concepts which, in my opinion, are required to
+fully understand the following chapters.</EM>
+
+</P>
+<P>
+<EM>If you're familiar with the concepts exposed here, you
+can just jump immediately to the next chapter.</EM>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> The Java language </H2>
+<P>
+<A NAME="IDX2"></A>
+Java is an object-oriented programming language developed
+by Sun Microsystems (TM). A Java program might look like a C or C++ program,
+due to Java's similarities to those languages.
+Indeed, Java is not based on C, neither on C++. There has been
+no effort to make Java compatible with those two languages.
+
+</P>
+<P>
+One important point to keep in mind is that
+<STRONG>Java was designed with the idea to allow execution of code
+across a network.</STRONG>
+
+</P>
+<P>
+The main feature of Java is that the COMPILED code is
+platform independent. To achieve this, Java compiles to an intermediate
+form; Java byte-code. This code is then interpreted "on-the-fly" by a
+platform-dependent, Java interpreter.
+
+</P>
+
+<PRE>
+ 
+  +------------+
+  |            |
+  | SOURCE     |
+  |            |
+  +------------+
+      hello.java
+       =
+       =     (compilation)
+       =     <STRONG>javac hello.java</STRONG>
+       V
+  +------------+
+  |            |
+  |JAVA BYTE   |
+  |CODE        |
+  +------------+
+     hello.class
+ 
+</PRE>
+
+<P>
+The Java Compiler creates a Java class file, which does not
+contain any instruction which is architecture dependent. You will
+not find Pentium, rs6000, MAC, etc. instructions in a class file:
+you will find code which is understood by a Java Virtual
+Machine: an interpreter which knows how to translate
+the Java byte-code into your machine's instructions.
+
+</P>
+
+<PRE>
+ 
+  +-----------------------+
+  | JAVA BYTE CODE        | &#60;- architecture independent
+  | (class)               |
+  +-----------------------+
+  |                       |
+  | JAVA VIRTUAL MACHINE  | &#60;- architecture dependent
+  |                       |
+  +-----------------------+
+  |///////////////////////|
+  | MACHINE (PC,MAC,WS)   | &#60;- your machine
+  |///////////////////////|
+  +-----------------------+
+ 
+</PRE>
+
+<P>
+<A NAME="IDX3"></A>
+<A NAME="IDX4"></A>
+<A NAME="IDX5"></A>
+So, the <STRONG>Java Virtual Machine</STRONG> is just a special
+interpreter, that "understands" a class file.
+
+</P>
+<P>
+The idea is not new: it was available in UCSD Pascal, and the
+intermediate code was the so-called <STRONG>p-code</STRONG>.
+
+</P>
+<P>
+When running code across a network, you must eliminate some of the
+language features which might allow any malicious code
+to gain access to your computer.
+Notably, Java's designers had to take away
+the concept of a "pointer", largely used in C and C++.
+Java programs cannot access arbitrary addresses in
+your machine memory.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Java and the WEB </H2>
+<P>
+<A NAME="IDX6"></A>
+The capability to interpret Java byte-code is available
+on most WWW browsers available today.
+
+</P>
+<P>
+If an HTML document contains a &#60;class&#62; statement, the
+browser will fetch the class, (if you don't already have it on
+your machine) and execute the code. The
+important thing to stress is that the code, at this
+point, runs on YOUR machine, not on the server
+from where you downloaded the HTML document.
+
+</P>
+
+<PRE>
+ 
+
+  WWW Browser                       http Daemon
+  -----------                       -----------
+  (client)                          (server)
+
+    (URL)
+              --(URL request)----&#62;
+              &#60;--(HTML doc)------
+
+   ...
+   &#60;class &#62;
+              --(class request)--&#62;
+              &#60;--(class)----------
+
+   CLASS runs
+   HERE
+
+ 
+</PRE>
+
+<P>
+Java adds <STRONG>local</STRONG> interaction to the WEB,
+and offloads processing from the server to the client.
+
+</P>
+<P>
+What's the gain in such an approach? Why not run
+the code directly in the server side?
+(like you do whenever you issue a <STRONG>cgi-bin</STRONG>
+command)?
+
+</P>
+<P>
+If your application manipulates data and displays
+it graphically, the Java approach is definitely more
+efficient, both in terms of reduced network traffic
+and perceived execution speed.
+
+</P>
+<P>
+For example: suppose that your company wants to display
+several histograms on their WWW home page. You could have the pictures
+(in <STRONG>gif</STRONG> or <STRONG>jpg</STRONG> format) stored in
+the HTML daemon directory. Each time the document is requested,
+potentially hunders of kilobytes of data is transfered across the network.
+Using Java, you download
+the application that implements a
+histogram viewer, and the data
+to build the histogram to your machine; usually significantly less
+data than the pre-built images.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> JDK </H2>
+<P>
+<A NAME="IDX7"></A>
+<A NAME="IDX8"></A>
+JDK is an acronym for Java Developer Kit. It is a set
+of programs that allows you to compile your java code and to
+execute it (using the Java Interpreter).
+
+</P>
+<P>
+The JDK is distributed freely by Sun, and you can download
+it from Sun's site:
+
+<PRE>
+ 
+<A href="http://java.sun.com">http://java.sun.com</A>
+ 
+</PRE>
+
+<P>
+See the Appendix I for more details.
+
+</P>
+<P>
+The JDK is made up by the following tools:
+
+<UL>
+<LI>a compiler <EM>javac</EM>
+
+<LI>a debugger
+
+<LI>an interpreter, or, if you prefer, a
+
+      Java Virtual Machine (Java VM) <EM>java</EM>
+<LI>an applet viewer <EM>appletviewer</EM>
+
+<LI>other miscellaneous tools
+
+</UL>
+
+<P>
+The JDK also includes all the Java class files that you need
+to compile and run your java programs.
+
+</P>
+<P>
+The JDK is NOT a visual development environment, like
+Microsoft's J++ or Symatec's Cafe'.
+<A NAME="IDX9"></A>
+<A NAME="IDX10"></A>
+<A NAME="IDX11"></A>
+Sun's JDK has been defined as "primitive" [GREHAN, 1997] by
+some authors, since all the package's tools run from
+the command line. Other people [HAROLD, 1997] definitely
+prefer JDK's "minimalist" approach vs. more fancy products,
+sometimes still in beta test.
+
+</P>
+<P>
+If you are an "old fashion" programmer like me, you'll probably
+prefer JDK's approach, which resembles the development
+process I followed on VM/370 and VS/COBOL; edit,
+compile, and run all from the command line.
+
+</P>
+<P>
+For NetRexx there is no IDE at the moment, so you are forced
+to use JDK's approach anyway.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Java Classes </H2>
+<P>
+<A NAME="IDX12"></A>
+Like other languages; notably FORTRAN, Java is a relatively simple
+language.  The power of these languages is derived, not from the
+language itself, but from the extensibility of the language.
+Without high level mathematical packages and functions in FORTRAN,
+you would not be able to do much of any significance.  Java, without its
+Class Libraries is the same.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Applications </H2>
+<P>
+<A NAME="IDX13"></A>
+<A NAME="IDX14"></A>
+An <STRONG>application</STRONG> is, generally speaking, a stand-alone program
+which you launch from the command line. An application
+has unrestricted access to the host system.
+An application can read/write files on your system
+using your access privileges, it can open socket connections
+with any address, etc.
+
+</P>
+<P>
+Technically, a NetRexx application is a NetRexx program that
+has a main() method, or no method at all (NetRexx will
+add the main() for you).
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Applets </H2>
+<P>
+<A NAME="IDX15"></A>
+
+</P>
+<P>
+An <STRONG>applet</STRONG> is a program which is run in the context
+of an <STRONG>applet viewer</STRONG> or of a <STRONG>WEB browser</STRONG>.
+An <STRONG>applet</STRONG> has very limited access to the system
+where it runs; for example, an applet cannot read
+files, neither can it establish socket connections to
+systems other than the one from where the applet was downloaded.
+
+</P>
+<P>
+Technically speaking, an applet is a NetRexx class
+which extends the Java class <STRONG>java.applet.Applet</STRONG>.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Javascript </H2>
+<P>
+<A NAME="IDX16"></A>
+You might have found, in several WEB pages, portions of code
+that are executed by the browser. This code is written
+using <STRONG>javascript</STRONG>. To make it clear, <STRONG>javascript</STRONG>
+has nothing to do with <STRONG>java</STRONG>.
+The black beverage that you find in fast-foods has nothing
+to do with the nectar you drink at "La Tazza d'oro" (Via degli
+Orfani 82, in Rome). People ( not the same people, indeed)
+call both of them coffees,  but that's the only thing
+they share. So Java and Javascript
+just share (a portion of) the name.
+"The intersection of Java and Javascript is the empty
+set." [VAN DER LINDEN, 1997].
+
+</P>
+<P>
+Javascript was invented by Netscape Inc., and it is a simple
+scripting language, imbedded in HTML files. It offers
+loops and conditional tests.
+
+</P>
+<P>
+As an example of Javascript, look at the following code:
+
+</P>
+<P>
+<A NAME="IDX17"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| &#60;HTML&#62;                                                               |<STRONG>01</STRONG>
+| &#60;PRE&#62;                                                                |<STRONG>02</STRONG>
+| Here I snoop some info about you:                                    |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| &#60;script language= "JavaScript"&#62;                                      |<STRONG>05</STRONG>
+|   &#60;!--                                                               |<STRONG>06</STRONG>
+|   var where = document.referrer                                      |<STRONG>07</STRONG>
+|   var name = navigator.appName                                       |<STRONG>08</STRONG>
+|   var vers = navigator.appVersion                                    |<STRONG>09</STRONG>
+|   document.writeln ("You came here from:'"+where+"'.")               |<STRONG>10</STRONG>
+|   document.write ("You use:'"+name+"  "+vers+"'.")                   |<STRONG>11</STRONG>
+|  // --&#62;                                                              |<STRONG>12</STRONG>
+| &#60;/script&#62;                                                            |<STRONG>13</STRONG>
+| &#60;/PRE&#62;                                                               |<STRONG>14</STRONG>
+| &#60;/HTML&#62;                                                              |<STRONG>15</STRONG>
++----------------------------------------------------------------------+
+                                                                jsc.html
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Just in time Compilers </H2>
+<P>
+<A NAME="IDX18"></A>
+<A NAME="IDX19"></A>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> JavaBeans </H2>
+<P>
+<A NAME="IDX20"></A>
+<A NAME="IDX21"></A>
+JavaBeans is a public specification developed by Sun,
+in consultation with other vendors and with the Java community.
+JavaBeans is a component model, which lets you build
+and use Java-based components.
+
+</P>
+<P>
+The <STRONG>beans</STRONG> is just a Java class with some additional
+descriptive information. Why this additional information?
+Because this information is used to make beans reusable software components,
+which can be manipulated by building tools.
+This allows non-programmers, using an <STRONG>authoring tool</STRONG>, to
+assemble an application using the provided components.
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Additional sources of information </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Java </H3>
+<P>
+The "home" of Java is:
+
+<PRE>
+ 
+<A href="http://java.sun.com/">http://java.sun.com/</A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> JavaBeans </H3>
+<P>
+The first place is definitely
+
+<PRE>
+ 
+<A href="http://splash.javasoft.com/beans/spec.html">http://splash.javasoft.com/beans/spec.html</A>
+ 
+</PRE>
+
+<P>
+contains a good tutorial, and the specifications for JavaBeans 1.0.
+
+</P>
+<P>
+You should then look at:
+
+<PRE>
+ 
+<A href="http://www2.hursley.ibm.com/netrexx/nrbean.htm">http://www2.hursley.ibm.com/netrexx/nrbean.htm</A>
+ 
+</PRE>
+
+<P>
+for the NetRexx implementation.
+
+</P>
+<P>
+For more general informations, look at
+
+<PRE>
+ 
+<A href="http://splash.javasoft.com/beans/">http://splash.javasoft.com/beans/</A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_4.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:34(GMT +2).
+</FONT>
+

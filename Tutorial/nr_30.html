@@ -1,0 +1,374 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - The xclasses JAR library</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  The xclasses JAR library </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - The xclasses JAR library</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> The xclasses JAR library </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+
+
+<PRE>
+ 
+
+                  XCLASSES PACKAGE DOCUMENTATION
+                  (c) P.A.Marchesini, 1998
+
+***
+***  xarray
+***
+
+   SUMMARY
+
+     Handles array operations, and, mainly byte array
+     conversions. It's a collection of static methods.
+     NOTE: ARRAY needs to be defined as:
+              an_array      = rexx[NNN]
+              another_array = rexx[NNN]
+              bytearray     = byte[MMM]
+
+   METHODS
+
+     xarray.init(ARRAY,VALUE)
+       initializes a Rexx array ARRAY with value VALUE.
+       Example
+         xarray.init(an_array,'test test')
+
+     xarray.copy(ARRAY1,ARRAY2)
+       copyes a Rexx array ARRAY1 into array ARRAY2.
+       Example
+         xarray.copy(an_array,another_array)
+
+     xarray.dump(ARRAY,ARRAYNAME)
+       dumps the entries of ARRAY on the screen; duplicate
+       lines are skipped.
+       Example
+         xarray.dump(an_array,'an_array')
+
+     xarray.ba2x(BYTEARRAY,START,LENGTH)
+       convert byte array BYTEARRAY from byte to HEX string
+       starting at byte START for LENGTH bytes.
+
+     xarray.ba2c(BYTEARRAY,START,LENGTH)
+       as above, but converting to CHAR.
+
+     xarray.ba2d(BYTEARRAY,START,LENGTH)
+       as above, but converting to DECIMAL.
+
+     loc = xarray.bagrepx(BYTEARRAY,SEARCH,START)
+       will search in byte array BYTEARRAY the HEX string
+       SEARCH, starting from START.
+       Example:
+         ptr = xarray.bagrepx(buf,'0D0F',0)
+
+     xarray.bahexdump(BYTEARRAY,START,END)
+       will dump HEX the contents of bytearray BYTEARRAY
+       Example:
+         fid = xfile('xarray.class')
+         rc = fid.readbuf()
+         xarray.bahexdump(fid.buffer,0,100)
+
+***
+***  xcmdline
+***
+
+    SUMMARY
+
+     use this class to parse the command line options (which, in the
+     UNIX convention, are entered with a '-' sign).
+
+    METHODS
+
+       cl = xcmdline(LINE,CONTROL)
+            where LINE    : line entered by the user
+                  CONTROL : defines the control sequence to parse the options
+                            the format is
+                              FLAG/[FLA|VAR]/VARIABLE_NAME/DEFAULT_VALUE
+
+     EXAMPLE
+
+        cl = xcmdline(rexx(args),'t/FLA/TRACE/0'           -
+                                 'r/FLA/REPLACE/0'         -
+                                 'o/VAR/OUTFID/test.out')
+
+        If the user types:
+          mytest test -ro pippo.txt
+            -&#62;  say cl.arguments()       = test
+                say cl.option('TRACE')   = 1
+                say cl.option('REPLACE') = 0
+                say cl.option('OUTFID')  = pippo.txt
+
+     NOTES
+
+       - next release will have a syntax like PERL getopt() available too
+
+***
+***  xdir
+***
+
+    SUMMARY
+      Handles all operations on a directory, listing, comparing
+      etc.
+
+    METHODS
+      xdir(DIRECTORY)   
+      xdir()           
+        constructors. Default directory is the
+        current directory (".")
+
+      str_ls(DIRECTORY) -
+        issue a "ls" command. Output returned in a REXX
+        string.
+
+    PROPERTIES
+      rc        - return code of last valid operation
+      options
+
+    EXAMPLES
+
+       say xdir.str_ls("/java")
+
+    NOTES
+
+***
+***  xexec
+***
+
+    SUMMARY
+
+      Use this class to run a system command.
+
+    METHODS
+
+      cmd = xexec(COMMAND,OUTPUT,ONERROR)
+
+      where:
+         COMMAND  : is a valid command on the system you are
+                    running on (e.g. "ls","cp","copy", etc.)
+         OUTPUT   : can be any combination of:
+                       SCREEN : the output will go on STDOUT
+                       VAR    : the output will go on a variable
+                       ARRAY  : the output will go on an array
+                    or
+                       NULL   : forget about output
+         ONERROR   : is one of:
+                       IGNORE    : a return code &#60;&#62; 0 is ignored
+                       WARNING   : print a warning message if rc &#60;&#62; 0
+                       ABORT     : abandon ship if rc &#60;&#62; 0
+
+    PROPERTIES
+
+        lines     : lines of output
+        line      : array of output lines; line[0]=no.of out lines
+        out       : string of output (when VAR is active)
+        rc        : return code
+
+    EXAMPLES
+
+        test = xexec('cp test toast','NULL','ABORT')
+
+        test = xexec('pwd','VAR','ABORT')
+        say 'The path is "'test.out'".'
+
+        test = xexec('ls -l','ARRAY','WARNING')
+        loop i = 1 to test.line[0]
+          say '&#62;&#62;&#62;' test.line[i]
+        end
+
+     NOTES
+
+       -  The examples are valid on a UNIX platform
+       -  The examples are provided just as EXAMPLES
+          there are infact better ways to do 'ls','pwd'
+          in NetRexx itself
+
+***
+***  xfile
+***
+
+    SUMMARY
+
+    METHODS
+
+    PROPERTIES
+
+    EXAMPLES
+
+    NOTES
+
+***
+***  xftp
+***
+
+    SUMMARY
+
+    METHODS
+
+    PROPERTIES
+
+    EXAMPLES
+
+    NOTES
+
+***
+***  xmath
+***
+
+   SUMMARY
+
+     Mainly provide conversion tools
+
+   METHODS
+
+     str = xmath.n2cu(NNN)
+       converts numeric quantity NNN to computer units
+       Example:
+         say xmath.n2cu(2048)    -&#62; 2K
+
+     str = xmath.s2h(SEC)
+        converts SEC to HH:MM:SS
+        Example:
+          say xmath.s2h(3661)    -&#62; 1:01:01
+
+     str = xmath.dotify(NNN)
+        puts the "," in a big number, for easy reading
+        Example:
+          say xmath.dotify(100203) -&#62; 100,203
+
+     str = xmath.hexop(HEXOP)
+        will execute a simple hex operation
+        Example:
+           say xmath.hexop('1A + 10')  -&#62; 2A
+
+     str = xmath.binop(HEXOP)
+        executes a simple bin operation.
+        Example:
+           say xmath.binop('10 + 11')  -&#62; 101
+
+     n = xmath.random(MAX)
+        returns an random integer with maximum value
+        not greater than MAX.
+        Example:
+            say xmath.random(25) -&#62; 12 (MAYBE)
+
+     n = xmath.gcd(m,n)
+        returns the Greatest Common Divisor of M and N.
+
+     rc = xmath.gauss(N,A[,],Y[],C[])
+        upon return code RC=0 it will find using the
+        Gauss Method the solution C[] for the array A[,]
+        and vector Y[]
+
+***
+***  xsys
+***
+
+   SUMMARY
+
+     This is just a collection of methods for "system" related
+     information.
+
+   METHODS
+
+      str = xsys.userid()
+            will return your current userid.
+            Example:
+            say 'I am running on user "'xsys.userid()'".'
+      
+      str = xsys.nodeid()
+            will return the name of the node you are running
+            on.
+            Example:
+            say 'I am running on system "'xsys.nodeid()'".'
+      
+      str = xsys.time()
+      str = xsys.time(FMT)
+            will return the current time.
+            FMT is the same as on Classical REXX
+            Example:
+            say 'Now is:' xsys.time()'.'
+      
+      str = xsys.date()
+      str = xsys.date(FMT)
+            will return the current date.
+            FMT is the same as on Classical REXX
+            Example:
+            say 'Today is' xsys.date()'.'
+      
+      str = xsys.xdate(IFMT,DATE,OFMT)
+            will perform date conversion.
+            Example:
+            say xsys.xdate('E','12/01/97'.'J')
+      
+      xsys.die(RC,MESSAGE)
+            program will abort with RC return code, displaying
+            MESSAGE on STDOUT;
+            Example:
+            xsys.die(320,'Program aborted.')
+   
+      xsys.sleep(SEC)
+            program will sleep for SEC seconds
+
+***
+***  xtimer
+***
+
+    SUMMARY
+      Use xtimer class to build timers inside your programs.
+
+    METHODS
+
+      xtimer()     - constructor
+                     The starting time is set to 0.000 sec
+
+      reset()      - the timer is reset to 0.000 sec
+
+      elapsed()    - Returns the elapsed time since the
+                     last reset() (or object creation)
+                     Format is SSSSS.MMM
+                     (seconds.milliseconds)
+
+    PROPERTIES
+
+    EXAMPLES
+
+       atimer = xtimer()
+       -- some job here
+       --
+       say 'Took.....:' atimer.elapsed'(sec).'
+       atimer.reset()
+       -- some other job here
+       --
+       say 'Took.....:' atimer.elapsed'(sec).'
+
+    NOTES
+
+ 
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_30.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:48:05(GMT +2).
+</FONT>
+

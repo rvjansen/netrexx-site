@@ -1,0 +1,1724 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Operations on Numbers</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Operations on Numbers </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Operations on Numbers</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Operations on Numbers </H1>
+<P>
+<A NAME="IDX76"></A>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>
+In this chapter we will analyse the basic arithmetic operations
+that you can perform on numbers.</EM>
+ 
+<EM>
+In NetRexx numbers are usually treated as strings of characters
+(containing digits and, eventually, a '.' sign and/or a '-' sign). This explains
+the possibility of having arbitrary precision arithmetic, independent
+of the H/W precision of your machine.</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Arithmetic Operations </H2>
+<P>
+NetRexx handles the four basic arithmetic operations:
+Addition, Subtraction, Multiplication and Division. You have
+also other three special operators to perform
+Power Operation, Integer Division, and Remainder Division.
+ 
+To perform an arithmetic operation, you simply need to place
+the appropriate operator between the two terms, and assign
+what will be the result to a variable. Here is an example
+of this operation:
+ 
+
+<PRE>
+ 
+  a = 4 + 5
+ 
+</PRE>
+
+<P>
+ 
+When the Interpreter encounters such an expression, the terms
+on the right side are evaluated, and the variable (here 'a')
+will get the final result (which is, as you might suspect, '9').
+ 
+The following table shows the operations that you can perform on
+numbers:
+<A NAME="IDX77"></A>
+<A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
+<A NAME="IDX80"></A>
+
+</P>
+
+
+<PRE>
+ 
+
+ 
++          Add.
+-          Subtract.
+*          Multiply.
+/          Divide.
+%          Integer divide.
+                  (i.e. divide and return the integer part)
+//         Remainder.
+                  (i.e. divide and return the reminder;
+                   this is NOT modulo, as the result may
+                   be negative)
+**         Power.
+ 
+-number    (as prefix) same as 0-number.
++number    (as prefix) same as 0+number.
+ 
+ 
+</PRE>
+
+<P>
+ 
+Some additional examples:
+ 
+
+<PRE>
+ 
+  a = 23           <EM>/* Assignment */</EM>
+  b = 1            <EM>/* Assignment */</EM>
+ 
+  c = a + b        <EM>/* Expression */</EM>
+  d = a ** c + 89  <EM>/* Expression */</EM>
+ 
+</PRE>
+
+<P>
+ 
+Although I believe you may be able to imagine the result
+of <STRONG>1+1</STRONG>, I would like to present some small examples
+of arithmetic operations. The result is shown in the
+right column.
+
+<PRE>
+ 
+ 
+1+1                  -&#62;  <STRONG>2</STRONG>
+1+9                  -&#62;  <STRONG>10</STRONG>
+ 
+4*7                  -&#62;  <STRONG>28</STRONG>
+2**4                 -&#62;  <STRONG>16</STRONG>
+ 
+(1+2)/3              -&#62;  <STRONG>1</STRONG>
+1/3                  -&#62;  <STRONG>0.333333333</STRONG>
+4/3                  -&#62;  <STRONG>1.33333333</STRONG>
+5/3                  -&#62;  <STRONG>1.66666667</STRONG>
+ 
+1//3                 -&#62;  <STRONG>1</STRONG>
+4//3                 -&#62;  <STRONG>1</STRONG>
+5//3                 -&#62;  <STRONG>2</STRONG>
+ 
+1%3                  -&#62;  <STRONG>0</STRONG>
+4%3                  -&#62;  <STRONG>1</STRONG>
+5%3                  -&#62;  <STRONG>1</STRONG>
+ 
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> The three ways to divide. </H2>
+<P>
+<A NAME="IDX81"></A>
+<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
+ 
+A special mention should be devoted to the 'three' divide operators
+that are used in NetRexx.
+ 
+The <STRONG>/</STRONG> operator performs the regular division. This produces
+the same result as you would get using the division key on your
+pocket calculator. If the result is not an integer number,
+you will get the integer part, a dot and as many digits as the
+precision is set to (see later in this chapter for considerations
+about precision).
+ 
+The <STRONG>%</STRONG> operator performs a division and returns ONLY
+the integer part of the result. Note that the result in NOT
+rounded (contrary to what I believed at the beginning of my REXX
+programming). It is simply truncated.
+ 
+The <STRONG>//</STRONG> operator again performs a division, but it returns
+the remainder. As you have seen in the table, this is NOT a MODULO
+operation, since the result might be negative.
+(As you will remember from school, the MODULO is a positive
+integer).
+ 
+At the risk of being pedantic, I propose a final four
+examples:
+
+<PRE>
+ 
+   a =  13 / 2       <STRONG> a = 6.5</STRONG>
+   a =  13 % 2       <STRONG> a = 6</STRONG>
+   a =  13 // 2      <STRONG> a = 1</STRONG>
+   a = -13 // 2      <STRONG> a = -1</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Operator Precedence </H2>
+<P>
+<A NAME="IDX84"></A>
+The operator precedence (or order of evaluation) controls
+the order in which operations are performed.
+NetRexx arithmetic uses the same rules you learned in primary
+school.
+ 
+This table resumes the operator precedence:
+
+<PRE>
+ 
+Precedence  Group               Operators
+----------  -----------------   ---------
+ 
+High        UNARY               + , -
+ 
+            POWER               **
+ 
+            MULTIPLY &#38; DIVIDE   * , / , // , %
+ 
+Low         ADD &#38; SUBTRACT      + , -
+ 
+ 
+</PRE>
+
+<P>
+As you can imagine, operators with highest precedence
+are evaluated first, down to the lowest ones.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> If you are in doubt. </H3>
+<P>
+If you happen to be in doubt about operator precedence,
+(I sometimes am — especially when dealing with
+different computer languages), you can use a simple trick:
+use parentheses.
+ 
+So do not be afraid to write:
+
+<PRE>
+ 
+  value = 2 + ( 4 * 32 )
+ 
+</PRE>
+
+<P>
+instead of the more terse:
+
+<PRE>
+ 
+  value = 2 + 4 * 32
+ 
+</PRE>
+
+<P>
+Of course, you should not use a lot of redundant parentheses inside
+a loop that is
+iterated 100 000 times in your program. The first
+expression in the above example is a little more CPU consuming, but in an
+average program it is perfectly all right, and saves
+time that could be lost with bugs.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Other operations on Numbers. </H2>
+<P>
+<A NAME="IDX85"></A>
+<A NAME="IDX86"></A>
+<A NAME="IDX87"></A>
+<A NAME="IDX88"></A>
+There are many operations you can perform on numbers
+apart from the ones we have just seen. These operations are performed by
+NetRexx built-in functions, i.e. functions that are
+provided by the language itself.
+ 
+You call on those functions in the following way:
+
+<PRE>
+ 
+  result = <EM>argument</EM>.<STRONG>function()</STRONG>
+ 
+</PRE>
+
+<P>
+as you can see from the example(s):
+
+<PRE>
+ 
+  value = <EM>-9</EM>.<STRONG>abs()</STRONG>
+  say value          -&#62; <STRONG>9</STRONG>
+ 
+  max   = <EM>-9</EM>.<STRONG>max(<EM>7</EM>)</STRONG>
+  say max            -&#62; <STRONG>7</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+This is a table of the NetRexx built-in functions
+that deal with numbers.
+
+<PRE>
+ 
+ 
+  <STRONG><EM>number</EM>.abs()</STRONG>
+    Returns the absolute value of <EM>number</EM>;
+ 
+  <STRONG><EM>number</EM>.d2c()</STRONG>
+    Converts the <EM>number</EM> from Decimal to Character;
+ 
+  <STRONG><EM>number</EM>.d2x()</STRONG>
+    Converts the <EM>number</EM> from Decimal to Hexadecimal;
+ 
+  <STRONG><EM>number</EM>.format()</STRONG>
+    Performs a rounding and format over <EM>number</EM>;
+ 
+  <STRONG><EM>number</EM>.max(<EM>number1</EM>)</STRONG>
+    Returns the largest number from a given list;
+ 
+  <STRONG><EM>number</EM>.min(<EM>number1</EM>)</STRONG>
+    Returns the smallest number from a given list;
+ 
+  <STRONG><EM>number</EM>.sign()</STRONG>
+    Returns the sign of a number;
+ 
+  <STRONG><EM>number</EM>.trunc()</STRONG>
+    Returns the integer part of a number;
+ 
+ 
+</PRE>
+
+<P>
+ 
+I again provide some examples: the right-hand column contains the
+results of the operations.
+ 
+
+<PRE>
+ 
+ 
+-2.abs()              -&#62;  <STRONG>2</STRONG>
+2.abs()               -&#62;  <STRONG>2</STRONG>
+ 
+12.min(1)             -&#62;  <STRONG>1</STRONG>
+12.min()              -&#62;  <STRONG>12</STRONG>
+ 
+1.max(42)             -&#62;  <STRONG>42</STRONG>
+12.max()              -&#62;  <STRONG>12</STRONG>
+ 
+-17.sign()            -&#62;  <STRONG>-1</STRONG>
+17.sign()             -&#62;  <STRONG>1</STRONG>
+ 
+n = 23.34
+n.trunc(0)             -&#62;  <STRONG>23</STRONG>
+n.trunc()              -&#62;  <STRONG>23</STRONG>
+n.trunc(3)             -&#62;  <STRONG>23.340</STRONG>
+n.trunc(8)             -&#62;  <STRONG>23.34000000</STRONG>
+ 
+125.d2x()              -&#62;  <STRONG>7F</STRONG>
+71.d2c()               -&#62;  <STRONG>G</STRONG>
+ 
+ 
+</PRE>
+
+<P>
+ 
+<EM>Some of these instructions require a bit of
+more attention, and we will look at them in the paragraphs that follow.</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> The format() instruction. </H2>
+<P>
+<A NAME="IDX89"></A>
+ 
+Use the <STRONG>format</STRONG> instruction to round and format a number.
+The syntax of the instruction is:
+
+<PRE>
+ 
+out = <STRONG>format(<EM>number,before,after</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+where <STRONG>before</STRONG> and <STRONG>after</STRONG> refers to characters before
+and after the decimal point.
+ 
+
+<PRE>
+ 
+
+number.format(before ,    after )
+              ------      -----
+                |           |
+        (digits before)  (digits after)
+                |           |
+          -------- -------------
+          NNNNNNNN.NNNNNNNNNNNNN
+                  |
+           (decimal point)
+
+ 
+</PRE>
+
+<P>
+ 
+Suppose that the value of n is "-3.1415". This is what we get
+for the <STRONG>format()</STRONG> instruction:
+
+<PRE>
+ 
+ 
+n.format(4,2)     -&#62;   <STRONG>"  -3.14"</STRONG>
+n.format(7,5)     -&#62;   <STRONG>"     -3.14150"</STRONG>
+n.format(2,3)     -&#62;   <STRONG>"-3.142"</STRONG>
+n.format()        -&#62;   <STRONG>"-3.1415"</STRONG>
+ 
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> The xmath.random() instruction </H2>
+<P>
+<A NAME="IDX90"></A>
+As you would expect, the <STRONG>xmath.random()</STRONG> function
+returns a random number.
+"How random" strongly depends on the implementation of Java.
+In NetRexx you really get random values, while on VM/CMS
+you get 'pseudo-random' values. This means that,
+in the first case, whenever you start a program you get
+different values; on the contrary, in the second
+case, the values (although random) are always the same if you do
+not specify a different seed.
+ 
+The syntax of the instruction is, as we saw:
+
+<PRE>
+ 
+ number = <STRONG>xmath.random(<EM>max_value</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+You luckily do not need to modulo the result if you
+need random values within a certain interval — the
+'max_value' parameter will do it for you.
+ 
+A classical application of the random number generator
+is when you need ( for example ) to output a cookie message.
+If you have 150 cookie messages, you do not want to have
+random numbers greater than 150.
+All you need to specify, in order to be sure that you do not
+get values greater than 150, is:
+ 
+
+<PRE>
+ 
+ ptr = <STRONG>xmath.random(<EM>150</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+A <STRONG>random(0)</STRONG> will be accepted, but will
+generate something that is not really random (the question left to
+you being "why?").
+ 
+This is how the <STRONG>xmath.random()</STRONG> function is implemented.
+
+</P>
+<P>
+<A NAME="IDX91"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: random                                              |<STRONG>08</STRONG>
+| -- purpose.....:                                                     |<STRONG>09</STRONG>
+| --                                                                   |<STRONG>10</STRONG>
+|   method random(max=Rexx) public static;                             |<STRONG>11</STRONG>
+|     max = max.abs()                                                  |<STRONG>12</STRONG>
+|     n = Math.random() * max                                          |<STRONG>13</STRONG>
+|     n = n.trunc()                                                    |<STRONG>14</STRONG>
+|     return n                                                         |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|   method random() public static;                                     |<STRONG>17</STRONG>
+|     n = random(1000)                                                 |<STRONG>18</STRONG>
+|     return n                                                         |<STRONG>19</STRONG>
+|                                                                      |<STRONG>20</STRONG>
++----------------------------------------------------------------------+
+                                                xmath.nrx(Method:random)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Comparative operators. </H2>
+<P>
+Now that you know how to perform the basic operations
+on two numbers, you might also want to compare them — i.e.
+to look at which is larger or smaller, or check if they're
+equal.
+ 
+More formally,
+the comparative operators are used to compare two variables
+(or a variable and a constant) between them.
+ 
+The comparative operators return:
+
+<PRE>
+ 
+ 
+   1  - if the result of the comparison is true
+ 
+   0  - otherwise
+ 
+ 
+</PRE>
+
+<P>
+NetRexx has two sets of operators: the <STRONG>normal</STRONG> comparison
+and the <STRONG>strict</STRONG> comparison. The <STRONG>strict</STRONG> comparison
+is just what its name suggests — two numbers must be <STRONG>strictly</STRONG>
+identical in order to pass the comparison.
+ 
+
+<PRE>
+ 
+<STRONG>NORMAL comparative operators:</STRONG>
+ 
+     =                 True if terms are equal;
+     \= , ^=           Not equal;
+     &#62;                 Greater than;
+     &#60;                 Less than;
+ 
+     &#62;&#60; , &#60;&#62;           Greater than or less than
+                         (same as NOT EQUAL)
+     &#62;= , ^&#60; , \&#60;      Greater than or equal to,
+                         not less than;
+     &#60;= , ^&#62; , \&#62;     Less than or equal to,
+                         not greater than;
+ 
+<STRONG>STRICT comparative operators:</STRONG>
+ 
+     ==               True if the terms are strictly equal
+                         (identical)
+     \== , ^==        True if terms are strictly not
+                         equal
+     &#62;&#62;               strictly greater than;
+     &#60;&#60;               strictly less than
+     &#62;&#62;= , ^&#60;&#60; , \&#60;&#60;  strictly greater than or equal to,
+                         strictly  not less than;
+     &#60;&#60;= , ^&#60;&#60; , \&#62;&#62;  strictly less than or equal to,
+                         strictly not greater than;
+ 
+ 
+<STRONG>BOOLEAN operators:</STRONG>
+ 
+     &#38;                AND;
+ 
+     |                Inclusive OR;
+ 
+     &#38;&#38;               Exclusive OR;
+ 
+     ^  , \           LOGICAL NOT
+ 
+ 
+</PRE>
+
+<P>
+We will see how to perform comparisons in the next chapter.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Controlling the precision. </H2>
+<P>
+<A NAME="IDX92"></A>
+The precision is the number of
+significant digits used in floating point computations.
+Roughly speaking, it is the number of digits you are
+expecting to have after a '.' sign in a floating point
+number.
+This table will (I hope) clarify the idea:
+
+<PRE>
+ 
+       value                      precision
+       -------------------        ---------
+1/3    .333333333                 9
+1/3    .333333333333333333        18
+1/3    .33333                     5
+ 
+</PRE>
+
+<P>
+ 
+The precision of your arithmetic computations is controlled
+in NetRexx by the instruction:
+
+<PRE>
+ 
+  <STRONG>Numeric Digits [expression]</STRONG>
+ 
+</PRE>
+
+<P>
+In NetRexx, the default value for precision is 9.
+<A NAME="IDX93"></A>
+ 
+In this small program we look how the instructions dealing with
+precision work:
+
+</P>
+
+<PRE>
+ 
+say 1/3                             --   0.333333333
+                                    --     ---------
+                                    --     9 digits
+Numeric Digits 18
+
+say 1/3                             --   0.333333333333333333
+                                    --     ------------------
+                                    --     18 digits
+ 
+</PRE>
+
+<P>
+ 
+You might now ask: <EM>"why not always run
+with high precision say, of 100 significant digits?"</EM>
+ 
+The answer is simple: the higher the precision, the slower the
+program. So use higher precision only when you need it,
+otherwise keep to the standard one. To make this point even clearer,
+consider the following small program, which will allow you to
+measure the performance speed of your machine by changing
+the precision:
+<A NAME="IDX94"></A>
+
+</P>
+<P>
+<A NAME="IDX95"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- exercise the precision                                            |<STRONG>01</STRONG>
+| parse arg prec .                                                     |<STRONG>02</STRONG>
+| say 'Running at precision "'prec'".'                                 |<STRONG>03</STRONG>
+| numeric digits prec                                                  |<STRONG>04</STRONG>
+| t1 = timer()                                                         |<STRONG>05</STRONG>
+| loop i = 1 to 1000                                                   |<STRONG>06</STRONG>
+|  j = 1/i                                                             |<STRONG>07</STRONG>
+|  j = j                                                               |<STRONG>08</STRONG>
+| end                                                                  |<STRONG>09</STRONG>
+| say t1.elapsed()                                                     |<STRONG>10</STRONG>
+| exit                                                                 |<STRONG>11</STRONG>
++----------------------------------------------------------------------+
+                                                             numperf.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/numperf.nrx">Download the  source for the numperf.nrx example </A>
+ 
+</PRE>
+
+<P>
+To run it, just type
+<STRONG>java numperf NNN</STRONG>
+where <STRONG>NNN</STRONG> is the precision you want — as
+in the following screen dump:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+...................................................................
+rsl3pm1 (12) <STRONG>java numperf 5</STRONG>
+It took 1.001 seconds.
+rsl3pm1 (13)
+....................................................................
+                                                     numperf example
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+ 
+The following table
+was built using my <STRONG>HP Vectra Pentium 133MHz</STRONG> machine.
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++---------------------------------------------------+
+| timing for 1000 divisions at NNN digits precision |
++---------------------------------------------------+
+| NNN                      time                     |
+| -----              ----------                     |
+|     5              1.001  sec                     |
+|     9              2.642  sec                     |
+|    18              6.084  sec                     |
+|    50             37.181  sec                     |
++---------------------------------------------------+
+                                        numperf table
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+These numbers will (as you can imagine) change for different
+machines. As a rule of thumb, the faster the machine
+for INTEGER operations, the smaller will be the time for
+big values of NNN. I again stress the fact that the
+FLOATING POINT capabilities of your machine are totally
+irrelevant for this computation: the numbers are
+strings, and the floating point engine
+of your computer is not used by the NetRexx interpreter.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> A useful program: eval. </H2>
+<P>
+<A NAME="IDX96"></A>
+<A NAME="IDX97"></A>
+We now look at a program that will allow
+you to play a little with numbers. It is called <STRONG>eval</STRONG>.
+ 
+The basic idea is to have a small calculator
+that you can use to perform Arithmetic calculations from
+your command line.
+ 
+<A NAME="IDX98"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- eval                                                              |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg expr                                                       |<STRONG>03</STRONG>
+| r = xstring.interpret(expr,24)                                       |<STRONG>04</STRONG>
+| say r                                                                |<STRONG>05</STRONG>
+| exit                                                                 |<STRONG>06</STRONG>
++----------------------------------------------------------------------+
+                                                                eval.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/eval.nrx">Download the  source for the eval.nrx example </A>
+ 
+</PRE>
+
+<P>
+You invoke it simply by typing:
+ 
+
+<PRE>
+ 
+  <STRONG>java eval</STRONG> <EM>expression</EM>
+ 
+</PRE>
+
+<P>
+ 
+Again, in order to give you the 'feeling',
+here is a dump of a sample session where I use <STRONG>eval</STRONG>.
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (282) <STRONG>java eval 2+89</STRONG>
+91
+rsl3pm1 (283) <STRONG>java eval '50**3 +760 -98'</STRONG>
+125662 = 125,662 = 1.25662E+5
+....................................................................
+                                                     Example of eval
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+<STRONG>Note for UNIX users</STRONG>: expressions such as:
+
+<PRE>
+ 
+1*2
+ 
+</PRE>
+
+<P>
+are (unfortunately) interpreted by the shell. In fact, the shell will
+try to find, in your current directory,
+all the files that have filenames starting with 1 and ending with 2.
+As there normally are none, you will get a "No Match", and the
+answer will be "java: No Match", definitely NOT
+what you would have expected.
+ 
+To avoid this strange behaviour
+put the expression between quotes, as here:
+
+<PRE>
+ 
+'1*2'
+ 
+</PRE>
+
+<P>
+or call the program without any argument. The program will then
+prompt you for an expression, and (now that there is no
+shell intervention) you can freely put in any character.
+ 
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Other Mathematical functions with arbitrary precision. </H2>
+
+
+<PRE>
+ 
+*
+* WARNING:
+*   The so called SLAC arbitrary precision function package
+*   will be implemented in xmath v2.000.
+*
+ 
+</PRE>
+
+<P>
+The other mathematical high-level functions (like <STRONG>sin()</STRONG>
+<STRONG>cos()</STRONG>
+, etc. ) are available with the usage of an external package.
+
+</P>
+<P>
+In the following table we summarise all the available functions.
+As you notice ALL the functions have an "_" character after
+the function name.
+
+</P>
+<P>
+Note also that ALL those functions are arbitrary precision functions
+and are totally platform independent (i.e. you'll get the same
+result for the 400th decimal digit of sin(2) on an HP, SGI,
+PC, etc.).
+
+</P>
+<P>
+<A NAME="IDX99"></A>
+<A NAME="IDX100"></A>
+<A NAME="IDX101"></A>
+<A NAME="IDX102"></A>
+<A NAME="IDX103"></A>
+<A NAME="IDX104"></A>
+<A NAME="IDX105"></A>
+<A NAME="IDX106"></A>
+<A NAME="IDX107"></A>
+<A NAME="IDX108"></A>
+<A NAME="IDX109"></A>
+<A NAME="IDX110"></A>
+<A NAME="IDX111"></A>
+<A NAME="IDX112"></A>
+<A NAME="IDX113"></A>
+
+</P>
+
+<PRE>
+ 
+   e()                   - returns the value of natural base e
+   pi()                  - return the value of PI
+
+   XtoY( x , y )         - x to the yth power
+   ln( x )               - log of x
+   log10( x )
+   logbase( x , y )      -
+   sqrt( x )             - square root
+   exp( x )
+   fact( n )             - factorial of N
+
+   sin( x , pr , mode )  - sine of x
+   cos( x , pr , mode )  - cosine of x
+   tan( x , pr , mode )  - tangent of ox
+   sec( x , pr , mode )  - secant of x
+   csc( x , pr , mode )  - cosecant of x
+   cot( x , pr , mode )  - cotangent of x
+
+   asin( x , pr , mode ) - arcsine of x
+   acos( x , pr , mode ) - arccosine of x
+   atan( x , pr , mode ) - arctangent of ox
+
+   sinh( x , pr )        - hyperbolic sine of x
+   cosh( x , pr )        - hyperbolic cosine of x
+   tanh( x , pr )        - hyperbolic tangent of ox
+
+   asinh( x , pr )       - hyperbolic arcsine of x
+   acosh( x , pr )       - hyperbolic arccosine of x
+   atanh( x , pr )       - hyperbolic arctangent of ox
+
+ 
+</PRE>
+
+<P>
+NOTE: As previously stated those functions are arbitrary precision, and are NOT
+machine H/W dependent.
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Real Examples </H2>
+<P>
+In order to provide some examples of the mathematical NetRexx
+functions, I think it better to present some 'real' algorithms
+that may prove to be useful even if you do not use NetRexx.
+ 
+These programs, although they present language features that
+it would be better to explore in the next chapter, are taken
+'as-is' from the 'Collected Algorithms from the ACM' book.
+The only difference you might notice is that we have taken
+out all the 'GOTOs', replacing them with a more structured
+approach (after all, those algorithms were invented in
+1962, well before even REXX was invented).
+What I would like to stress is the fact that NetRexx is
+very good for algorithm description.
+ 
+What might interest you are, de facto, only the functions.
+The rest of the program has been presented simply as an example of
+how to call the functions themselves.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Greatest Common Divisor (gcd). </H3>
+<P>
+<A NAME="IDX114"></A>
+The following code is a small example of a call to a routine
+that computes the gcd of two integer numbers.
+The format of the call is:
+
+<PRE>
+ 
+n = <STRONG>xmath.gcd(</STRONG>n1,n2<STRONG>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+<A NAME="IDX115"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| parse arg n1 n2 .                                                    |<STRONG>01</STRONG>
+| say xmath.gcd(n1,n2)                                                 |<STRONG>02</STRONG>
+| exit 0                                                               |<STRONG>03</STRONG>
++----------------------------------------------------------------------+
+                                                                 gcd.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/gcd.nrx">Download the  source for the gcd.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX116"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: gcd                                                 |<STRONG>26</STRONG>
+| -- purpose.....: find the greatest common divisor                    |<STRONG>27</STRONG>
+| --                                                                   |<STRONG>28</STRONG>
+|   method gcd(a=int,b=int) public static                              |<STRONG>29</STRONG>
+|     if a = 0 then return b                                           |<STRONG>30</STRONG>
+|     if b = 0 then return a                                           |<STRONG>31</STRONG>
+|     r2 = a                                                           |<STRONG>32</STRONG>
+|     r1 = b                                                           |<STRONG>33</STRONG>
+|     loop forever                                                     |<STRONG>34</STRONG>
+|       rr = r2/r1                                                     |<STRONG>35</STRONG>
+|       g = rr.trunc()                                                 |<STRONG>36</STRONG>
+|       r = r2 - r1*g                                                  |<STRONG>37</STRONG>
+|       if r = 0 then return r1                                        |<STRONG>38</STRONG>
+|       r2 = r1                                                        |<STRONG>39</STRONG>
+|       r1 = r                                                         |<STRONG>40</STRONG>
+|     end                                                              |<STRONG>41</STRONG>
+|                                                                      |<STRONG>42</STRONG>
++----------------------------------------------------------------------+
+                                                   xmath.nrx(Method:gcd)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+<P>
+The <STRONG>gcd()</STRONG> function is a NetRexx function
+that (unlike the BUILT-IN functions) such as max(),
+min(), etc. are USER-WRITTEN.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Simultaneous Linear Equations Solution </H3>
+<P>
+<A NAME="IDX117"></A>
+The following piece of code shows how to call a routine (called
+<STRONG>gauss</STRONG>) that performs the solution of a system
+of linear equations with the Gauss Method.
+
+</P>
+<P>
+<A NAME="IDX118"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- gauss                                                             |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| n = 3                                                                |<STRONG>03</STRONG>
+| a = rexx[n+1,n+1]                                                    |<STRONG>04</STRONG>
+| y = rexx[n+1]                                                        |<STRONG>05</STRONG>
+| c = rexx[n+1]                                                        |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+| a[1,1] = 13; a[1,2] = -8;  a[1,3] = -3; y[1] = 20                    |<STRONG>08</STRONG>
+| a[2,1] = -8; a[2,2] = 10;  a[2,3] = -1; y[2] = -5                    |<STRONG>09</STRONG>
+| a[3,1] = -3; a[3,2] = -1;  a[3,3] = 11; y[3] = 0                     |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| rc = xmath.gauss(n,a,y,c)                                            |<STRONG>12</STRONG>
+| say 'RC:' rc'.'                                                      |<STRONG>13</STRONG>
+|                                                                      |<STRONG>14</STRONG>
+| say 'Solution:'                                                      |<STRONG>15</STRONG>
+| loop i = 1 to n                                                      |<STRONG>16</STRONG>
+|   say c[i].format(NULL,3)                                            |<STRONG>17</STRONG>
+| end                                                                  |<STRONG>18</STRONG>
+| exit                                                                 |<STRONG>19</STRONG>
++----------------------------------------------------------------------+
+                                                               gauss.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/gauss.nrx">Download the  source for the gauss.nrx example </A>
+ 
+</PRE>
+
+<P>
+Here is the code itself. Of course, you
+can grab it and put it inside your program(s).
+
+</P>
+<P>
+<A NAME="IDX119"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: gauss                                               |<STRONG>43</STRONG>
+| -- purpose.....:                                                     |<STRONG>44</STRONG>
+| --                                                                   |<STRONG>45</STRONG>
+|   method gauss(n=int,a=Rexx[,],y=Rexx[],c=rexx[]) public static;     |<STRONG>46</STRONG>
+|     b = rexx[n+1,n+1]                                                |<STRONG>47</STRONG>
+|     w = rexx[n+1]                                                    |<STRONG>48</STRONG>
+|     error = 0                                                        |<STRONG>49</STRONG>
+|     loop i = 1 to n                                                  |<STRONG>50</STRONG>
+|       loop j = 1 to n                                                |<STRONG>51</STRONG>
+|         b[i,j] = a[i,j]                                              |<STRONG>52</STRONG>
+|       end                                                            |<STRONG>53</STRONG>
+|       w[i] = y[i]                                                    |<STRONG>54</STRONG>
+|     end                                                              |<STRONG>55</STRONG>
+|     loop i = 1 to n-1                                                |<STRONG>56</STRONG>
+|       big = b[i,i].abs()                                             |<STRONG>57</STRONG>
+|       l = i                                                          |<STRONG>58</STRONG>
+|       i1 = i+1                                                       |<STRONG>59</STRONG>
+|       loop j = i1 to n                                               |<STRONG>60</STRONG>
+|         ab = b[j,i].abs()                                            |<STRONG>61</STRONG>
+|         if ab &#62; big then                                             |<STRONG>62</STRONG>
+|           do                                                         |<STRONG>63</STRONG>
+|             big = ab                                                 |<STRONG>64</STRONG>
+|             l = j                                                    |<STRONG>65</STRONG>
+|           end                                                        |<STRONG>66</STRONG>
+|       end                                                            |<STRONG>67</STRONG>
+|       if big = 0                                                     |<STRONG>68</STRONG>
+|       then error = 1                                                 |<STRONG>69</STRONG>
+|       else                                                           |<STRONG>70</STRONG>
+|         do                                                           |<STRONG>71</STRONG>
+|           if l&#60;&#62;i then                                               |<STRONG>72</STRONG>
+|             do                                                       |<STRONG>73</STRONG>
+|               loop j=1 to n                                          |<STRONG>74</STRONG>
+|                 hold = b[l,j]                                        |<STRONG>75</STRONG>
+|                 b[l,j] = b[i,j]                                      |<STRONG>76</STRONG>
+|                 b[i,j] = hold                                        |<STRONG>77</STRONG>
+|               end                                                    |<STRONG>78</STRONG>
+|               hold = w[l]                                            |<STRONG>79</STRONG>
+|               w[l] = w[i]                                            |<STRONG>80</STRONG>
+|               w[i] = hold                                            |<STRONG>81</STRONG>
+|             end                                                      |<STRONG>82</STRONG>
+|           loop j = i1 to n                                           |<STRONG>83</STRONG>
+|             t = b[j,i]/b[i,i]                                        |<STRONG>84</STRONG>
+|             loop k = i1 to n                                         |<STRONG>85</STRONG>
+|               b[j,k] = b[j,k] - t*b[i,k]                             |<STRONG>86</STRONG>
+|             end                                                      |<STRONG>87</STRONG>
+|             w[j] = w[j] - t*w[i]                                     |<STRONG>88</STRONG>
+|           end                                                        |<STRONG>89</STRONG>
+|         end                                                          |<STRONG>90</STRONG>
+|     end                                                              |<STRONG>91</STRONG>
+|     if b[n,n] = 0 then error = 1                                     |<STRONG>92</STRONG>
+|     else                                                             |<STRONG>93</STRONG>
+|       do                                                             |<STRONG>94</STRONG>
+|         c[n] = w[n]/b[n,n]                                           |<STRONG>95</STRONG>
+|         i = n - 1                                                    |<STRONG>96</STRONG>
+|         loop until i = 0                                             |<STRONG>97</STRONG>
+|           sum = 0                                                    |<STRONG>98</STRONG>
+|           loop j = i+1 to n                                          |<STRONG>99</STRONG>
+|             sum = sum + b[i,j] * c[j]                                |<STRONG>00</STRONG>
+|           end                                                        |<STRONG>01</STRONG>
+|           c[i] = (w[i] - sum) / b[i,i]                               |<STRONG>02</STRONG>
+|           i = i-1                                                    |<STRONG>03</STRONG>
+|         end                                                          |<STRONG>04</STRONG>
+|       end                                                            |<STRONG>05</STRONG>
+|     return error                                                     |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                 xmath.nrx(Method:gauss)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Operations on HEX Numbers </H2>
+<P>
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
+
+</P>
+<P>
+In this section we will look at how to perform favourite
+operations on HEX quantities. A HEX number is treated by NetRexx
+as a string. This string is composed of numbers (0-9) and
+letters (A-F). Although I am sure you know what a HEX
+number looks like, here are some simple assignments:
+
+</P>
+
+<PRE>
+ 
+ hex1 = 'FEA078'
+ hex2 = 'CAFE'
+ hex3 = '1AB052'
+ 
+</PRE>
+
+<P>
+As you will have noticed, I  have defined these quantities as PURE
+strings. This makes
+the conversion work that we will need to do very much easier.
+ 
+But now what happens if you try to sum hex1 to hex2?
+As NetRexx understands ONLY decimal arithmetic,
+the operation is going to fail.
+ 
+The only way out is to build a small function that
+performs the HEX operation. This function will perform all
+the conversion work for us, both in the hex to decimal
+part and in the decimal to hex re conversion.
+ 
+The routine I propose is <STRONG>hexop()</STRONG>
+and you call it up using the following syntax:
+ 
+
+<PRE>
+ 
+hex = <STRONG>hexop(<EM>hex1 operation hex2</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+NOTE: the 'operation' must be put into quotes.
+Why? Because we want to avoid REXX interpreting it
+as an ARITHMETIC addition (remember that hex1 and hex2
+are NOT hexadecimal quantities).
+ 
+This is the function itself and, as you can see, it is very short:
+ 
+<A NAME="IDX122"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: hexop                                               |<STRONG>69</STRONG>
+| -- purpose.....: execute an HEX operation                            |<STRONG>70</STRONG>
+| --                                                                   |<STRONG>71</STRONG>
+|   method hexop(in=Rexx) public static                                |<STRONG>72</STRONG>
+|     parse in n1 op n2                                                |<STRONG>73</STRONG>
+|     n1 = n1.x2d()                                                    |<STRONG>74</STRONG>
+|     n2 = n2.x2d()                                                    |<STRONG>75</STRONG>
+|     select                                                           |<STRONG>76</STRONG>
+|       when op = '+' then n3 = n1 + n2                                |<STRONG>77</STRONG>
+|       when op = '-' then n3 = n1 - n2                                |<STRONG>78</STRONG>
+|       when op = '/' then n3 = n1 / n2                                |<STRONG>79</STRONG>
+|       when op = '*' then n3 = n1 * n2                                |<STRONG>80</STRONG>
+|       otherwise                                                      |<STRONG>81</STRONG>
+|         do                                                           |<STRONG>82</STRONG>
+|           say 'Invalid operation.'                                   |<STRONG>83</STRONG>
+|           exit 1                                                     |<STRONG>84</STRONG>
+|         end                                                          |<STRONG>85</STRONG>
+|     end                                                              |<STRONG>86</STRONG>
+|     n3 = n3.d2x()                                                    |<STRONG>87</STRONG>
+|     return n3                                                        |<STRONG>88</STRONG>
+|                                                                      |<STRONG>89</STRONG>
++----------------------------------------------------------------------+
+                                                 xmath.nrx(Method:hexop)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+<P>
+As you will note from the code (apart
+from the parse and the interpret instruction, which
+we will cover later), we do a double translation —
+first from HEX to DECIMAL for the two terms (x2d), and then,
+once we have the result, back to HEX (d2x).
+I do not check whether the data (and the operation) are
+correct or not: this is left to the calling code (or to you,
+if you want to enhance it).
+ 
+Some examples:
+
+<PRE>
+ 
+say xmath.hexop('FFFF + 1A')     -&#62; '10019'
+say xmath.hexop('FFFE / 2' )     -&#62; '7FFF'
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Operations on Binary Numbers </H2>
+<P>
+<A NAME="IDX123"></A>
+<A NAME="IDX124"></A>
+Binary numbers are composed only of '0' or '1'. Again, these
+numbers will be NetRexx strings. At the risk of appearing
+very pedantic, here are some examples of binary quantities:
+ 
+
+<PRE>
+ 
+ bin1 = '10010010'
+ bin2 = '100001111000'
+ 
+</PRE>
+
+<P>
+The very same considerations for HEX quantities
+are to be found in relation to binary
+numbers. Since we cannot directly perform arithmetic on
+them, we are forced to use
+a function expressly made for the purpose.
+This function is similar to the <STRONG>hexop()</STRONG>
+we just saw (in fact, in accordance with
+my fancy, I have expressed this in its name, calling it:  <STRONG>binop()</STRONG>).
+The only additional complication lies in the fact
+that you can convert to and from binaries starting only from HEX quantities.
+ 
+The syntax for the function is:
+ 
+
+<PRE>
+ 
+  bin = <STRONG>binop(<EM>bin1 operation bin2</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+The code is a small variation on <STRONG>hexop</STRONG>:
+<A NAME="IDX125"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: binop                                               |<STRONG>05</STRONG>
+| -- purpose.....: execute a BIN operation                             |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+|   method binop(in=Rexx) public static                                |<STRONG>08</STRONG>
+|     parse in n1 op n2                                                |<STRONG>09</STRONG>
+|     n1 = n1.b2x.x2d()                                                |<STRONG>10</STRONG>
+|     n2 = n2.b2x.x2d()                                                |<STRONG>11</STRONG>
+|     select                                                           |<STRONG>12</STRONG>
+|       when op = '+' then n3 = n1 + n2                                |<STRONG>13</STRONG>
+|       when op = '-' then n3 = n1 - n2                                |<STRONG>14</STRONG>
+|       when op = '/' then n3 = n1 / n2                                |<STRONG>15</STRONG>
+|       when op = '*' then n3 = n1 * n2                                |<STRONG>16</STRONG>
+|       otherwise                                                      |<STRONG>17</STRONG>
+|         do                                                           |<STRONG>18</STRONG>
+|           say 'Invalid operation.'                                   |<STRONG>19</STRONG>
+|           exit 1                                                     |<STRONG>20</STRONG>
+|         end                                                          |<STRONG>21</STRONG>
+|     end                                                              |<STRONG>22</STRONG>
+|     n3 = n3.d2x.x2b()                                                |<STRONG>23</STRONG>
+|     return n3                                                        |<STRONG>24</STRONG>
+|                                                                      |<STRONG>25</STRONG>
++----------------------------------------------------------------------+
+                                                 xmath.nrx(Method:binop)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+<P>
+Again, no check is made to ascertain if the quantities are truly binary
+and the operation a valid one.
+ 
+Some examples:
+
+<PRE>
+ 
+  say xmath.bin_op('1010 + 10')    -&#62; '1100'
+  say xmath.bin_op('1110 / 10')    -&#62; '0111'
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Remark on HEX and BINARY operations </H3>
+<P>
+A conclusive remark: as you will have have noticed, in this last case
+(as in the one before that, for HEX quantities)
+the BINARY operations are CPU-intensive in
+NetRexx. To perform a single addition we
+do six conversions and two operations (without counting the
+function above). I have presented the two subroutines
+in order to show that 'it can be done', and in a rather easy way.
+However, as a rule you should remember that it is always a
+good idea to perform ALL the arithmetic operations in
+your programs as decimal operations, and perform conversions
+at the beginning (and end) of the program itself.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Tricks with numbers. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Put dots in long numbers. </H3>
+<P>
+It is usually a very difficult thing to read big numbers,
+if they're written as:
+
+<PRE>
+ 
+100345902
+ 
+</PRE>
+
+<P>
+and it would be nice to display them in the form
+
+<PRE>
+ 
+100,345,902
+ 
+</PRE>
+
+<P>
+The following <STRONG>xmath</STRONG> function will do the job.
+<A NAME="IDX126"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: dotify                                              |<STRONG>90</STRONG>
+| -- purpose.....: put dots into a numeric string                      |<STRONG>91</STRONG>
+| --                                                                   |<STRONG>92</STRONG>
+|   method dotify(n=Rexx) public static                                |<STRONG>93</STRONG>
+|     if n.datatype('N') = 0 then return n                             |<STRONG>94</STRONG>
+|     parse n a '.' b                                                  |<STRONG>95</STRONG>
+|     if b &#60;&#62; '' then b = '.'b                                         |<STRONG>96</STRONG>
+|     c = ''                                                           |<STRONG>97</STRONG>
+|     loop for ((a.length() - 1) % 3)                                  |<STRONG>98</STRONG>
+|       c3 = a.right(3)                                                |<STRONG>99</STRONG>
+|       c = ','||c3||c                                                 |<STRONG>00</STRONG>
+|       a = a.left(a.length() - 3)                                     |<STRONG>01</STRONG>
+|     end                                                              |<STRONG>02</STRONG>
+|     return a||c||b                                                   |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
++----------------------------------------------------------------------+
+                                                xmath.nrx(Method:dotify)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Convert numbers in Computer Units. </H3>
+<P>
+<A NAME="IDX127"></A>
+<A NAME="IDX128"></A>
+<A NAME="IDX129"></A>
+<A NAME="IDX130"></A>
+
+</P>
+<P>
+Another usual conversion is to take a number and express it
+in Computer Units (K (kilo), M (mega), G (giga), etc.)
+
+</P>
+
+<PRE>
+ 
+n                    cu
+----------        -----
+       452     -&#62;   452
+      1025     -&#62;    1K
+   1000000     -&#62;  976K   ( why ??? )
+ 
+</PRE>
+
+<P>
+The following function will do this.
+<A NAME="IDX131"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: n2cu                                                |<STRONG>27</STRONG>
+| -- purpose.....: convert n to Computer Units                         |<STRONG>28</STRONG>
+| --                                                                   |<STRONG>29</STRONG>
+|   method n2cu(n=Rexx) public static                                  |<STRONG>30</STRONG>
+|     numeric digits 32        -- set high precision                   |<STRONG>31</STRONG>
+|     list = 'K M G T P'       -- Kilo Mega Giga Tera Peta             |<STRONG>32</STRONG>
+|     base = 1                                                         |<STRONG>33</STRONG>
+|     max  = 1024                                                      |<STRONG>34</STRONG>
+|     unit = ''                                                        |<STRONG>35</STRONG>
+|     loop forever                                                     |<STRONG>36</STRONG>
+|       if n &#60; max then                                                |<STRONG>37</STRONG>
+|         do                                                           |<STRONG>38</STRONG>
+|           out = (n%base)||unit                                       |<STRONG>39</STRONG>
+|           leave                                                      |<STRONG>40</STRONG>
+|         end                                                          |<STRONG>41</STRONG>
+|       parse list unit list   -- get next unit, pls                   |<STRONG>42</STRONG>
+|       base = max                                                     |<STRONG>43</STRONG>
+|       max = max*1024                                                 |<STRONG>44</STRONG>
+|     end                                                              |<STRONG>45</STRONG>
+|     numeric digits 9                                                 |<STRONG>46</STRONG>
+|     return out                                                       |<STRONG>47</STRONG>
+|                                                                      |<STRONG>48</STRONG>
++----------------------------------------------------------------------+
+                                                  xmath.nrx(Method:n2cu)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+<P>
+Call example:
+
+<PRE>
+ 
+say 'File size is' <STRONG>xmath.n2cu(<EM>size</EM>)</STRONG>'.'
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Convert seconds to hours. </H3>
+<P>
+That's my last favourite conversion routine.
+I use it to convert seconds to a more readable human format.
+
+</P>
+
+<PRE>
+ 
+s                    h
+------     -----------
+  7272  -&#62;     2:01:12
+100000  -&#62; 1d-03:46:40
+
+ 
+</PRE>
+
+<P>
+<A NAME="IDX132"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: s2h                                                 |<STRONG>49</STRONG>
+| -- purpose.....: convert seconds to hours (or days)                  |<STRONG>50</STRONG>
+| --                                                                   |<STRONG>51</STRONG>
+|   method s2h(s=Rexx) public static                                   |<STRONG>52</STRONG>
+|     h = s%3600                                                       |<STRONG>53</STRONG>
+|     s = s//3600       -- modulo                                      |<STRONG>54</STRONG>
+|     m = s%60                                                         |<STRONG>55</STRONG>
+|     s = s//60         -- modulo                                      |<STRONG>56</STRONG>
+|     if h &#62; 24 then    -- express h in DAYSd-HH                       |<STRONG>57</STRONG>
+|       do              -- if necessary                                |<STRONG>58</STRONG>
+|         d = h%24                                                     |<STRONG>59</STRONG>
+|         h = h//24                                                    |<STRONG>60</STRONG>
+|         h = h.right(2,'0')                                           |<STRONG>61</STRONG>
+|         h = d'd-'h                                                   |<STRONG>62</STRONG>
+|       end                                                            |<STRONG>63</STRONG>
+|     m = m.right(2,'0')                                               |<STRONG>64</STRONG>
+|     s = s.right(2,'0')                                               |<STRONG>65</STRONG>
+|     out = h':'m':'s                                                  |<STRONG>66</STRONG>
+|     return out                                                       |<STRONG>67</STRONG>
+|                                                                      |<STRONG>68</STRONG>
++----------------------------------------------------------------------+
+                                                   xmath.nrx(Method:s2h)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xmath.nrx">Download the complete source for the xmath.nrx library </A>
+ 
+</PRE>
+
+<P>
+Call example:
+
+<PRE>
+ 
+say 'Time elapsed' <STRONG>xmath.s2h(<EM>sec</EM>)</STRONG>'.'
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter FAQ </H2>
+<P>
+ 
+<STRONG>QUESTION:</STRONG> <EM>How do I round-up a number?</EM>
+ 
+As we saw, the '/' divide operator does a 'crude and simple'
+truncation on the result. If you need a real round up, then
+you should use the <STRONG>format(NULL,0)</STRONG> instruction,
+like in the following example:
+ 
+
+<PRE>
+ 
+rounded = n.<STRONG>format(<EM>NULL,0</EM>)</STRONG>
+ 
+</PRE>
+
+<P>
+You can try out the following code to test yourself.
+<A NAME="IDX133"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- Round up example                                                  |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg n1 n2                                                      |<STRONG>03</STRONG>
+| n3 = n1/n2                                                           |<STRONG>04</STRONG>
+| say 'Result:' n3                                                     |<STRONG>05</STRONG>
+| say 'Round :' n3.format(NULL,0)                                      |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                             roundup.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/roundup.nrx">Download the  source for the roundup.nrx example </A>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+ 
+<EM>We resume what we've seen so far in this chapter.</EM>
+
+<PRE>
+ 
+_ basic operations                | <EM>+ - * /</EM>
+                                  | - ex.: <STRONG>a+b</STRONG>
+                                  |
+_ setting precision               | <EM>Numeric Digits NN</EM>
+                                  | - ex.: <STRONG>Numeric Digits 20</STRONG>
+                                  |
+_ query precision                 | <EM>digits</EM>
+                                  | - ex.: <STRONG>nn = digits</STRONG>
+                                  |
+ 
+</PRE>
+
+<P>
+ 
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_7.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:38(GMT +2).
+</FONT>
+

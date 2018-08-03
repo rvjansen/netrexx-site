@@ -1,0 +1,409 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Preface</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Preface </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Preface</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Preface </H1>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction. </H2>
+
+<P>
+This book is addressed to both professional programmers and
+end users who want to learn more about the <STRONG>NetRexx</STRONG> language.
+
+</P>
+<P>
+<STRONG>NOTE:</STRONG> The following documentation refers to NetRexx
+version 1.00 and following.
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> When to use NetRexx. </H2>
+<P>
+This topic is likely to be a source of endless arguments (both pro and
+con).
+
+</P>
+<P>
+This is my genuine opinion.
+
+</P>
+<P>
+<STRONG>PROs:</STRONG>
+
+<UL>
+<LI>NetRexx is very easy to read.
+
+  You can practically program in English <A NAME="DOCF1" HREF="nr_foot.html#FOOT1">(1)</A>
+
+<LI>there is only ONE NetRexx native data type (the string);
+
+<LI>there is almost no need for special characters
+
+     (like delimiters, identifiers, etc);
+
+<LI>NetRexx has very powerful features, such as
+
+  arbitrary numeric precision, parsing, easy string
+  handling, etc.
+
+<LI>NetRexx is not tailored to a particular operating system;
+
+  the very same code can run on:
+
+
+<UL>
+<LI><STRONG>Windows 95/NT</STRONG> (TM),
+
+<LI><STRONG>UNIX (TM) (eg. AIX (TM), HP/UX (TM), IRIX (TM), SunOS (TM), Solaris (TM), etc.)</STRONG>,
+
+<LI><STRONG>OS/2</STRONG> (TM),
+
+<LI><STRONG>Macintosh</STRONG> (TM),
+
+</UL>
+
+In fact NetRexx will run on any platform that supplies a Java Virtual
+Machine (JVM) (TM) (more on this later.
+
+<LI>If you are (or were) a FORTRAN, PL/I
+
+  or PASCAL programmer you will probably
+  find NetRexx closer to your 'way-of-programming'
+  than any other language available for the JVM.  NetRexx eases the
+  transition for programmers familiar with "procedural" languages
+  into the object oriented paradigm.
+</UL>
+
+<P>
+<STRONG>CONs:</STRONG>
+
+<UL>
+<LI>NetRexx is <STRONG>not</STRONG> ( or at least not <STRONG>exactly</STRONG>)
+
+  Rexx, so Rexx (or Object Rexx) fans will be faced with a
+  "transition period". You cannot get your Rexx
+  code immediately running in NetRexx (as you can
+  do with Object Rexx) unless it is a very simple program.
+<LI>NetRexx compiles your program into Java byte-code.
+
+  The code is then very much slower, in terms of execution,
+  than a native Object Rexx or "classic" Rexx.
+  I've measured up to a order of magnitude slower.
+  This performance problem is due to the Java byte-code running in the
+  JVM and is not an inherant problem with NetRexx; raw Java code is
+  just as slow!
+</UL>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> About the examples in this book. </H2>
+<P>
+&#62;From the very first chapters,
+I will present and discuss
+some 'real' NetRexx program atoms (i.e. code fragments
+(usually methods) ) that you can use
+in your programs after having learnt
+the language.
+
+</P>
+<P>
+I have noticed that many
+'user guides' present as examples, programs you will
+probably never use again in your life; in fact these programs are
+often totally
+useless, brought into existence only so that the author can
+show particular features of the language involved.
+
+</P>
+<P>
+I prefer to give you something 'real';
+program atoms you can insert in
+your code, or programs you can run and
+use even after having finished with this book.
+The obvious disadvantage in such an approach is that some
+constructs may not be entirely clear, since they will only be explained
+several chapters further on. Please be patient, and do not be concerned
+about things that, at a particular point in
+your progress through the book, are not completely
+understood. You can always come back to them later.
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Book structure </H2>
+
+<P>
+This book is divided into four parts.
+
+</P>
+
+<PRE>
+ 
+
+Part One
+   (Writing simple programs)
+
+   - Basic Concepts
+   - Introduction to NetRexx
+   - Language Basics
+   - Operations on Numbers
+   - Operations on Strings
+   - Control Structures
+
+Part Two
+   (Object Oriented Programming)
+
+   - Objects, Classes and Interfaces
+   - Operations on files
+   - Sockets and Networking
+   - System Interface
+   - Threads
+   - Database Operations
+
+Part Three
+   (Interfacing with the WEB)
+
+   - Applets
+   - Graphical Interfaces
+   - Advanced Graphics
+
+Part Four
+   (Advanced topics)
+
+   - Additional Instructions
+   - More on Algorithms
+   - NetRexx for Rexxers
+   - Tools
+   - Miscellaneous
+
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Conventions. </H2>
+<P>
+In order to be consistent, a 'standard' is being followed
+in presenting the various code samples and running examples.
+
+</P>
+<P>
+When I show a full program example, the code appears like this:
+<A NAME="IDX1"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /*                                                                   |<STRONG>01</STRONG>
+|  * Code example                                                      |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| say                                                                  |<STRONG>04</STRONG>
+| say 'This is a code example'                                         |<STRONG>05</STRONG>
+| say                                                                  |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                              codeex.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/codeex.nrx">Download the  source for the codeex.nrx example </A>
+ 
+</PRE>
+
+<P>
+Line numbers may be used in comments related to the code.
+You will find the file id at the
+bottom right-hand corner of the code, making it
+easier to find the referenced portion of the code if you already have
+the sample code on your computer.
+
+</P>
+<P>
+When referring to only a small piece of a program, the code appears
+like this:
+
+</P>
+
+<PRE>
+ 
+------------------------------------------------------
+if test then
+  do
+    say 'Running in test mode.'
+  end
+------------------------------------------------------
+                                            if example
+ 
+</PRE>
+
+<P>
+Example sessions are presented like this:
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (201) <STRONG>codeex</STRONG>
+
+test
+
+rsl3pm1 (202) <STRONG>ls -la codeex</STRONG>
+-rw-r--r--   1 marchesi system        50 Jan 24 20:03 codeex
+rsl3pm1 (203) <STRONG></STRONG>
+....................................................................
+                                                               outex
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+What you should type is written in <STRONG>bold</STRONG> characters.
+The <EM>rsl3pm1 (NNN)</EM> prompts are simply those of the machine
+from which sample sessions were taken, so just ignore them.
+
+</P>
+<P>
+Syntax examples appear as:
+
+</P>
+
+<PRE>
+ 
+
+   rc = <STRONG>socket(<EM>'VERSION'</EM>)</STRONG>
+
+ 
+</PRE>
+
+<P>
+with the method invocation in <STRONG>bold</STRONG> characters, and the
+arguments in <EM>italics</EM>.
+
+</P>
+<P>
+Data File Samples appear as:
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| data file                                                        |
+| sample                                                           |
++------------------------------------------------------------------+
+                                                         sample.DATA
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+with, again, the file id at the bottom right-hand corner.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Acknowledments </H2>
+
+<P>
+Several reviewers have helped, by questions and comments,
+to clarify the aims and exposition of the book.
+<STRONG>Mark Hessling</STRONG> was extremely helpful in reading the
+preliminary version of the book, which was typeset using his
+XEDIT-like text editor; THE.
+
+</P>
+<P>
+Many thanks also to <STRONG>Bernard Antoine</STRONG> and
+<STRONG>David Asbury</STRONG> of the CERN CN division  for their
+help and suggestions.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+<EM>Let us now make a resume' of what we have seen so far in
+this chapter.</EM>
+
+<PRE>
+ 
+
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+ 
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_2.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:33(GMT +2).
+</FONT>
+

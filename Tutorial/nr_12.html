@@ -1,0 +1,1038 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - More on NetRexx Classes</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  More on NetRexx Classes </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - More on NetRexx Classes</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> More on NetRexx Classes </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>In this chapter we'll look at some "details" we intentionally
+left uncovered in the previous discussion.</EM>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Basic Concepts </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Patterns and Pattern Design </H3>
+<P>
+<A NAME="IDX226"></A>
+<A NAME="IDX227"></A>
+<A NAME="IDX228"></A>
+
+</P>
+<P>
+Pattern Design is used to sketch a solution to some
+particular Object Oriented problem. It has probably already
+happened to you (as it did to me) to think: "I've
+already solved this problem (or a similar one) in the past."
+Then you rush to your code and try to find the solution
+again. If I'm allowed to make such comparison, then,
+"Design Patterns" stand to "Object Oriented Programming"
+as "Algorithms" stand to "Procedural Programming".
+Even further, Gamma, Helm, Johnson and Vlissides text
+stands to "Design Patterns" as Knuth's stands to
+"Algorithms".
+
+</P>
+<P>
+The key issue is to make your software reusable.
+Using Design Patterns, you not only make it such,
+but you also reuse other's people efforts to find
+the right solution.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Usage of Abstract Classes </H2>
+<P>
+<A NAME="IDX229"></A>
+<A NAME="IDX230"></A>
+
+
+<H3> <IMG SRC="yellowball.gif"> A Simple (?) problem </H3>
+<P>
+Let us consider a class hierarchy for a simple
+problem: we consider the "universe" of 2D rectangular
+objects, where we'll find Rectangles and Squares.
+A Venn diagram representing our "universe" might be useful:
+
+</P>
+
+<PRE>
+ 
+  +---------------------------------------------+ U
+  |                                             | N
+  | RECTANGLE                                   | I
+  |                                             | V
+  |                 +--------------+            | E
+  |                 |              |            | R
+  |                 |      SQUARE  |            | S
+  |                 |              |            | E
+  |                 +--------------+            |
+  +---------------------------------------------+
+
+                                         Venn diagram of the
+                                  "universe" class RECTANGLE
+                                    with a subclass (SQUARE)
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Making an Object Model </H3>
+<P>
+<A NAME="IDX231"></A>
+Recalling what we saw in the previous section, we can try
+to implement the above diagram using NetRexx. The first
+thing I'd think of is to make a <STRONG>Rectangle</STRONG>
+class, and have <STRONG>Square</STRONG> defined as a subclass of
+<STRONG>Rectangle</STRONG>.
+
+</P>
+<P>
+Let's make an Object Model for this diagram:
+
+</P>
+
+<PRE>
+ 
+  +--------------+
+  |              |
+  | RECTANGLE    |
+  |              |&#60;-----( RE1 )
+  +--------------+
+        |
+        *
+       * *
+      *****
+        |
+  +--------------+
+  |              |
+  | SQUARE       |
+  |              |&#60;-----( SQ1 )
+  +--------------+
+ 
+</PRE>
+
+<P>
+Note that, in our diagram:
+
+<UL>
+<LI>classes are represented by squared boxes;
+
+<LI>the triangular symbol connects two classes,
+
+ and represents the "is-a" relationship.
+ It points ALWAYS to the superclass.
+<LI>The "&#60;---( )" represents an object, and
+
+ it points to the class it belongs to.
+</UL>
+
+<P>
+So, from our picture we can say phrases like:
+<EM>the class "SQUARE" "is-a-subclass-of" the class
+"RECTANGLE"</EM>, or <EM>the object "SQ1" is an instance
+of the class "SQUARE"</EM>.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Implementing it in NetRexx </H3>
+<P>
+The actual implementation is trivial: so just look at the code.
+
+</P>
+<P>
+<A NAME="IDX232"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- abex1.nrx                                                         |<STRONG>01</STRONG>
+| -- Implements Rectangles and Squares                                 |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| class abex1 public                                                   |<STRONG>04</STRONG>
+|   properties public                                                  |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>07</STRONG>
+|     args = args                                                      |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
+|     RE1 = _Rectangle(1,2)                                            |<STRONG>10</STRONG>
+|     say RE1.area()                                                   |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|     SQ1 = _Square(2)                                                 |<STRONG>13</STRONG>
+|     say SQ1.area()                                                   |<STRONG>14</STRONG>
+|                                                                      |<STRONG>15</STRONG>
+|     exit 0                                                           |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+| class _Rectangle                                                     |<STRONG>18</STRONG>
+|   properties public                                                  |<STRONG>19</STRONG>
+|     length                                                           |<STRONG>20</STRONG>
+|     width                                                            |<STRONG>21</STRONG>
+|   method _Rectangle(l=Rexx,w=Rexx) public                            |<STRONG>22</STRONG>
+|     length = l                                                       |<STRONG>23</STRONG>
+|     width = w                                                        |<STRONG>24</STRONG>
+|   method area public                                                 |<STRONG>25</STRONG>
+|     return this.length*this.width                                    |<STRONG>26</STRONG>
+|   method set_width(w=Rexx) public                                    |<STRONG>27</STRONG>
+|     this.width = w                                                   |<STRONG>28</STRONG>
+|   method set_length(l=Rexx) public                                   |<STRONG>29</STRONG>
+|     this.length = l                                                  |<STRONG>30</STRONG>
+|   method perimeter public                                            |<STRONG>31</STRONG>
+|     return 2*(this.length+this.width)                                |<STRONG>32</STRONG>
+|                                                                      |<STRONG>33</STRONG>
+| class _Square extends _Rectangle                                     |<STRONG>34</STRONG>
+|   method _Square(s=Rexx) public                                      |<STRONG>35</STRONG>
+|     super(s,s)                                                       |<STRONG>36</STRONG>
+|   method area public                                                 |<STRONG>37</STRONG>
+|     return this.length*this.length                                   |<STRONG>38</STRONG>
+|   method perimeter public                                            |<STRONG>39</STRONG>
+|     return 4*this.length                                             |<STRONG>40</STRONG>
++----------------------------------------------------------------------+
+                                                               abex1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/abex1.nrx">Download the  source for the abex1.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Critics to the above implementation </H3>
+<P>
+There is a series of problems with the above implementation;
+I analyse them in order of increasing importance.
+
+</P>
+
+<UL>
+<LI>To compute the perimeter of a Square, we need to do
+
+  4*width. It should be more logical to do 4*side.
+
+<LI>We use 2 variables to store a SQUARE's side, since
+
+  width and length are always equal. This means a waste of
+  storage.
+
+<LI>There is no protection for somebody writing:
+
+
+<PRE>
+ 
+  SQ1 = _Square(3)
+  SQ1.setlength(4)
+ 
+</PRE>
+
+ which is, in my opinion, REALLY a bad thing: we allow
+ people to make squares with different sides.
+</UL>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Using Abstract Class </H3>
+<P>
+<A NAME="IDX233"></A>
+
+</P>
+<P>
+To correctly represent the Venn Diagram, we MUST use
+three classes. The universe class will be an
+"abstract" class, that we can call 2DSHAPE.
+
+</P>
+<P>
+Let's revise our Object Model:
+
+<PRE>
+ 
+              +--------------+
+              |              |
+              | 2DSHAPE      |
+              |              |
+              +--------------+
+                   |
+                   *
+                  * *
+        +--------*****-----------------+
+        |                              |
+        |                              |
++--------------+                      +--------------+
+|              |                      |              |
+| SQUARE       |                      | RECTANGLE    |
+|              |&#60;--( SQ1 )            |              |&#60;--( RE1 )
++--------------+                      +--------------+
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Implementation </H3>
+<P>
+<A NAME="IDX234"></A>
+<A NAME="IDX235"></A>
+In order to create an abstract class (i.e. a class that
+contains at least an abstract method), we use the keyword
+<STRONG>abstract</STRONG> (note that in C++ the keyword <STRONG>virtual</STRONG>
+is used).
+
+</P>
+<P>
+That's how you'd implement in NetRexx:
+
+</P>
+<P>
+<A NAME="IDX236"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- abex2.nrx                                                         |<STRONG>01</STRONG>
+| -- abstract class example                                            |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| class abex2 public                                                   |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>06</STRONG>
+|     args = args                                                      |<STRONG>07</STRONG>
+|     R1 = _Rectangle(2,3)                                             |<STRONG>08</STRONG>
+|     say R1.area()                                                    |<STRONG>09</STRONG>
+|     S1 = _Square(3)                                                  |<STRONG>10</STRONG>
+|     say S1.area()                                                    |<STRONG>11</STRONG>
+|     say 'You defined' _2Dshape.nobjects 'shapes.'                    |<STRONG>12</STRONG>
+|     exit 0                                                           |<STRONG>13</STRONG>
+|                                                                      |<STRONG>14</STRONG>
+| class _2Dshape abstract                                              |<STRONG>15</STRONG>
+|   properties public static                                           |<STRONG>16</STRONG>
+|     nobjects = 0                                                     |<STRONG>17</STRONG>
+|   method _2dShape() public                                           |<STRONG>18</STRONG>
+|     nobjects = nobjects+1                                            |<STRONG>19</STRONG>
+|   method area public returns Rexx abstract                           |<STRONG>20</STRONG>
+|   method perimeter public returns Rexx abstract                      |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+| class _Rectangle extends _2Dshape                                    |<STRONG>23</STRONG>
+|   properties private                                                 |<STRONG>24</STRONG>
+|     length                                                           |<STRONG>25</STRONG>
+|     width                                                            |<STRONG>26</STRONG>
+|   method _Rectangle(l=Rexx,w=Rexx) public                            |<STRONG>27</STRONG>
+|     super()                                                          |<STRONG>28</STRONG>
+|     length = l                                                       |<STRONG>29</STRONG>
+|     width = w                                                        |<STRONG>30</STRONG>
+|   method area public                                                 |<STRONG>31</STRONG>
+|     return length*width                                              |<STRONG>32</STRONG>
+|   method perimeter public                                            |<STRONG>33</STRONG>
+|     return 2*length*width                                            |<STRONG>34</STRONG>
+|                                                                      |<STRONG>35</STRONG>
+| class _Square extends _2Dshape                                       |<STRONG>36</STRONG>
+|   properties private                                                 |<STRONG>37</STRONG>
+|     side                                                             |<STRONG>38</STRONG>
+|   method _Square(s=Rexx) public                                      |<STRONG>39</STRONG>
+|     super()                                                          |<STRONG>40</STRONG>
+|     side = s                                                         |<STRONG>41</STRONG>
+|   method area public                                                 |<STRONG>42</STRONG>
+|     return side*side                                                 |<STRONG>43</STRONG>
+|   method perimeter public                                            |<STRONG>44</STRONG>
+|     return 4*side                                                    |<STRONG>45</STRONG>
+|                                                                      |<STRONG>46</STRONG>
++----------------------------------------------------------------------+
+                                                               abex2.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/abex2.nrx">Download the  source for the abex2.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Interfaces </H2>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Dynamical Interfaces </H2>
+<P>
+<A NAME="IDX237"></A>
+<A NAME="IDX238"></A>
+
+</P>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Sample code </H3>
+
+<P>
+The interface part will look as follows:
+<A NAME="IDX239"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- runnable.nrx                                                      |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class runnable interface                                             |<STRONG>03</STRONG>
+|   method run() public                                                |<STRONG>04</STRONG>
++----------------------------------------------------------------------+
+                                                            runnable.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/runnable.nrx">Download the  source for the runnable.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX240"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- dyna2.nrx                                                         |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class dyna2 public                                                   |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>05</STRONG>
+|     arg = Rexx(args)                                                 |<STRONG>06</STRONG>
+|     do                                                               |<STRONG>07</STRONG>
+|       r = runnable;                                                  |<STRONG>08</STRONG>
+|       un = Class.forName(arg);                                       |<STRONG>09</STRONG>
+|       r = runnable un.newInstance()                                  |<STRONG>10</STRONG>
+|       r.run()                                                        |<STRONG>11</STRONG>
+|     catch e= Exception                                               |<STRONG>12</STRONG>
+|       say e                                                          |<STRONG>13</STRONG>
+|     end                                                              |<STRONG>14</STRONG>
+|     exit 0                                                           |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+| class test1 implements runnable                                      |<STRONG>17</STRONG>
+|   method run public                                                  |<STRONG>18</STRONG>
+|     say 'Hello from class TEST1'                                     |<STRONG>19</STRONG>
+|                                                                      |<STRONG>20</STRONG>
+| class test2 implements runnable                                      |<STRONG>21</STRONG>
+|   method run public                                                  |<STRONG>22</STRONG>
+|     say 'Hello from class TEST2'                                     |<STRONG>23</STRONG>
+|                                                                      |<STRONG>24</STRONG>
++----------------------------------------------------------------------+
+                                                               dyna2.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/dyna2.nrx">Download the  source for the dyna2.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX241"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- dyna3.nrx                                                         |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class dyna3 public                                                   |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>05</STRONG>
+|     arg = Rexx(args)                                                 |<STRONG>06</STRONG>
+|     loop forever                                                     |<STRONG>07</STRONG>
+|       say 'Enter Class name (A,B,C) or quit'                         |<STRONG>08</STRONG>
+|       parse ask.upper() name                                         |<STRONG>09</STRONG>
+|       if name = 'QUIT' then leave                                    |<STRONG>10</STRONG>
+|       do                                                             |<STRONG>11</STRONG>
+|         r = runnable;                                                |<STRONG>12</STRONG>
+|         un = Class.forName(name);                                    |<STRONG>13</STRONG>
+|         r = runnable un.newInstance()                                |<STRONG>14</STRONG>
+|         r.run()                                                      |<STRONG>15</STRONG>
+|       catch e= Exception                                             |<STRONG>16</STRONG>
+|         say e                                                        |<STRONG>17</STRONG>
+|       end                                                            |<STRONG>18</STRONG>
+|       say 'There are' A.n 'instances for A.'                         |<STRONG>19</STRONG>
+|       say 'There are' B.n 'instances for B.'                         |<STRONG>20</STRONG>
+|       say 'There are' C.n 'instances for C.'                         |<STRONG>21</STRONG>
+|     end                                                              |<STRONG>22</STRONG>
+|     say 'End.'                                                       |<STRONG>23</STRONG>
+|     exit 0                                                           |<STRONG>24</STRONG>
+|                                                                      |<STRONG>25</STRONG>
+| -- class A                                                           |<STRONG>26</STRONG>
+| --                                                                   |<STRONG>27</STRONG>
+| class A implements runnable                                          |<STRONG>28</STRONG>
+|   properties static                                                  |<STRONG>29</STRONG>
+|     n = 0                                                            |<STRONG>30</STRONG>
+|   method A public                                                    |<STRONG>31</STRONG>
+|     n = n+1                                                          |<STRONG>32</STRONG>
+|   method run public                                                  |<STRONG>33</STRONG>
+|     say 'Hello from class A'                                         |<STRONG>34</STRONG>
+|                                                                      |<STRONG>35</STRONG>
+| -- class B                                                           |<STRONG>36</STRONG>
+| --                                                                   |<STRONG>37</STRONG>
+| class B implements runnable                                          |<STRONG>38</STRONG>
+|   properties static                                                  |<STRONG>39</STRONG>
+|     n = 0                                                            |<STRONG>40</STRONG>
+|   method B public                                                    |<STRONG>41</STRONG>
+|     n = n+1                                                          |<STRONG>42</STRONG>
+|   method run public                                                  |<STRONG>43</STRONG>
+|     say 'Hello from class B'                                         |<STRONG>44</STRONG>
+|                                                                      |<STRONG>45</STRONG>
+| -- class C                                                           |<STRONG>46</STRONG>
+| --                                                                   |<STRONG>47</STRONG>
+| class C implements runnable                                          |<STRONG>48</STRONG>
+|   properties static                                                  |<STRONG>49</STRONG>
+|     n = 0                                                            |<STRONG>50</STRONG>
+|   method C public                                                    |<STRONG>51</STRONG>
+|     n = n+1                                                          |<STRONG>52</STRONG>
+|   method run public                                                  |<STRONG>53</STRONG>
+|     say 'Hello from class C'                                         |<STRONG>54</STRONG>
++----------------------------------------------------------------------+
+                                                               dyna3.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/dyna3.nrx">Download the  source for the dyna3.nrx example </A>
+ 
+</PRE>
+
+<P>
+This is what we get running <STRONG>dyna3</STRONG>:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+..............................................................
+Enter Class name (A,B,C) or quit
+A
+Hello from class A
+There are 1 instances for A.
+There are 0 instances for B.
+There are 0 instances for C.
+Enter Class name (A,B,C) or quit
+A
+Hello from class A
+There are 2 instances for A.
+There are 0 instances for B.
+There are 0 instances for C.
+Enter Class name (A,B,C) or quit
+A
+Hello from class A
+There are 3 instances for A.
+There are 0 instances for B.
+There are 0 instances for C.
+Enter Class name (A,B,C) or quit
+B
+Hello from class B
+There are 3 instances for A.
+There are 1 instances for B.
+There are 0 instances for C.
+Enter Class name (A,B,C) or quit
+C
+Hello from class C
+There are 3 instances for A.
+There are 1 instances for B.
+There are 1 instances for C.
+Enter Class name (A,B,C) or quit
+B
+Hello from class B
+There are 3 instances for A.
+There are 2 instances for B.
+There are 1 instances for C.
+Enter Class name (A,B,C) or quit
+quit
+End.
+..............................................................
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Patterns </H2>
+<P>
+<A NAME="IDX242"></A>
+<A NAME="IDX243"></A>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The Singleton </H3>
+<P>
+The idea of <STRONG>Singleton</STRONG> is simple: we want to make
+sure that a class has ONLY one instance, and we want to
+provide a global point of access to it.
+
+</P>
+<P>
+The structure is (GAMMA, 96, p. 127)
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------+
+| Singleton                  |
++----------------------------+          +----------------------\
+|   static Instance()   *-------------&#62; | return uniqueInstance|
+|   (...)                    |          +----------------------+
+|   SingletonOperation()     |
+|   GetSingletonData()       |
+|                            |
+|                            |
+|                            |
++----------------------------+
+|   static UniqueInstance    |
+|   (...)                    |
+|   singletonData            |
+|                            |
+|                            |
++----------------------------+
+
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> NetRexx Implementation of the Singleton </H3>
+<P>
+The NetRexx implementation of the Singleton Pattern
+might look like:
+
+</P>
+<P>
+<A NAME="IDX244"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- Singleton.nrx                                                     |<STRONG>01</STRONG>
+| --   NetRexx Implementation of Singleton                             |<STRONG>02</STRONG>
+| --   see GAMMA, 1996, p.127                                          |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+| class Singleton public                                               |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+|   properties private static                                          |<STRONG>07</STRONG>
+|     _instance = Singleton NULL                                       |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
+|   method Singleton() private                                         |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+|   method Instance() returns Singleton public static                  |<STRONG>12</STRONG>
+|     if _instance = NULL then                                         |<STRONG>13</STRONG>
+|       do                                                             |<STRONG>14</STRONG>
+|         _instance = Singleton()                                      |<STRONG>15</STRONG>
+|         return _instance                                             |<STRONG>16</STRONG>
+|       end                                                            |<STRONG>17</STRONG>
+|     return _instance                                                 |<STRONG>18</STRONG>
++----------------------------------------------------------------------+
+                                                           Singleton.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/Singleton.nrx">Download the  source for the Singleton.nrx example </A>
+ 
+</PRE>
+
+<P>
+Let's look at it closely. The first "uncommon" feature we find is:
+
+<PRE>
+ 
+   method Singleton() private
+ 
+</PRE>
+
+<P>
+i.e. the constructor is declared as <STRONG>private</STRONG>. Clients will not be capable
+to access it with a normal:
+
+<PRE>
+ 
+   s = Singleton()
+ 
+</PRE>
+
+<P>
+Instead, they're forced to use the <STRONG>Instance()</STRONG> member function,
+declared as static.
+
+</P>
+<P>
+This means that the clients will need to write:
+
+<PRE>
+ 
+   s = Singleton.Instance()
+ 
+</PRE>
+
+<P>
+in order to get the unique Singleton's instance.
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> An history class. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Description of the problem </H3>
+<P>
+<A NAME="IDX245"></A>
+It is sometimes interesting to record the actions that an user
+enters when dealing with an interactive program. This is,
+for example, the case of the <STRONG>history</STRONG> command in
+an UNIX shell.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> First approach. </H3>
+<P>
+When I dealt for the first time with an implementation of an
+history command, my solution was to define a history buffer
+(with his length):
+
+</P>
+
+<PRE>
+ 
+  properties public static
+    cmdbuf = Rexx(")
+    cmdbufl = 20
+ 
+</PRE>
+
+<P>
+and 2 methods to save/dump the history:
+
+</P>
+<P>
+<A NAME="IDX246"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: historyd                                            |<STRONG>44</STRONG>
+| -- purpose.....: display the history                                 |<STRONG>45</STRONG>
+| --                                                                   |<STRONG>46</STRONG>
+|   method historyd(cur=Rexx) public static                            |<STRONG>47</STRONG>
+|     if cur &#60; cmdbufl                                                 |<STRONG>48</STRONG>
+|       then st = 1                                                    |<STRONG>49</STRONG>
+|       else st = cur-cmdbufl                                          |<STRONG>50</STRONG>
+|     loop i = st to cur-1                                             |<STRONG>51</STRONG>
+|       say i.right(5) cmdbuf[i]                                       |<STRONG>52</STRONG>
+|     end                                                              |<STRONG>53</STRONG>
+|                                                                      |<STRONG>54</STRONG>
++----------------------------------------------------------------------+
+                                            xshell1.nrx(Method:historyd)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xshell1.nrx">Download the complete source for the xshell1.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX247"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: history                                             |<STRONG>55</STRONG>
+| -- purpose.....: history                                             |<STRONG>56</STRONG>
+| --                                                                   |<STRONG>57</STRONG>
+|   method history(a=Rexx,n=Rexx) public static                        |<STRONG>58</STRONG>
+|     if a &#60;&#62; '' then                                                  |<STRONG>59</STRONG>
+|       do                                                             |<STRONG>60</STRONG>
+|         cmdbufl = a                                                  |<STRONG>61</STRONG>
+|       end                                                            |<STRONG>62</STRONG>
+|     else                                                             |<STRONG>63</STRONG>
+|       do                                                             |<STRONG>64</STRONG>
+|         historyd(n)                                                  |<STRONG>65</STRONG>
+|       end                                                            |<STRONG>66</STRONG>
+|                                                                      |<STRONG>67</STRONG>
++----------------------------------------------------------------------+
+                                             xshell1.nrx(Method:history)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xshell1.nrx">Download the complete source for the xshell1.nrx library </A>
+ 
+</PRE>
+
+<P>
+In the main loop, I was calling saving the entered command
+in the buffer
+
+</P>
+
+<PRE>
+ 
+  cmdbuf[cmdno] = todo
+  cmdno = cmdno+1
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The history class </H3>
+
+<P>
+The commands are saved in the history buffer inside a circular buffer
+
+</P>
+<P>
+<A NAME="IDX248"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: save                                                |<STRONG>66</STRONG>
+| -- purpose.....:                                                     |<STRONG>67</STRONG>
+| --                                                                   |<STRONG>68</STRONG>
+|   method save(entry=Rexx) public                                     |<STRONG>69</STRONG>
+|     k = lastrec // maxrec                                            |<STRONG>70</STRONG>
+|     if record[k] &#60;&#62; NULL then                                        |<STRONG>71</STRONG>
+|       do                                                             |<STRONG>72</STRONG>
+|         if entry = record[k]                                         |<STRONG>73</STRONG>
+|           then return                                                |<STRONG>74</STRONG>
+|       end                                                            |<STRONG>75</STRONG>
+|     lastrec = lastrec+1                                              |<STRONG>76</STRONG>
+|     k = lastrec // maxrec                                            |<STRONG>77</STRONG>
+|     record[k] = entry                                                |<STRONG>78</STRONG>
+|                                                                      |<STRONG>79</STRONG>
++----------------------------------------------------------------------+
+                                                history.nrx(Method:save)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/history.nrx">Download the complete source for the history.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX249"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: dump                                                |<STRONG>45</STRONG>
+| -- purpose.....:                                                     |<STRONG>46</STRONG>
+| --                                                                   |<STRONG>47</STRONG>
+|   method dump(n=Rexx) public                                         |<STRONG>48</STRONG>
+|     first = lastrec - n + 1                                          |<STRONG>49</STRONG>
+|     loop i=first to lastrec                                          |<STRONG>50</STRONG>
+|       k = i// maxrec                                                 |<STRONG>51</STRONG>
+|       if record[k] = NULL then iterate                               |<STRONG>52</STRONG>
+|       if record[k] = ''   then iterate                               |<STRONG>53</STRONG>
+|       say i.right(5) record[k]                                       |<STRONG>54</STRONG>
+|     end                                                              |<STRONG>55</STRONG>
+|                                                                      |<STRONG>56</STRONG>
++----------------------------------------------------------------------+
+                                                history.nrx(Method:dump)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/history.nrx">Download the complete source for the history.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX250"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: retrieve                                            |<STRONG>57</STRONG>
+| -- purpose.....:                                                     |<STRONG>58</STRONG>
+| --                                                                   |<STRONG>59</STRONG>
+|   method retrieve(n=Rexx) public returns Rexx                        |<STRONG>60</STRONG>
+|     if n &#60; lastrec - maxrec then return "                           |<STRONG>61</STRONG>
+|     if n &#62; lastrec then return "                                    |<STRONG>62</STRONG>
+|     k = n// maxrec                                                   |<STRONG>63</STRONG>
+|     return record[k]                                                 |<STRONG>64</STRONG>
+|                                                                      |<STRONG>65</STRONG>
++----------------------------------------------------------------------+
+                                            history.nrx(Method:retrieve)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/history.nrx">Download the complete source for the history.nrx library </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+  his = history(100)
+
+  loop
+    -- get user input
+    his.save(USER_INPUT)
+
+  end
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Additional sources of information </H2>
+<P>
+You can find additional information about patterns at:
+
+<PRE>
+ 
+<A href="http://st-www.cs.uiuc.edu/users/patterns/">http://st-www.cs.uiuc.edu/users/patterns/</A>
+ 
+</PRE>
+
+<P>
+with some tutorial information at:
+
+<PRE>
+ 
+<A href="http://www.enteract.com/~bradapp/docs/patterns-intro.html">http://www.enteract.com/~bradapp/docs/patterns-intro.html</A>
+<A href="http://www.csc.calpoly.edu/~dbutler/tutorials/winter96/patterns/">http://www.csc.calpoly.edu/~dbutler/tutorials/winter96/patterns/</A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter Summary </H2>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_12.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:47(GMT +2).
+</FONT>
+

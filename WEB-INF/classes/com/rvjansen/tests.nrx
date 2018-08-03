@@ -1,0 +1,27 @@
+package com.rvjansen
+
+/**
+ * Class tests implements... 
+ * <BR>
+ * Created on: vr, 15, mrt 2013 17:42:38 +0100
+ */
+class tests
+  properties indirect
+  out = String()
+
+  /**
+   * Default constructor
+   */
+  method tests() protect
+    line = ''
+    do
+      in = BufferedReader(FileReader('webapps/ROOT/netrexx/netrexxc/test/testlog.txt'))
+      loop forever
+	line = Rexx in.readLine()
+	if line = null then leave
+	if line.left(5) = 'Tests' then this.setOut(line.toString())  
+      end
+    catch FileNotFoundException
+      this.setOut('test results not found')
+    end
+    

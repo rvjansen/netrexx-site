@@ -1,0 +1,1163 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Language Basics</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Language Basics </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Language Basics</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Language Basics </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>
+In this chapter we overview some of the NetRexx basics
+for syntax and structure. To avoid making it
+too boring, I have tried to make it as short as possible.
+</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Comments </H2>
+<P>
+<A NAME="IDX47"></A>
+<A NAME="IDX48"></A>
+Any sequence of characters delimited by a <STRONG>'/*'</STRONG> and a
+<STRONG>'*/'</STRONG> is considered by NetRexx as a
+comment and will NOT be executed.
+ 
+Also, any sequence of characters following a double <STRONG>-</STRONG> character
+will be considered as comments (up to the end of line).
+
+</P>
+<P>
+Comments can be nested.
+ 
+
+<PRE>
+ 
+ /*  This is a valid comment */
+
+ -- Another comment
+ 
+</PRE>
+
+<P>
+ 
+You are totally free to write the comments as you prefer, but here
+are some examples:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| /***********************************************************/    |01
+| /*                                                         */    |02
+| /*   This is one type of comment                           */    |03
+| /*                                                         */    |04
+| /***********************************************************/    |05
+|                                                                  |06
+| /*                                                               |07
+|  * This is another type of comment                               |08
+|  */                                                              |09
+|                                                                  |10
+| -- Yet another set of comment                                    |11
+| -- lines                                                         |12
+| --                                                               |13
++------------------------------------------------------------------+
+                                                               
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+As a matter of taste I prefer the second style; it also requires less typing
+effort to add a new line.
+ 
+
+<UL>
+<LI>Starting a program with a comment is indeed good programming
+
+practice and you should say what the program does and the like.
+The following is an example of this. It
+is a bit lengthy, but all this can
+be built automatically with a program skeleton builder
+(see <STRONG>rxtls</STRONG> in later chapters).
+</UL>
+
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| /* Program   :  rxtlss                                           |01
+|  * Subsystem :  rxt                                              |02
+|  * Author    :  P.A.Marchesini (marchesi@shift3.cern.ch).        |03
+|  * Created   :  4 Dec 1994 on marchesi@shift3.cern.ch            |04
+|  * Info      :                                                   |05
+|  * Copyright :  none.                                            |06
+|  *                                                               |07
+|  * Id     Info                                                   |08
+|  * ------ ------------------------------------------------------ |09
+|  * v1r000 First release.                                         |10
+|  * v1r010 Latest release (see rxtlss.HISTORY file for details)   |11
+|  *                                                               |12
+|  */                                                              |13
++------------------------------------------------------------------+
+                                                               prog2
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Blank Lines </H2>
+<P>
+<A NAME="IDX49"></A>
+Blank lines are ignored. Enough said.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Assignments </H2>
+<P>
+<A NAME="IDX50"></A>
+We define as <EM>assignment</EM> the operation to store
+(assign) a value into a variable. The assignment operation
+is done with the <STRONG>=</STRONG> (equal) sign, as you can see
+from the following syntax diagram:
+ 
+
+<PRE>
+ 
+  <EM>variable</EM> <STRONG>=</STRONG> <EM>expression</EM>
+ 
+</PRE>
+
+<P>
+Naturally, what NetRexx does is the following: the
+<EM>expression</EM> is evaluated, and the result is assigned
+to the <EM>variable</EM>.
+ 
+Some examples:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| test = 1                                                         |01
+| line = 'This is line'                                            |02
+|                                                                  |03
+| sum = a + b + c                                                  |04
+| line = 'The sum is:' sum                                         |05
++------------------------------------------------------------------+
+                                                          ch0001.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/ch0001.nrx">Download the  source for the ch0001.nrx example </A>
+ 
+</PRE>
+
+<P>
+There are also other types of assignments, using the
+<STRONG>parse</STRONG> instruction, as we will see in later chapters.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Literal Strings </H2>
+<P>
+<A NAME="IDX51"></A>
+A literal string is a sequence of <STRONG>any</STRONG>
+characters delimited by a single quote character <STRONG>'</STRONG>
+or by a double quote <STRONG>"</STRONG>.
+A NULL string is a string with no (zero) characters in it.
+ 
+Here are some examples:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| string = 'This is a test'                                        |01
+| string = "I'm happy to use quotes"                               |02
+| string = 'I"m even more happy now'                              |03
+| string = 'Enough of the "" quotes'                              |04
+| string = ''                          /* a NULL string */         |05
++------------------------------------------------------------------+
+                                                    quoteexample.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/quoteexample.nrx">Download the  source for the quoteexample.nrx example </A>
+ 
+</PRE>
+
+<P>
+<STRONG>NOTE:</STRONG>
+
+<UL>
+<LI>You are free to use single (')
+
+or double (") inverted commas. The    only recommendation I would like
+  to give is: Be consistent. Once you have adopted one or the
+other form, always use the same form Ñ
+at least on the same program Ñ as
+this is more agreeable for those reading it.
+<LI>As you have probably noticed, a double
+
+<STRONG>""</STRONG> or <STRONG>"</STRONG> allows you to put a
+SINGLE <STRONG>"</STRONG> or <STRONG>'</STRONG> in a string
+  delimited by the given quote character.
+</UL>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Hexadecimal Strings </H2>
+<P>
+<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
+<A NAME="IDX55"></A>
+A hexadecimal string is a sequence of valid HEX characters
+(0-9, a-f, A-F), with a '\x' (or '\X' if you prefer).
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| num1 = '\x00\x01'                                                |01
+| crlf = '\x0D\x0A'  -- Carriage Return &#38; Line Feed                |02
++------------------------------------------------------------------+
+                                                               prog6
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Special Characters </H2>
+<P>
+<A NAME="IDX56"></A>
+There are few of them in NetRexx, and
+certain of them have a special meaning when outside a literal string.
+These are:
+
+<PRE>
+ 
+  <STRONG> ; </STRONG> <EM>- the delimiter</EM>
+  <STRONG> - </STRONG> <EM>- the continuation character</EM>
+  <STRONG> : </STRONG> <EM>- the label identifier</EM>
+  <STRONG> ( </STRONG> <EM>- the start expression</EM>
+  <STRONG> ) </STRONG> <EM>- the end expression</EM>.
+  <STRONG> [ </STRONG> <EM>- array element (start)</EM>.
+  <STRONG> ] </STRONG> <EM>- array element (end)</EM>.
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Delimiter Character </H3>
+<P>
+<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
+NetRexx does not need to be told that a statement is ended, as
+the End-of-Line character automatically implies this, and there
+is no need to type a <STRONG>";"</STRONG> at the
+end of a line.
+ 
+But if you need to put more than one
+clause on a line, then you MUST use the  <STRONG>";"</STRONG> sign.
+
+<PRE>
+ 
+ <STRONG>statement_1 ; statement_2 ; statement_3</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+In the following example, note that the three <STRONG>loop</STRONG> loops
+are equivalent:
+
+</P>
+<P>
+<A NAME="IDX59"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* delim_exa.nrx                                                     |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| loop i = 1 to 10                     -- no delimiter                 |<STRONG>03</STRONG>
+|   say i                              --                              |<STRONG>04</STRONG>
+| end                                  --                              |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+| loop i = 1 to 10;                    -- delimiter                    |<STRONG>07</STRONG>
+|   say i;                             --                              |<STRONG>08</STRONG>
+| end;                                 --                              |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+| loop i = 1 to 10; say i; end;        -- on only one line             |<STRONG>11</STRONG>
+| exit 0                                                               |<STRONG>12</STRONG>
++----------------------------------------------------------------------+
+                                                           delim_exa.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/delim_exa.nrx">Download the  source for the delim_exa.nrx example </A>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Continuation Character </H3>
+<P>
+<A NAME="IDX60"></A>
+<A NAME="IDX61"></A>
+If your NetRexx statement is too long for one line, use the
+<STRONG>-</STRONG> character to signal to the interpreter that you wish to
+continue with the next line.
+ 
+
+<PRE>
+ 
+    statement                         -
+     continuation_of_statement        -
+     again_continuation_of_statement  -
+     termination_of_statement
+ 
+</PRE>
+
+<P>
+Here is the usual example:
+
+</P>
+<P>
+<A NAME="IDX62"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* cont_exa.nrx                                                      |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| say 'Very long line'                                                 |<STRONG>03</STRONG>
+| say 'Very'  -                                                        |<STRONG>04</STRONG>
+|     'long'  -                                                        |<STRONG>05</STRONG>
+|     'line.'                                                          |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                            cont_exa.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/cont_exa.nrx">Download the  source for the cont_exa.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Variables and Constants </H2>
+<P>
+A <STRONG>variable</STRONG> is an object whose value may be changed during
+the execution of a NetRexx program. The <STRONG>value</STRONG> of a variable
+is a single character string that can contain <STRONG>any</STRONG> character.
+ 
+There are four groups of symbols:
+
+<UL>
+<LI><STRONG>constant</STRONG>
+
+<LI><STRONG>simple</STRONG>
+
+<LI><STRONG>arrays</STRONG>
+
+</UL>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Constant symbols. </H3>
+<P>
+The symbol starts with a digit (0...9) or a period (.).
+Here are some valid <STRONG>constant symbols</STRONG>:
+
+<PRE>
+ 
+ 
+   82
+   .92815
+   3.1415
+ 
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Simple symbols. </H3>
+<P>
+The simple symbol does NOT start with a digit (0...9) or a period (.),
+and does NOT contain a period (.).
+ 
+Here are some valid <STRONG>simple symbols</STRONG>:
+
+<PRE>
+ 
+ 
+   test
+   pi_Greek
+   is_it_ok?
+ 
+ 
+</PRE>
+
+<P>
+ 
+
+<UL>
+<LI><STRONG>NOTE1:</STRONG> NetRexx is case insensitive: i.e. the
+
+symbols, such as <STRONG>TEST</STRONG>, <STRONG>test</STRONG>, and <STRONG>Test</STRONG> (I could go on,
+but I'm sure you understood what I mean), all refer to the SAME
+variable.
+<LI><STRONG>NOTE2:</STRONG> An uninitialised variable is automatically trapped
+
+by NetRexx at compilation time.
+</UL>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Arrays. </H3>
+<P>
+The array is a simple symbol whose last character is a <STRONG>[</STRONG>.
+Here are some valid <STRONG>arrays</STRONG>:
+
+<PRE>
+ 
+ 
+  list[]
+  a[]
+  info_test[]
+ 
+ 
+</PRE>
+
+<P>
+As a convention, if indexed by a number
+the stem contains the same number of items as in its
+<STRONG>stem.0</STRONG> value.  This is NOT done by the language itself, but
+as you will later see, it is useful to use this
+convention for arrays indexed by integers.
+
+<PRE>
+ 
+ 
+variable         value
+--------         ----------------
+list[0]          N                        ---+
+list[1]          line 1 of list              |
+list[2]          second line of list         |
+(...)                                        |
+list[N]          last line of stem list.   &#60;-+
+ 
+ 
+</PRE>
+
+<P>
+ 
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Resume'. </H3>
+<P>
+This table is a resume' of what we've seen so far concerning
+constants and variables.  In the first column we see the
+definition, and in the others what it does and does not have.
+ 
+
+<PRE>
+ 
+ 
+             DOES                     DOES NOT                EXAMPLE
+             ------------------------ ----------------------- ----------
+constant     start with '.' , 0-9     -                       2 , 3.9
+simple       -                        start with '.' , 0-9    pippo
+array        contain [ ]              -                       list[4]
+                                                              list[1,j]
+ 
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Operations on Arrays. </H2>
+<P>
+As we have seen, <STRONG>arrays</STRONG> are a special category of variables.
+Consider the following small program:
+
+</P>
+<P>
+<A NAME="IDX63"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- arrayexa.nrx                                                      |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| newlist = int[100]                                                   |<STRONG>03</STRONG>
+| newlist[1] = 1                                                       |<STRONG>04</STRONG>
+| say newlist[1]        -- will print 1                                |<STRONG>05</STRONG>
+| say newlist[2]        -- will print 0                                |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+| list    = 'NULL'                                                     |<STRONG>08</STRONG>
+| list[2] = 'test'                                                     |<STRONG>09</STRONG>
+| say list[1]           -- will print EMPTY                            |<STRONG>10</STRONG>
+| say list[2]           -- will print test                             |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+| exit 0                                                               |<STRONG>13</STRONG>
++----------------------------------------------------------------------+
+                                                           array_exa.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/array_exa.nrx">Download the  source for the array_exa.nrx example </A>
+ 
+</PRE>
+
+<P>
+ 
+<STRONG>NOTEs:</STRONG>
+
+<UL>
+<LI><STRONG>line 2:</STRONG>
+
+</UL>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Special Variables </H2>
+<P>
+<A NAME="IDX64"></A>
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Outputting something with say </H2>
+<P>
+<A NAME="IDX65"></A>
+Use the instruction <STRONG>say</STRONG> to output something on your
+default output character stream (i.e. your screen).
+ 
+The format of the instruction is:
+
+<PRE>
+ 
+<STRONG>say expression</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Unlike C language, in REXX you do NOT need the newline character
+('\n') at the end of your expression; NetRexx automatically
+does it for you.
+ 
+Examples:
+
+<PRE>
+ 
+  list = 'you and me';
+  total = 200
+  say 'The list is' list'.'  -&#62;   <STRONG>The list is you and me.</STRONG>
+  say 'Total is:' total/2    -&#62;   <STRONG>Total is: 100</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Exiting a program. </H2>
+<P>
+<A NAME="IDX66"></A>
+Use the instruction <STRONG>exit</STRONG> to unconditionally leave
+a program, and (optionally) return a character string to the
+caller.
+ 
+The format is:
+
+<PRE>
+ 
+<STRONG>exit expression</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Example(s):
+
+<PRE>
+ 
+  exit 34
+ 
+  if rc &#60;&#62; 0 then
+    do
+      say 'Unrecoverable error.'
+      exit 23
+    end
+ 
+ 
+</PRE>
+
+<P>
+As a convention, a program that ends correctly ( i.e. with no
+error ) should exit with 0; a non-zero exit code means there
+has been a problem.
+
+<PRE>
+ 
+exit 0     -&#62; <STRONG>program ended OK</STRONG>
+exit &#60;&#62; 0  -&#62; <STRONG>problems</STRONG>
+ 
+</PRE>
+
+<P>
+different error codes (or messages) might be helpful in understanding
+what has happened and why the program did not complete correctly.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Warning about Exit Status of UNIX Processes. </H3>
+<P>
+<A NAME="IDX67"></A>
+<A NAME="IDX68"></A>
+<A NAME="IDX69"></A>
+The Bourne shell puts the exit status of the previous command
+in the question mark (?) variable (the C shell uses the
+<STRONG>status</STRONG> variable instead).
+ 
+There is indeed a warning:
+this variable (<STRONG>status</STRONG> or <STRONG>?</STRONG>)
+is a 255 bit (1 byte) value. So if your
+NetRexx program exits with  (for example)
+
+<PRE>
+ 
+<STRONG>exit 300</STRONG>
+or:
+<STRONG>exit(300)</STRONG>
+ 
+</PRE>
+
+<P>
+you will get:
+
+<PRE>
+ 
+ 
+echo $?      -&#62; 44         (BOURNE shell)
+echo $status -&#62; 44         (C shell)
+ 
+ 
+</PRE>
+
+<P>
+This 'feature' should not be underestimated. A user
+once contacted me to say that his program was aborting in an 'undocumented way',
+as the $status code he was getting was not in the
+man page for the program.
+ 
+It took me some time to realize
+that the return code he was getting (253) was coming from an
+'exit -3' instruction.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Getting the arguments from the shell (or input line). </H2>
+<P>
+<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
+ 
+Another important thing you will want to do is to get the
+arguments from the shell whenever your program is called.
+ 
+In fact, what you will need to do is call a program with 'something'
+entered on the same line on which you typed the command,
+and to use this 'something' inside the program.
+ 
+There are several ways with NetRexx to get the arguments
+used to call that particular program.
+The simplest is to use a <STRONG>parse arg</STRONG> instruction,
+as in:
+
+<PRE>
+ 
+<STRONG>parse arg</STRONG> <EM>variable_name</EM>
+ 
+</PRE>
+
+<P>
+What <STRONG>parse arg</STRONG> <EM>variable_name</EM> tells NetRexx is the
+following:
+"get the parameters the program was called with, and put them in the
+variable (a string) called <EM>variable_name</EM>".
+ 
+Consider this simple example:
+ 
+<A NAME="IDX73"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* parrot.nrx                                                        |<STRONG>01</STRONG>
+|  * echoes back what you type on command line                         |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| parse arg s1                                                         |<STRONG>04</STRONG>
+| say 'you said "'s1'".'                                               |<STRONG>05</STRONG>
+| exit 0                                                               |<STRONG>06</STRONG>
++----------------------------------------------------------------------+
+                                                              parrot.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/parrot.nrx">Download the  source for the parrot.nrx example </A>
+ 
+</PRE>
+
+<P>
+This program was called <STRONG>parrot</STRONG> for the very simple reason that
+it 'parrots' back to you whatever you type in in the command line.
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (401) <STRONG>java parrot toto bello</STRONG>
+you said "toto bello".
+rsl3pm1 (402) <STRONG>java parrot this is a long line</STRONG>
+you said "this is a long line".
+rsl3pm1 (404) <STRONG>java parrot `ls tu*`</STRONG>
+you said "tu.tu".
+rsl3pm1 (405) <STRONG></STRONG>
+....................................................................
+                                                         arg.example
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+Note that what follows the <STRONG>parse arg</STRONG>, is not necessarily
+a variable name: it can be any <STRONG>parsing template</STRONG>, as we will see
+in the chapter concerning string handling. This allows a great flexibility
+in parameter entering, such as in the following example:
+
+</P>
+<P>
+<A NAME="IDX74"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* parsearg.nrx                                                      |<STRONG>01</STRONG>
+|  * parses command line input with ONLY 2 fields                      |<STRONG>02</STRONG>
+|  */                                                                  |<STRONG>03</STRONG>
+| parse arg infile outfile .                                           |<STRONG>04</STRONG>
+| say 'infile  = "'infile'".'                                          |<STRONG>05</STRONG>
+| say 'outfile = "'outfile'".'                                         |<STRONG>06</STRONG>
+| exit 0                                                               |<STRONG>07</STRONG>
++----------------------------------------------------------------------+
+                                                            parsearg.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/parsearg.nrx">Download the  source for the parsearg.nrx example </A>
+ 
+</PRE>
+
+<P>
+ 
+What we have told NetRexx is the following: get the input
+argument <STRONG>arg</STRONG>; put the first word in the variable 'infile'
+<STRONG>infile</STRONG>; put the second word in the variable 'outfile'
+<STRONG>outfile</STRONG>; forget about all the rest <STRONG>"."</STRONG>.
+ 
+To give you the feel of it, we try it out here:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (412) <STRONG>java parsearg test out.TEST</STRONG>
+infile  = "test".
+outfile = "out.TEST".
+rsl3pm1 (413) <STRONG>java parsearg test </STRONG>
+infile  = "test".
+outfile = "".
+rsl3pm1 (414) <STRONG>java parsearg test output.test some other args</STRONG>
+infile  = "test".
+outfile = "output.test".
+rsl3pm1 (415) <STRONG></STRONG>
+....................................................................
+                                                        arg1.example
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+We will get back to parsing in a later chapter (when we'll deal with
+string operations).
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Real Examples </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Adding an item to an array (updating array[0]) </H3>
+<P>
+If you use the convention of having <STRONG>stem[0]</STRONG> as the item count
+for your stem, you need to have a pointer that contains the number
+of items you have. Suppose that your array is called <STRONG>list[ ]</STRONG>.
+To save the various items in such an array, you will have to build
+a construct as in the following example:
+ 
+
+<PRE>
+ 
+<STRONG>i = 0</STRONG>
+do loop
+  (...)
+  i = i+1
+  <STRONG>list[i] = whatever_you_want</STRONG>
+end
+<STRONG>list[0] = i</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Here is a better way of doing the same thing:
+ 
+
+<PRE>
+ 
+<STRONG>list = xarray()</STRONG>
+do loop
+  (...)
+  <STRONG>list.ad_list whatever_you_want</STRONG>
+end
+ 
+</PRE>
+
+<P>
+We eliminate the need for the index variable <STRONG>i</STRONG>,
+which makes the program: a) easier to read, and b) less error prone 
+since we 'might' for some reason overwrite the pointer variable.
+ 
+This approach is particularly useful for an output file: you build
+the various lines out output, and then, when you've finished the
+processing, you can write all the output (contained in the
+array <STRONG>list[ ]</STRONG>) in one go.
+ 
+The following program illustrates this approach. To repeat:
+in these examples are some new concepts you
+will find explained later on. You should not
+spend too much time right now on their
+details. What I want is to give you
+are real 'program-atoms' that you can put in
+your programs even when you have completely mastered the language.
+ 
+<STRONG>NOTEs:</STRONG>
+
+<UL>
+<LI><STRONG>line 1:</STRONG> we define an object of the class xarray;
+
+<LI><STRONG>line 2:</STRONG> we add an item;
+
+<LI><STRONG>line 3:</STRONG> we add another one;
+
+<LI><STRONG>line 7:</STRONG> we display the items we collected;
+
+</UL>
+
+<P>
+ 
+And this is what you will get running the above program:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (239) <STRONG>java xarray</STRONG>
+Line 1
+Line 2
+Line 3
+Line 4 (last)
+rsl3pm1 (240) <STRONG></STRONG>
+....................................................................
+                                            Output of program xarray
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> This chapter's tricks. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Avoid the NEWLINE character. </H3>
+<P>
+<A NAME="IDX75"></A>
+ 
+At this point you might ask yourself:
+"But what if I do not want to have a NEWLINE?"
+In that case you cannot use <STRONG>say</STRONG>, but rather a small
+workaround.
+ 
+This is how to do it:
+
+<PRE>
+ 
+
+str = <STRONG>'My test'</STRONG>
+<STRONG>System.out.print(<EM>str'\x0D'</EM>)</STRONG>
+
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter FAQ </H2>
+<P>
+<STRONG>QUESTION:</STRONG> <EM>Can comments be nested?</EM>
+ 
+Yes, comments can be nested, so you can happily write something like
+
+</P>
+
+<PRE>
+ 
+/*
+  (...)
+  /* step 1.00
+   * start procedure
+   */
+  (...)
+  -- comment
+  (...)
+ */
+ 
+</PRE>
+
+<P>
+This feature is useful if you want to comment out a whole piece of
+code (comments included) to easy you compilation tests.
+
+</P>
+<P>
+<STRONG>NOTE:</STRONG> In JAVA comments can NOT be nested.
+
+</P>
+<P>
+<STRONG>QUESTION:</STRONG> <EM>How do I do Charin/Charout screen I/O?</EM>
+
+</P>
+<P>
+You use the "\-" at the end of string, like in this code atom:
+
+<PRE>
+ 
+say 'This will appear \-'
+say 'as one line.'
+ 
+</PRE>
+
+<P>
+which will print:
+
+<PRE>
+ 
+This will appear as one line.
+ 
+</PRE>
+
+<P>
+on your terminal.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+<EM>Here is a resume' of what we have seen in this chapter.</EM>
+
+<PRE>
+ 
+_ comments                        | <EM>/*   */</EM>
+                                  | <EM>--</EM>
+                                  | - ex.: <STRONG>/* this is a comment */</STRONG>
+                                  |        <STRONG>-- and this another one</STRONG>
+                                  |
+_ delimiter character             | <EM>;</EM>
+                                  | - ex.: <STRONG>say '1' ; say '2'</STRONG>
+                                  |
+_ continuation character          | <EM>-</EM>
+                                  | - ex.: <STRONG>say 'this is a' -</STRONG>
+                                  |        <STRONG>    'long line'</STRONG>
+                                  |
+_ arrays                          | <EM>variable[ ]</EM>
+                                  | - ex.: <STRONG>list[ ]</STRONG>
+                                  | - ex.: <STRONG>out[ ]</STRONG>
+                                  |
+_ reserved variable names         | <EM></EM>
+                                  |
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_6.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:37(GMT +2).
+</FONT>
+

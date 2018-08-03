@@ -1,0 +1,419 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Threads</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Threads </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Threads</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Threads </H1>
+<P>
+<A NAME="IDX295"></A>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>All modern operating systems are <STRONG>multi-tasking</STRONG>. This means
+than more than one program can concurrently run on the system
+at the same time. At least, this is how the user(s) perceive it:
+the operating system is responsible to allocate CPU cycles to
+the various processes, giving the impression that every process
+has, by itself, an entire CPU available.</EM>
+
+</P>
+<P>
+<EM>In a <STRONG>multi-threaded</STRONG> system, you can divide each
+process into several components. These components are called
+<STRONG>threads</STRONG> or <STRONG>light weight processes</STRONG>.</EM>
+
+</P>
+<P>
+<EM>In this chapter we will analyse how we can have
+multiple threads running within our programs.</EM>
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Definition of a Thread. </H2>
+<P>
+<A NAME="IDX296"></A>
+A <STRONG>thread</STRONG> is a component of a process. A <STRONG>thread</STRONG>
+is synonim of <STRONG>light weight process</STRONG>. Each thread
+executes a sequential set of instructions. The result
+of several threads running in parallel is a <STRONG>concurrent</STRONG>
+process.
+
+</P>
+
+<PRE>
+ 
+| concurrent |  ---------+-------&#62;   thread 1
+| process    |           |             &#62;  Instruction 1.1
+                         |             &#62;  Instruction 1.2
+                         |                (...)
+                         |             &#62;  Instruction 1.n
+                         |
+                         +-------&#62;   thread 2
+                         |             &#62;  Instruction 2.1
+                         |             &#62;  Instruction 2.2
+                         |                (...)
+                         |             &#62;  Instruction 2.n
+                         (...)
+                         |
+                         +-------&#62;   thread N
+                                       &#62;  Instruction N.1
+                                       &#62;  Instruction N.2
+                                          (...)
+                                       &#62;  Instruction N.n
+
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> When you need to use Threads. </H2>
+<P>
+As we saw, <STRONG>threads</STRONG> allow to run multiple
+instances of the same process on your machine.
+But, you may ask, what's the real interest in doing this,
+if my machine has just one CPU? Aren't those processes
+going to compete for this unique resource?
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> I/O limited processes. </H3>
+<P>
+While it is true that CPU tied processes will benefit
+from a multiprocessor H/W environment, it is also true
+that, on many OS (notably UNIX and Windows/NT) the I/O
+subsystem is usually decoupled from the main CPU, so you
+can imagine to split your program in 2 parts:
+one which deals with the I/O, and one that deals with the
+CPU intensive work.
+A natural example is when you load a WEB containing pictures
+using Netscape. The text is immediately retrieved
+and the pictures are loaded while you can read, scroll,
+and do any other operation on the page itself (even if
+still incomplete).
+In principle, any picture retrieval can be a separate thread.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Daemons </H3>
+<P>
+<A NAME="IDX297"></A>
+A <STRONG>daemon</STRONG> is a process that runs on your system
+and acts as a <STRONG>server</STRONG>. As we will analyse in the
+next chapter, a <STRONG>daemon</STRONG> waits on a socket port
+for work to do. When it receives a request from a
+<STRONG>client</STRONG>, he dispatches the request. If the daemon
+is <STRONG>single-threaded</STRONG> he will not be capable to
+accept and serve other requests, till he has not finished
+the one is serving. Using threads, you'll be capable
+to concurrently serve many requests.
+
+</P>
+
+<PRE>
+ 
+  SERVER             SERVER THREAD
+  (...)
+  loop forever
+    wait request
+    dispatch request
+         +-------&#62;   start thread
+                     execute request
+                     answer client
+                     end thread
+    (...)
+  end
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> monitoring </H3>
+<P>
+Another application of <STRONG>threads</STRONG> is monitoring of
+certain process. Some applications might hung
+(for a network problem, for example). You might want to
+put an external timeout to such occurrences.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Threads for UNIX users. </H2>
+<P>
+<A NAME="IDX298"></A>
+<A NAME="IDX299"></A>
+If you are a C (or C++) programmer working on UNIX
+platforms, and you want to create a process running
+in parallel with your main process, you would
+write something like:
+<A NAME="IDX300"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* example in Regina UNIX REXX                                       |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| (...)                                                                |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| /* issue the fork                                                    |<STRONG>05</STRONG>
+|  */                                                                  |<STRONG>06</STRONG>
+| i = fork()                                                           |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+| if i &#62; 0 then                                                        |<STRONG>09</STRONG>
+|   do                                                                 |<STRONG>10</STRONG>
+|     /* This is the parent process                                    |<STRONG>11</STRONG>
+|      */                                                              |<STRONG>12</STRONG>
+|     say '(parent) Waiting.'                                          |<STRONG>13</STRONG>
+|     rc = waitpid(i)                                                  |<STRONG>14</STRONG>
+|     say '(parent) Wait rc:' rc'.'                                    |<STRONG>15</STRONG>
+|   end                                                                |<STRONG>16</STRONG>
+| else                                                                 |<STRONG>17</STRONG>
+|   do                                                                 |<STRONG>18</STRONG>
+|     /* This is the children                                          |<STRONG>19</STRONG>
+|      */                                                              |<STRONG>20</STRONG>
+|     'sleep 1'                                                        |<STRONG>21</STRONG>
+|     say '(child) Starting. Going to sleep.'                          |<STRONG>22</STRONG>
+|     'sleep 2'                                                        |<STRONG>23</STRONG>
+|     say '(child) Ending now.'                                        |<STRONG>24</STRONG>
+|   end                                                                |<STRONG>25</STRONG>
+| exit 0                                                               |<STRONG>26</STRONG>
++----------------------------------------------------------------------+
+                                                             forkex1.rex
+</td><td><img src="rexx.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+In NetRexx, like in Java, the approach is totally
+different.
+The above example will be written like:
+<A NAME="IDX301"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| --       package:  thrt1                                             |<STRONG>01</STRONG>
+| --       version:  1.000 beta                                        |<STRONG>02</STRONG>
+| --          date:  02 APR 1998                                       |<STRONG>03</STRONG>
+| --        author:  P.A.Marchesini                                    |<STRONG>04</STRONG>
+| --     copyright:  (c) P.A.MArchesini, 1998                          |<STRONG>05</STRONG>
+| --  latest vers.:  <A href="http://wwwcn.cern.ch/news/netrexx">http://wwwcn.cern.ch/news/netrexx</A>                |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+| --                                                                   |<STRONG>08</STRONG>
+| class thrt0                                                          |<STRONG>09</STRONG>
+|   properties public                                                  |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| -- method......: main                                                |<STRONG>12</STRONG>
+| -- purpose.....: timeout test                                        |<STRONG>13</STRONG>
+| --                                                                   |<STRONG>14</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>15</STRONG>
+|     arg = rexx(args)                                                 |<STRONG>16</STRONG>
+|     arg = arg                                                        |<STRONG>17</STRONG>
+|                                                                      |<STRONG>18</STRONG>
+|     say 'MAIN starts now.'                                           |<STRONG>19</STRONG>
+|     child = thrt0handler()                                           |<STRONG>20</STRONG>
+|     child.start()                                                    |<STRONG>21</STRONG>
+|     child.join()                                                     |<STRONG>22</STRONG>
+|     say 'MAIN ends'                                                  |<STRONG>23</STRONG>
+|     exit 0                                                           |<STRONG>24</STRONG>
+|                                                                      |<STRONG>25</STRONG>
+| -- method......: thrt0handler                                        |<STRONG>26</STRONG>
+| -- purpose.....:                                                     |<STRONG>27</STRONG>
+| --                                                                   |<STRONG>28</STRONG>
+| class thrt0handler extends Thread                                    |<STRONG>29</STRONG>
+|   properties private                                                 |<STRONG>30</STRONG>
+|                                                                      |<STRONG>31</STRONG>
+|   method thrt0handler()                                              |<STRONG>32</STRONG>
+|                                                                      |<STRONG>33</STRONG>
+|   method run() public                                                |<STRONG>34</STRONG>
+|     say 'CHILD starts.'                                              |<STRONG>35</STRONG>
+|     do                                                               |<STRONG>36</STRONG>
+|       sleep(2000)                                                    |<STRONG>37</STRONG>
+|     catch e = interruptedException                                   |<STRONG>38</STRONG>
+|       say 'Got: "'e'".'                                              |<STRONG>39</STRONG>
+|     end                                                              |<STRONG>40</STRONG>
+|     say 'CHILD ends.'                                                |<STRONG>41</STRONG>
++----------------------------------------------------------------------+
+                                                               thrt0.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/thrt0.nrx">Download the  source for the thrt0.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Thread API </H2>
+<P>
+<A NAME="IDX302"></A>
+<A NAME="IDX303"></A>
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> A first practical example. </H2>
+<P>
+<A NAME="IDX304"></A>
+<A NAME="IDX305"></A>
+
+</P>
+<P>
+It is always a good practice to put a timeout on certain
+commands that you might issue inside your program.
+Infact, especially in a networked environment, a lot of things
+might "go wrong", and the program itself might hung forever.
+
+</P>
+<P>
+The following example will show how to implement a timeout
+on a command that you issue from the command line.
+
+</P>
+<P>
+<A NAME="IDX306"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| --       package:  thrt1                                             |<STRONG>01</STRONG>
+| --       version:  1.000 beta                                        |<STRONG>02</STRONG>
+| --          date:  02 APR 1998                                       |<STRONG>03</STRONG>
+| --        author:  P.A.Marchesini                                    |<STRONG>04</STRONG>
+| --     copyright:  (c) P.A.MArchesini, 1998                          |<STRONG>05</STRONG>
+| --  latest vers.:  <A href="http://wwwcn.cern.ch/news/netrexx">http://wwwcn.cern.ch/news/netrexx</A>                |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+| --                                                                   |<STRONG>08</STRONG>
+| class thrt1                                                          |<STRONG>09</STRONG>
+|   properties public                                                  |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| -- method......: main                                                |<STRONG>12</STRONG>
+| -- purpose.....: timeout test                                        |<STRONG>13</STRONG>
+| --                                                                   |<STRONG>14</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>15</STRONG>
+|     arg = rexx(args)                                                 |<STRONG>16</STRONG>
+|     parse arg timeout command                                        |<STRONG>17</STRONG>
+|     if timeout = " | command = " then                              |<STRONG>18</STRONG>
+|       do                                                             |<STRONG>19</STRONG>
+|         say 'Missing arguments.'                                     |<STRONG>20</STRONG>
+|         say 'usage  : java thrt1 TIMEOUT_IN_SEC COMMAND'             |<STRONG>21</STRONG>
+|         say 'example: java thrt1 5 sleep 6'                          |<STRONG>22</STRONG>
+|         exit 1                                                       |<STRONG>23</STRONG>
+|       end                                                            |<STRONG>24</STRONG>
+|     timeout = timeout*1000                                           |<STRONG>25</STRONG>
+|                                                                      |<STRONG>26</STRONG>
+|     say 'MAIN starts now.'                                           |<STRONG>27</STRONG>
+|     child = thrt1handler(command)                                    |<STRONG>28</STRONG>
+|     child.start()                                                    |<STRONG>29</STRONG>
+|     child.join(timeout)                                              |<STRONG>30</STRONG>
+|     if child.isAlive()                                               |<STRONG>31</STRONG>
+|       then                                                           |<STRONG>32</STRONG>
+|         do                                                           |<STRONG>33</STRONG>
+|           say 'Children still alive. Killing it now.'                |<STRONG>34</STRONG>
+|           child.stop()                                               |<STRONG>35</STRONG>
+|           if child.isAlive()                                         |<STRONG>36</STRONG>
+|             then say 'ERROR: stop() did not work.'                   |<STRONG>37</STRONG>
+|             else say 'OK: child killed.'                             |<STRONG>38</STRONG>
+|         end                                                          |<STRONG>39</STRONG>
+|       else say 'Children finished before timeout.'                   |<STRONG>40</STRONG>
+|                                                                      |<STRONG>41</STRONG>
+|     say 'MAIN ends'                                                  |<STRONG>42</STRONG>
+|     exit 0                                                           |<STRONG>43</STRONG>
+|                                                                      |<STRONG>44</STRONG>
+| -- method......: thrt1handler                                        |<STRONG>45</STRONG>
+| -- purpose.....:                                                     |<STRONG>46</STRONG>
+| --                                                                   |<STRONG>47</STRONG>
+| class thrt1handler extends Thread                                    |<STRONG>48</STRONG>
+|   properties private                                                 |<STRONG>49</STRONG>
+|     command                                                          |<STRONG>50</STRONG>
+|                                                                      |<STRONG>51</STRONG>
+|   method thrt1handler(cmd=rexx)                                      |<STRONG>52</STRONG>
+|     command = cmd                                                    |<STRONG>53</STRONG>
+|                                                                      |<STRONG>54</STRONG>
+|   method run() public                                                |<STRONG>55</STRONG>
+|     say 'CHILD starts "'command'".'                                  |<STRONG>56</STRONG>
+|     out = xexec(command)                                             |<STRONG>57</STRONG>
+|     out = out                                                        |<STRONG>58</STRONG>
+|     say 'CHILD ends "'command'".'                                    |<STRONG>59</STRONG>
++----------------------------------------------------------------------+
+                                                               thrt1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/thrt1.nrx">Download the  source for the thrt1.nrx example </A>
+ 
+</PRE>
+
+<P>
+You can try out the code typing:
+
+<PRE>
+ 
+# no timeout shown here
+$ java thrt1 5 sleep 4
+# timeout shown here
+$ java thrt1 5 sleep 6
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_14.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:50(GMT +2).
+</FONT>
+

@@ -1,0 +1,11 @@
+--- Variables for class qtime ---
+args    String[] a 76
+hour    Rexx     v 26= 28 28= 33 33= 38 39 45 46 46= 48 48= 69
+min     Rexx     v 26= 30 30= 31 33 34 34= 38 44 44 44= 52 53 53= 54 55 56 57 58 59 60 61 62 63 64 70
+mod     Rexx     v 31= 32
+near    Rexx     v 18= 19= 20= 20= 21= 21= 32
+now     Rexx     v 25= 26
+numbers Rexx     v 67= 69
+out     Rexx     p 13= 32= 39 40 54 54= 55 55= 56 56= 57 57= 58 58= 59 59= 60 60= 61 61= 62 62= 63 63= 64 64= 69 69= 70 70=
+q       qtime    v 77= 78
+sec     Rexx     v 26= 30

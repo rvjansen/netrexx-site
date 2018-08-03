@@ -1,0 +1,1567 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Socket and Networking</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Socket and Networking </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Socket and Networking</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Socket and Networking </H1>
+<P>
+<A NAME="IDX307"></A>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Basic Concepts </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> The socket </H3>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Common Operations </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Getting your HOST name. </H3>
+
+<P>
+One of the first things you will want to do, is to determine your
+machine name, i.e. doing in NetRexx what you normally get
+on your shell typing <STRONG>hostname</STRONG>.
+
+</P>
+<P>
+You need to use the class <STRONG>InetAddress</STRONG>, in order to gather
+your current HOST name, with a call like:
+
+</P>
+
+<PRE>
+ 
+host = <STRONG>InetAddress.getlocalHost()</STRONG>
+ 
+</PRE>
+
+<P>
+The following <STRONG>xsock</STRONG> function will accomplish the job,
+striping out the (probably) unwanted address in numeric
+format.
+
+</P>
+<P>
+<A NAME="IDX308"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: hostname                                            |<STRONG>86</STRONG>
+| -- purpose.....: get the hostname                                    |<STRONG>87</STRONG>
+| --                                                                   |<STRONG>88</STRONG>
+|   method hostname() public static                                    |<STRONG>89</STRONG>
+|     do                                                               |<STRONG>90</STRONG>
+|       host = InetAddress.getlocalHost()                              |<STRONG>91</STRONG>
+|     catch err = UnknownHostException                                 |<STRONG>92</STRONG>
+|       say err                                                        |<STRONG>93</STRONG>
+|     end                                                              |<STRONG>94</STRONG>
+|     parse host name'/'                                               |<STRONG>95</STRONG>
+|     return name                                                      |<STRONG>96</STRONG>
+|                                                                      |<STRONG>97</STRONG>
++----------------------------------------------------------------------+
+                                              xsock.nrx(Method:hostname)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xsock.nrx">Download the complete source for the xsock.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Client/Server applications </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> a small client-server application </H3>
+
+<P>
+A <STRONG>client</STRONG> is a process (or a program) that sends a message to a server
+process (or program); it requests the server to perform a task (also 
+called service).
+
+</P>
+<P>
+<STRONG>Client programs</STRONG> usually manage the user-interface portion of the
+application, validate data entered by the user, dispatch requests to
+server program, and sometimes execute some logic. The client-based
+process is the front-end of the application that the user sees and
+interacts with. The client process contains solution-specific logic and
+provides the interface between the user and the rest of the application
+system. 
+
+</P>
+<P>
+A <STRONG>server</STRONG> process executes the client request performing the
+task the client requested. Server programs generally: receive requests from client
+
+<UL>
+<LI>receive requests from client programs,
+
+<LI>execute database retrieval and updates,
+
+<LI>manage data integrity,
+
+<LI>dispatch responses to client requests
+
+</UL>
+
+<P>
+Sometimes server programs 
+execute common or complex business logic. The server-based process 
+"may" run on another machine on the network. This  server could be the 
+host operating system or network file server; the server is then provided 
+both file system services and application services. 
+Resuming, the server
+process acts as a software engine that manages shared resources such as 
+databases, printers, communication links, or high powered-processors. The 
+server process performs the back-end tasks that are common to similar 
+applications.  
+
+</P>
+<P>
+In this section we examine a very small client-server application.
+
+</P>
+<P>
+Our goal is to explain the basics of the client-server model,
+with the instructions that allows us to connect the client and the
+server. For this reason all the details about catching errors
+are ignored.
+
+</P>
+<P>
+Our <STRONG>server</STRONG> is a socket application waiting on a port
+(we randomly choose the number <STRONG>6001</STRONG>). The server  receives
+a line of information, constituted by 2 numbers (<STRONG>n1</STRONG> and
+<STRONG>n2</STRONG>). The server computes the sum (<STRONG>n3</STRONG>) and returns
+it to the client.
+
+</P>
+
+<PRE>
+ 
+client                        server
+side                          side
+---------                     ----------
+
+CLIENT    ---- n1 n2 -------&#62; SERVER
+                              (...)
+                              n3 = n1+n2
+                              (...)
+CLIENT    &#60;----- n3 --------- SERVER
+
+ 
+</PRE>
+
+<P>
+<A NAME="IDX309"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- sserv                                                             |<STRONG>01</STRONG>
+| -- a VERY primitive socket server                                    |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| port   = int 6001                                                    |<STRONG>04</STRONG>
+| listen = ServerSocket null                                           |<STRONG>05</STRONG>
+| client = Socket null                                                 |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+| do                                                                   |<STRONG>08</STRONG>
+|   say 'Listening on port "'port'".'                                  |<STRONG>09</STRONG>
+|   listen = ServerSocket(port)                                        |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+|   -- wait for a client                                               |<STRONG>12</STRONG>
+|   -- get the numbers, add them, return to him                        |<STRONG>13</STRONG>
+|   --                                                                 |<STRONG>14</STRONG>
+|   loop forever                                                       |<STRONG>15</STRONG>
+|     say 'Waiting connection'                                         |<STRONG>16</STRONG>
+|     client = listen.accept();                                        |<STRONG>17</STRONG>
+|                                                                      |<STRONG>18</STRONG>
+|     -- we got something                                              |<STRONG>19</STRONG>
+|     --                                                               |<STRONG>20</STRONG>
+|     say 'Got request from' client.getInetAddress().getHostName() -   |<STRONG>21</STRONG>
+|         ||':'client.getPort();                                       |<STRONG>22</STRONG>
+|     in = DataInputStream(client.getInputStream());                   |<STRONG>23</STRONG>
+|     out = PrintStream(client.getOutputStream());                     |<STRONG>24</STRONG>
+|     line = in.readLine();                                            |<STRONG>25</STRONG>
+|     if line = 'exit' then leave                                      |<STRONG>26</STRONG>
+|     parse line n1 n2                                                 |<STRONG>27</STRONG>
+|     say 'Got "'line'".'                                              |<STRONG>28</STRONG>
+|     sum = n1+n2                                                      |<STRONG>29</STRONG>
+|     out.println(sum);                                                |<STRONG>30</STRONG>
+|   end                                                                |<STRONG>31</STRONG>
+| catch e=IOException                                                  |<STRONG>32</STRONG>
+|   say 'Error:' e'.'                                                  |<STRONG>33</STRONG>
+| end                                                                  |<STRONG>34</STRONG>
+| exit 0                                                               |<STRONG>35</STRONG>
++----------------------------------------------------------------------+
+                                                               sserv.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/sserv.nrx">Download the  source for the sserv.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX310"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- the SIMPLE client                                                 |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg line                                                       |<STRONG>03</STRONG>
+| if line = '' then exit 1                                             |<STRONG>04</STRONG>
+| port = int 6001                                                      |<STRONG>05</STRONG>
+| host = 'pcl307'     -- should be your host name                      |<STRONG>06</STRONG>
+| s = Socket null;                                                     |<STRONG>07</STRONG>
+| do                                                                   |<STRONG>08</STRONG>
+|   s = Socket(host,port);       -- hard wire it                       |<STRONG>09</STRONG>
+|   sin = DataInputStream(s.getInputStream());                         |<STRONG>10</STRONG>
+|   sout = PrintStream(s.getOutputStream());                           |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|   sout.println(line)               -- send command                   |<STRONG>13</STRONG>
+|   line = sin.readLine();           -- get answer                     |<STRONG>14</STRONG>
+|   say line                                                           |<STRONG>15</STRONG>
+|   s.close()                                                          |<STRONG>16</STRONG>
+| catch e=IOException                                                  |<STRONG>17</STRONG>
+|   say 'Error:'e'.'                                                   |<STRONG>18</STRONG>
+| end                                                                  |<STRONG>19</STRONG>
+| exit 0                                                               |<STRONG>20</STRONG>
++----------------------------------------------------------------------+
+                                                               sclie.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/sclie.nrx">Download the  source for the sclie.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> A revised finger program </H2>
+<P>
+<A NAME="IDX311"></A>
+The following code is an implementation of the "classical" finger
+program as you find on UNIX boxes or on WIN/95 WIN/NT.
+
+</P>
+<P>
+<A NAME="IDX312"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- finger                                                            |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+|                                                                      |<STRONG>03</STRONG>
+| import java.net                                                      |<STRONG>04</STRONG>
+| import java.io                                                       |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+| VERSION         = 'v1r001'                                           |<STRONG>07</STRONG>
+| AUTHOR          = '(c) P.A.Marchesini, ETHZ'                         |<STRONG>08</STRONG>
+| DEFAULT_PORT    = int 79;                                            |<STRONG>09</STRONG>
+| CRLF = '\x0D\x0A'                                                    |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| parse arg uargs                                                      |<STRONG>12</STRONG>
+| if uargs = '-h' | uargs = '--help' | uargs = '' then                 |<STRONG>13</STRONG>
+|   do                                                                 |<STRONG>14</STRONG>
+|     parse source . . myname'.'                                       |<STRONG>15</STRONG>
+|     say myname 'version' VERSION AUTHOR                              |<STRONG>16</STRONG>
+|     say 'Purpose : sample implementation of a finger client.'        |<STRONG>17</STRONG>
+|     say                                                              |<STRONG>18</STRONG>
+|     say 'java finger user@system'                                   |<STRONG>19</STRONG>
+|     say                                                              |<STRONG>20</STRONG>
+|     exit 1;                                                          |<STRONG>21</STRONG>
+|   end                                                                |<STRONG>22</STRONG>
+|                                                                      |<STRONG>23</STRONG>
+| user = ''                                                            |<STRONG>24</STRONG>
+| if uargs.pos('@') &#60;&#62; 0                                              |<STRONG>25</STRONG>
+|   then parse uargs user'@'node                                      |<STRONG>26</STRONG>
+|   else node = uargs                                                  |<STRONG>27</STRONG>
+|                                                                      |<STRONG>28</STRONG>
+| -- issue the client socket command                                   |<STRONG>29</STRONG>
+| --                                                                   |<STRONG>30</STRONG>
+| s = Socket null;                                                     |<STRONG>31</STRONG>
+| do                                                                   |<STRONG>32</STRONG>
+|   s = Socket(node, DEFAULT_PORT);                                    |<STRONG>33</STRONG>
+|   sin   = BufferedReader(InputStreamReader(s.getInputStream()))      |<STRONG>34</STRONG>
+|   sout  = PrintWriter(s.getOutputStream(),1)                         |<STRONG>35</STRONG>
+|   line  = String                                                     |<STRONG>36</STRONG>
+|   line  = user||crlf                                                 |<STRONG>37</STRONG>
+|   sout.println(line)                                                 |<STRONG>38</STRONG>
+|   loop forever                                                       |<STRONG>39</STRONG>
+|     line = sin.readLine();                                           |<STRONG>40</STRONG>
+|     if (line = null) then do                                         |<STRONG>41</STRONG>
+|       leave                                                          |<STRONG>42</STRONG>
+|     end                                                              |<STRONG>43</STRONG>
+|       say line                                                       |<STRONG>44</STRONG>
+|     end                                                              |<STRONG>45</STRONG>
+| catch e1 = IOException                                               |<STRONG>46</STRONG>
+|   say '# Error from Socket function.'                                |<STRONG>47</STRONG>
+|   say '# Message is "'e1'".'                                         |<STRONG>48</STRONG>
+|   say '# Abending.'                                                  |<STRONG>49</STRONG>
+| finally                                                              |<STRONG>50</STRONG>
+|   do                                                                 |<STRONG>51</STRONG>
+|     if (s \= null) then s.close()                                    |<STRONG>52</STRONG>
+|   catch e1 = IOException                                             |<STRONG>53</STRONG>
+|     say '# Error from close.'                                        |<STRONG>54</STRONG>
+|     say '# Message is "'e1'".'                                       |<STRONG>55</STRONG>
+|     say '# Abending.'                                                |<STRONG>56</STRONG>
+|   end                                                                |<STRONG>57</STRONG>
+| end                                                                  |<STRONG>58</STRONG>
+| exit                                                                 |<STRONG>59</STRONG>
++----------------------------------------------------------------------+
+                                                             finger1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/finger1.nrx">Download the  source for the finger1.nrx example </A>
+ 
+</PRE>
+
+<P>
+In the following session we'll develop an even shorter version of
+finger, using the "xsock" libraries.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> The "xsock" library. </H2>
+<P>
+As I did in the previous (and following) chapters, instead of presenting
+"dumb" examples, I'll build a small library of socket methods. This library
+is called <STRONG>xsock.nrx</STRONG> and is available for download on the
+"usual" WEB directory for libraries.
+
+</P>
+<P>
+It should give you enough programming examples to build (eventually) your
+own socket application. You can of course immediately use it, as shown in the
+<STRONG>Using the xsock library</STRONG> section.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The "open" method </H3>
+<P>
+<A NAME="IDX313"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: open                                                |<STRONG>57</STRONG>
+| -- purpose.....: open a socket                                       |<STRONG>58</STRONG>
+| --                                                                   |<STRONG>59</STRONG>
+|   method open(host=Rexx,prot=Rexx) public                            |<STRONG>60</STRONG>
+|                                                                      |<STRONG>61</STRONG>
+|     -- check if the user entered a protocol or a simple              |<STRONG>62</STRONG>
+|     -- port number                                                   |<STRONG>63</STRONG>
+|     --                                                               |<STRONG>64</STRONG>
+|     rc = 0                                                           |<STRONG>65</STRONG>
+|     if prot.datatype('D') = 0 then                                   |<STRONG>66</STRONG>
+|       do                                                             |<STRONG>67</STRONG>
+|         -- he just entered a port with a name,                       |<STRONG>68</STRONG>
+|         -- try to find the port, unless abort                        |<STRONG>69</STRONG>
+|         dport = getservbyname(prot)                                  |<STRONG>70</STRONG>
+|         if dport = -1 then                                           |<STRONG>71</STRONG>
+|           do                                                         |<STRONG>72</STRONG>
+|             say 'Invalid protocol "'prot'".'                         |<STRONG>73</STRONG>
+|             exit 990                                                 |<STRONG>74</STRONG>
+|           end                                                        |<STRONG>75</STRONG>
+|         port = dport                                                 |<STRONG>76</STRONG>
+|         setprotdef(prot)                                             |<STRONG>77</STRONG>
+|       end                                                            |<STRONG>78</STRONG>
+|     else                                                             |<STRONG>79</STRONG>
+|       do                                                             |<STRONG>80</STRONG>
+|         -- he just entered a numeric port                            |<STRONG>81</STRONG>
+|         -- we need to do nothing                                     |<STRONG>82</STRONG>
+|         port = prot                                                  |<STRONG>83</STRONG>
+|       end                                                            |<STRONG>84</STRONG>
+|                                                                      |<STRONG>85</STRONG>
+|     -- do the REAL job                                               |<STRONG>86</STRONG>
+|     --                                                               |<STRONG>87</STRONG>
+|     do                                                               |<STRONG>88</STRONG>
+|       s    = Socket(host, port);                                     |<STRONG>89</STRONG>
+|       sin  = BufferedReader(InputStreamReader(s.getInputStream()));  |<STRONG>90</STRONG>
+|       sout = PrintWriter(s.getOutputStream(),1);                     |<STRONG>91</STRONG>
+|     catch err = IOException                                          |<STRONG>92</STRONG>
+|       say err                                                        |<STRONG>93</STRONG>
+|     end                                                              |<STRONG>94</STRONG>
+|                                                                      |<STRONG>95</STRONG>
++----------------------------------------------------------------------+
+                                                  xsock.nrx(Method:open)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xsock.nrx">Download the complete source for the xsock.nrx library </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The "getservbyname" method </H3>
+<P>
+<A NAME="IDX314"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: getservbyname                                       |<STRONG>96</STRONG>
+| -- purpose.....:                                                     |<STRONG>97</STRONG>
+| --                                                                   |<STRONG>98</STRONG>
+|   method getservbyname(serv=Rexx) public static                      |<STRONG>99</STRONG>
+|     table = 'DAYTIME 13 FTP  21   TELNET 23'  -                      |<STRONG>00</STRONG>
+|             'FINGER  79 NNTP 119  IMAP   143' -                      |<STRONG>01</STRONG>
+|             'HTTP    80'                                             |<STRONG>02</STRONG>
+|     serv = serv.upper()                                              |<STRONG>03</STRONG>
+|     res = -1                                                         |<STRONG>04</STRONG>
+|     loop while table &#60;&#62; ''                                           |<STRONG>05</STRONG>
+|       parse table sn sp table                                        |<STRONG>06</STRONG>
+|       if sn = serv then return sp                                    |<STRONG>07</STRONG>
+|     end                                                              |<STRONG>08</STRONG>
+|     return res                                                       |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                         xsock.nrx(Method:getservbyname)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xsock.nrx">Download the complete source for the xsock.nrx library </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Using the xsock library </H2>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Finding info about a protocol </H3>
+<P>
+One of the best places to start is:
+
+</P>
+
+<PRE>
+ 
+<A href="http://www.freesoft.org/Connected/RFC/index.html">http://www.freesoft.org/Connected/RFC/index.html</A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Writing a daytime client. </H3>
+<P>
+<A NAME="IDX315"></A>
+<A NAME="IDX316"></A>
+
+</P>
+<P>
+<A NAME="IDX317"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple daytime                                                    |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| parse arg node .                                                     |<STRONG>03</STRONG>
+| if node = '' then node = 'shift1.cern.ch'                            |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| so = xsock(node,'DAYTIME')                                           |<STRONG>06</STRONG>
+| so.receive()                                                         |<STRONG>07</STRONG>
+| so.close()                                                           |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
+| exit                                                                 |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                                             daytime.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/daytime.nrx">Download the  source for the daytime.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Writing a finger client. </H3>
+<P>
+<A NAME="IDX318"></A>
+
+</P>
+<P>
+<A NAME="IDX319"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* simple finger client                                              |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| parse arg what .                                                     |<STRONG>03</STRONG>
+| parse what user'@'node                                              |<STRONG>04</STRONG>
+| if node = '' then                                                    |<STRONG>05</STRONG>
+|   do                                                                 |<STRONG>06</STRONG>
+|     say 'finger user@node'                                          |<STRONG>07</STRONG>
+|     exit 1                                                           |<STRONG>08</STRONG>
+|   end                                                                |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+| so = xsock(node,'FINGER')                                            |<STRONG>11</STRONG>
+| so.send(user)                                                        |<STRONG>12</STRONG>
+| so.receive()                                                         |<STRONG>13</STRONG>
+| so.close()                                                           |<STRONG>14</STRONG>
+|                                                                      |<STRONG>15</STRONG>
+| exit                                                                 |<STRONG>16</STRONG>
++----------------------------------------------------------------------+
+                                                              finger.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/finger.nrx">Download the  source for the finger.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Writing an FTP client using "sun.net.ftp". </H3>
+<P>
+<A NAME="IDX320"></A>
+<A NAME="IDX321"></A>
+<A NAME="IDX322"></A>
+<A NAME="IDX323"></A>
+The FTP support is contained in the package <STRONG>sun.net.ftp</STRONG>. The package
+allows easily to implement an FTP client (to GET and PUT files).
+
+</P>
+<P>
+<A NAME="IDX324"></A>
+The API documentation can be found at:
+
+<PRE>
+ 
+<A href="http://www.java.no/javaBIN/docs/api/sun.net.ftp.FtpClient.html">http://www.java.no/javaBIN/docs/api/sun.net.ftp.FtpClient.html</A>
+ 
+</PRE>
+
+<P>
+The actual implementation of the FTP client wants to mimic the
+"standard" UNIX ftp command (which you can find also on Windows/NT).
+We will call our class <STRONG>xftp</STRONG> and it will be an extention
+of FtpClient (or sun.net.ftp.FtpClient if you prefer)
+<A NAME="IDX325"></A>
+
+</P>
+<P>
+To get the functions in the package <STRONG>sun.net.ftp</STRONG>, we need to type:
+
+</P>
+
+<PRE>
+ 
+import sun.net.ftp.FtpClient
+import sun.net.ftp.FtpInputStream
+import sun.net.TelnetInputStream
+ 
+</PRE>
+
+<P>
+<A NAME="IDX326"></A>
+<A NAME="IDX327"></A>
+
+</P>
+<P>
+The basic functions are:
+
+</P>
+
+<P>
+<A NAME="IDX328"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: xget                                                |<STRONG>72</STRONG>
+| -- purpose.....: fetch the remote file                               |<STRONG>73</STRONG>
+| --                                                                   |<STRONG>74</STRONG>
+|   method xget(fids=Rexx) public                                      |<STRONG>75</STRONG>
+|     rcclear()                                                        |<STRONG>76</STRONG>
+|     parse fids fidr fidl                                             |<STRONG>77</STRONG>
+|     if fidl = '' then fidl = fidr                                    |<STRONG>78</STRONG>
+|                                                                      |<STRONG>79</STRONG>
+|     -- small check: if the local file is there, prompt the user      |<STRONG>80</STRONG>
+|     --                                                               |<STRONG>81</STRONG>
+|     if xfile.fexist(fidl) &#38; replace = 'NO' then                      |<STRONG>82</STRONG>
+|       do                                                             |<STRONG>83</STRONG>
+|         say 'Local file "'fidl'" already exists. OK to overwrite? (Y||<STRONG>84</STRONG>
+|         if ask.upper &#60;&#62; 'Y' then                                     |<STRONG>85</STRONG>
+|           do                                                         |<STRONG>86</STRONG>
+|             say 'ABORTED by user.'                                   |<STRONG>87</STRONG>
+|             return                                                   |<STRONG>88</STRONG>
+|           end                                                        |<STRONG>89</STRONG>
+|       end                                                            |<STRONG>90</STRONG>
+|                                                                      |<STRONG>91</STRONG>
+|     say 'Remote file........:' fidr'.'                               |<STRONG>92</STRONG>
+|     say 'Local file.........:' fidl'.'                               |<STRONG>93</STRONG>
+|     say 'Transfer type is...:' modeab'.'                             |<STRONG>94</STRONG>
+|                                                                      |<STRONG>95</STRONG>
+|     buff = byte[16000]                                               |<STRONG>96</STRONG>
+|     t = timer()                                                      |<STRONG>97</STRONG>
+|     totsize = 0                                                      |<STRONG>98</STRONG>
+|     do                                                               |<STRONG>99</STRONG>
+|       os = FileOutputStream(fidl)                                    |<STRONG>00</STRONG>
+|       tis = host.get(fidr)                                           |<STRONG>01</STRONG>
+|       str = '(READING) Tranferred:' totsize 'bytes.'                 |<STRONG>02</STRONG>
+|       loop forever                                                   |<STRONG>03</STRONG>
+|         System.out.print(str'\x0D')                                  |<STRONG>04</STRONG>
+|         n = tis.read(buff)                                           |<STRONG>05</STRONG>
+|         if n = -1 then leave     -- there are no more bytes in tis   |<STRONG>06</STRONG>
+|         totsize = totsize + n                                        |<STRONG>07</STRONG>
+|         str = '(WRITING) Tranferred:' totsize 'bytes.'               |<STRONG>08</STRONG>
+|         System.out.print(str'\x0D')                                  |<STRONG>09</STRONG>
+|         os.write(buff,0,n)                                           |<STRONG>10</STRONG>
+|         str = '(READING) Tranferred:' totsize 'bytes.'               |<STRONG>11</STRONG>
+|       end                                                            |<STRONG>12</STRONG>
+|       System.out.print('                                     \x0D')  |<STRONG>13</STRONG>
+|       say                                                            |<STRONG>14</STRONG>
+|       os.close()                                                     |<STRONG>15</STRONG>
+|       sec = t.elapsed()                                              |<STRONG>16</STRONG>
+|       say 'Transferred "'totsize'" bytes in' sec 'seconds.'          |<STRONG>17</STRONG>
+|     catch err = exception                                            |<STRONG>18</STRONG>
+|       say 'ERROR:' err                                               |<STRONG>19</STRONG>
+|       rcset(12)                                                      |<STRONG>20</STRONG>
+|     end                                                              |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
++----------------------------------------------------------------------+
+                                                   xftp.nrx(Method:xget)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xftp.nrx">Download the complete source for the xftp.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX329"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: xput                                                |<STRONG>23</STRONG>
+| -- purpose.....: put the remote file                                 |<STRONG>24</STRONG>
+| --                                                                   |<STRONG>25</STRONG>
+|   method xput(fids=Rexx) public                                      |<STRONG>26</STRONG>
+|     rcclear()                                                        |<STRONG>27</STRONG>
+|     parse fids fidl fidr                                             |<STRONG>28</STRONG>
+|     if fidr = '' then fidr = fidl                                    |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
+|     -- small check: if the local file is not there                   |<STRONG>31</STRONG>
+|     --                                                               |<STRONG>32</STRONG>
+|     if xfile.fexist(fidl) = 0 then                                   |<STRONG>33</STRONG>
+|       do                                                             |<STRONG>34</STRONG>
+|         say 'Local file "'fidl'" does not exist.'                    |<STRONG>35</STRONG>
+|         return                                                       |<STRONG>36</STRONG>
+|       end                                                            |<STRONG>37</STRONG>
+|                                                                      |<STRONG>38</STRONG>
+|     say 'Local file.........:' fidl'.'                               |<STRONG>39</STRONG>
+|     say 'Remote file........:' fidr'.'                               |<STRONG>40</STRONG>
+|     say 'Transfer type is...:' modeab'.'                             |<STRONG>41</STRONG>
+|                                                                      |<STRONG>42</STRONG>
+|     buff = byte[16000]                                               |<STRONG>43</STRONG>
+|     t = timer()                                                      |<STRONG>44</STRONG>
+|     totsize = 0                                                      |<STRONG>45</STRONG>
+|     do                                                               |<STRONG>46</STRONG>
+|       is = FileInputStream(fidl)                                     |<STRONG>47</STRONG>
+|       tos = host.put(fidr)                                           |<STRONG>48</STRONG>
+|       str = '(READING) Tranferred:' totsize 'bytes.'                 |<STRONG>49</STRONG>
+|       loop forever                                                   |<STRONG>50</STRONG>
+|         System.out.print(str'\x0D')                                  |<STRONG>51</STRONG>
+|         n = is.read(buff)                                            |<STRONG>52</STRONG>
+|         if n = -1 then leave     -- there are no more bytes in is    |<STRONG>53</STRONG>
+|         totsize = totsize + n                                        |<STRONG>54</STRONG>
+|         str = '(WRITING) Tranferred:' totsize 'bytes.'               |<STRONG>55</STRONG>
+|         System.out.print(str'\x0D')                                  |<STRONG>56</STRONG>
+|         tos.write(buff,0,n)                                          |<STRONG>57</STRONG>
+|         str = '(READING) Tranferred:' totsize 'bytes.'               |<STRONG>58</STRONG>
+|       end                                                            |<STRONG>59</STRONG>
+|       System.out.print('                                     \x0D')  |<STRONG>60</STRONG>
+|       say                                                            |<STRONG>61</STRONG>
+|       tos.close()                                                    |<STRONG>62</STRONG>
+|       is.close()                                                     |<STRONG>63</STRONG>
+|       sec = t.elapsed()                                              |<STRONG>64</STRONG>
+|       say 'Transferred "'totsize'" bytes in' sec 'seconds.'          |<STRONG>65</STRONG>
+|     catch err = exception                                            |<STRONG>66</STRONG>
+|       say 'ERROR:' err                                               |<STRONG>67</STRONG>
+|       rcset(13)                                                      |<STRONG>68</STRONG>
+|     end                                                              |<STRONG>69</STRONG>
+|                                                                      |<STRONG>70</STRONG>
++----------------------------------------------------------------------+
+                                                   xftp.nrx(Method:xput)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xftp.nrx">Download the complete source for the xftp.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX330"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: xls                                                 |<STRONG>11</STRONG>
+| -- purpose.....: list the remote directory (on screen)               |<STRONG>12</STRONG>
+| --                                                                   |<STRONG>13</STRONG>
+|   method xls(t=rexx) public                                          |<STRONG>14</STRONG>
+|     t = t                                                            |<STRONG>15</STRONG>
+|     rcclear()                                                        |<STRONG>16</STRONG>
+|     do                                                               |<STRONG>17</STRONG>
+|       tis = host.list()                                              |<STRONG>18</STRONG>
+|       line = ''                                                      |<STRONG>19</STRONG>
+|       loop forever                                                   |<STRONG>20</STRONG>
+|         n = rexx tis.read                                            |<STRONG>21</STRONG>
+|         if n = -1 then leave     -- there are no more bytes in tis   |<STRONG>22</STRONG>
+|         if n = 10 then                                               |<STRONG>23</STRONG>
+|           do                                                         |<STRONG>24</STRONG>
+|             say line                                                 |<STRONG>25</STRONG>
+|             line = ''                                                |<STRONG>26</STRONG>
+|             iterate                                                  |<STRONG>27</STRONG>
+|           end                                                        |<STRONG>28</STRONG>
+|         line = line||n.d2c()                                         |<STRONG>29</STRONG>
+|       end                                                            |<STRONG>30</STRONG>
+|       tis.close()                                                    |<STRONG>31</STRONG>
+|     catch err = exception                                            |<STRONG>32</STRONG>
+|       say 'ERROR:' err                                               |<STRONG>33</STRONG>
+|       rcset(3)                                                       |<STRONG>34</STRONG>
+|     end                                                              |<STRONG>35</STRONG>
+|                                                                      |<STRONG>36</STRONG>
++----------------------------------------------------------------------+
+                                                    xftp.nrx(Method:xls)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xftp.nrx">Download the complete source for the xftp.nrx library </A>
+ 
+</PRE>
+
+<P>
+Another function (which is NOT in the standard FTP clients) is the
+<STRONG>xmore</STRONG>
+
+</P>
+<P>
+<A NAME="IDX331"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: xmore                                               |<STRONG>37</STRONG>
+| -- purpose.....: type the file on terminal                           |<STRONG>38</STRONG>
+| --                                                                   |<STRONG>39</STRONG>
+|   method xmore(fid=Rexx) public                                      |<STRONG>40</STRONG>
+|     rcclear()                                                        |<STRONG>41</STRONG>
+|     nlin = 1                                                         |<STRONG>42</STRONG>
+|     do                                                               |<STRONG>43</STRONG>
+|       tis = host.get(fid)                                            |<STRONG>44</STRONG>
+|       line = ''                                                      |<STRONG>45</STRONG>
+|       loop forever                                                   |<STRONG>46</STRONG>
+|         n = rexx tis.read                                            |<STRONG>47</STRONG>
+|         if n = -1 then leave     -- there are no more bytes in tis   |<STRONG>48</STRONG>
+|         if n = 10 then                                               |<STRONG>49</STRONG>
+|           do                                                         |<STRONG>50</STRONG>
+|             say line                                                 |<STRONG>51</STRONG>
+|             line = ''                                                |<STRONG>52</STRONG>
+|             nlin = nlin+1                                            |<STRONG>53</STRONG>
+|             if nlin &#62; pagesize then                                  |<STRONG>54</STRONG>
+|               do                                                     |<STRONG>55</STRONG>
+|                 nlin = 1                                             |<STRONG>56</STRONG>
+|                 say '+++ (ENTER to continue; Q to quit) \-'          |<STRONG>57</STRONG>
+|                 if ask = 'Q' then                                    |<STRONG>58</STRONG>
+|                   do                                                 |<STRONG>59</STRONG>
+|                     leave                                            |<STRONG>60</STRONG>
+|                   end                                                |<STRONG>61</STRONG>
+|               end                                                    |<STRONG>62</STRONG>
+|             iterate                                                  |<STRONG>63</STRONG>
+|           end                                                        |<STRONG>64</STRONG>
+|         line = line||n.d2c()                                         |<STRONG>65</STRONG>
+|       end                                                            |<STRONG>66</STRONG>
+|     catch err = exception                                            |<STRONG>67</STRONG>
+|       say 'ERROR:' err                                               |<STRONG>68</STRONG>
+|       rcset(5)                                                       |<STRONG>69</STRONG>
+|     end                                                              |<STRONG>70</STRONG>
+|                                                                      |<STRONG>71</STRONG>
++----------------------------------------------------------------------+
+                                                  xftp.nrx(Method:xmore)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xftp.nrx">Download the complete source for the xftp.nrx library </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> A small program using the xftp class </H3>
+<P>
+As an example of usage of the <STRONG>xftp</STRONG> class, look at the
+following program:
+
+</P>
+<P>
+<A NAME="IDX332"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- xftp1.nrx                                                         |<STRONG>01</STRONG>
+| --   this program just lists the files from a anonymous server       |<STRONG>02</STRONG>
+| --   and fetches a big one.                                          |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+| h = xftp('asisftp.cern.ch')                                          |<STRONG>05</STRONG>
+| h.exec('user anonymous toto@test.cern.ch')                          |<STRONG>06</STRONG>
+| h.exec('ls')                                                         |<STRONG>07</STRONG>
+| h.exec('replace Y')                                                  |<STRONG>08</STRONG>
+| h.exec('get README.cernlib')                                         |<STRONG>09</STRONG>
+| h.exec('get toto')                                                   |<STRONG>10</STRONG>
+| say h.rc                                                             |<STRONG>11</STRONG>
+| say h.globrc                                                         |<STRONG>12</STRONG>
+| exit                                                                 |<STRONG>13</STRONG>
++----------------------------------------------------------------------+
+                                                               xftp1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/xftp1.nrx">Download the  source for the xftp1.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Writing a trivial NNTP client. </H3>
+<P>
+<A NAME="IDX333"></A>
+<A NAME="IDX334"></A>
+<A NAME="IDX335"></A>
+
+</P>
+<P>
+The <STRONG>NNTP</STRONG> protocol is described by <STRONG>RFC 977</STRONG>
+The NNTP specifies a protocol for the distribution, inquiry, retrieval,
+and posting of news articles using a reliable
+stream-based transmission of news among the ARPA-Internet community.
+NNTP is designed so that news articles are stored in a central database allowing
+a subscriber to select only those items he wishes to read.
+Indexing, cross-referencing, and expiration of aged messages
+are also provided.
+
+</P>
+<P>
+We will implement a TRIVIAL NNTP client, using the <STRONG>xsock.nrx</STRONG>
+library.
+Our program <STRONG>nnt</STRONG> does allow the reading of a news article
+and the list of the available ones.
+
+</P>
+<P>
+<A NAME="IDX336"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- trivial NNTP client                                               |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg group article .                                            |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| -- trivial checks                                                    |<STRONG>05</STRONG>
+| --                                                                   |<STRONG>06</STRONG>
+| if group = '' then                                                   |<STRONG>07</STRONG>
+|   do                                                                 |<STRONG>08</STRONG>
+|     say 'Please enter a group. (like "comp.lang.rexx").'             |<STRONG>09</STRONG>
+|     exit 1                                                           |<STRONG>10</STRONG>
+|   end                                                                |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+| -- connect and get the greating message                              |<STRONG>13</STRONG>
+| --                                                                   |<STRONG>14</STRONG>
+| node = 'news.cern.ch'     -- change this with your local news server |<STRONG>15</STRONG>
+| so = xsock(node,'NNTP')                                              |<STRONG>16</STRONG>
+| so.readline()                                                        |<STRONG>17</STRONG>
+|                                                                      |<STRONG>18</STRONG>
+| -- select the right group                                            |<STRONG>19</STRONG>
+| -- and check it's existence                                          |<STRONG>20</STRONG>
+| --                                                                   |<STRONG>21</STRONG>
+| so.send('group' group)                                               |<STRONG>22</STRONG>
+| nn = so.readline()                                                   |<STRONG>23</STRONG>
+| parse nn rc . first last .                                           |<STRONG>24</STRONG>
+| if rc &#60;&#62; 211 then                                                    |<STRONG>25</STRONG>
+|   do                                                                 |<STRONG>26</STRONG>
+|     say 'Sorry but group "'group'" is not active.'                   |<STRONG>27</STRONG>
+|     exit 3                                                           |<STRONG>28</STRONG>
+|   end                                                                |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
+| -- OK, now we can                                                    |<STRONG>31</STRONG>
+| -- - get all the headers                                             |<STRONG>32</STRONG>
+| -- - get the article body                                            |<STRONG>33</STRONG>
+| if article = ''                                                      |<STRONG>34</STRONG>
+|   then cmd = 'xhdr subject' first'-'last                             |<STRONG>35</STRONG>
+|   else cmd = 'article' article                                       |<STRONG>36</STRONG>
+| so.send(cmd)                                                         |<STRONG>37</STRONG>
+| nn = so.readline()                                                   |<STRONG>38</STRONG>
+| parse nn rc .                                                        |<STRONG>39</STRONG>
+| if rc &#62; 240 then                                                     |<STRONG>40</STRONG>
+|   do                                                                 |<STRONG>41</STRONG>
+|     say 'Sorry, but article "'group':'article'" is not available.'   |<STRONG>42</STRONG>
+|     exit 4                                                           |<STRONG>43</STRONG>
+|   end                                                                |<STRONG>44</STRONG>
+|                                                                      |<STRONG>45</STRONG>
+| so.receive(",")                                                    |<STRONG>46</STRONG>
+|                                                                      |<STRONG>47</STRONG>
+| -- that's all                                                        |<STRONG>48</STRONG>
+| --                                                                   |<STRONG>49</STRONG>
+| so.close()                                                           |<STRONG>50</STRONG>
+|                                                                      |<STRONG>51</STRONG>
+| exit 0                                                               |<STRONG>52</STRONG>
++----------------------------------------------------------------------+
+                                                                 nnt.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/nnt.nrx">Download the  source for the nnt.nrx example </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (68) <STRONG>java nnt comp.lang.rexx</STRONG>
+19083 rexx under DOS?
+19084 Re: Program Priority in REXX or C - How Set?
+19085 Suggestions on how to keep a "table" OUTSIDE of Rexx?
+19086 Re: Suggestions on how to keep a "table" OUTSIDE of Rexx?
+(...)
+
+rsl3pm1 (69) <STRONG>java nnt comp.lang.rexx 20132</STRONG>
+From: Dave 
+Newsgroups: comp.os.os2.setup.misc,comp.lang.rexx
+Subject: Lost rxFTP
+(...)
+I re-installed OS/2 this weekend and now rxFTP doesn't work.When I try
+(...)
+
+....................................................................
+
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Executing NNTP commands interactively </H3>
+<P>
+Some small modifications to the above program will allow you to execute
+commands in an interactive way, in a line mode like shell.
+
+</P>
+<P>
+Once you started the command with <STRONG>java nntp1</STRONG>, just type
+<STRONG>help</STRONG> and the server will answer with the available
+commands. 
+
+</P>
+<P>
+<A NAME="IDX337"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- simple INTERACTIVE                                                |<STRONG>01</STRONG>
+| -- news client                                                       |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| node = 'news.cern.ch'  -- change it to your local news server        |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| -- connect to the NEWS server                                        |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+| so = xsock(node,'NNTP')                                              |<STRONG>08</STRONG>
+| parse so.readline() . welcome 'ready'                                |<STRONG>09</STRONG>
+| say welcome                                                          |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| -- wait for commands                                                 |<STRONG>12</STRONG>
+| --                                                                   |<STRONG>13</STRONG>
+| onelineansw = 'next group'                                           |<STRONG>14</STRONG>
+| i = 1                                                                |<STRONG>15</STRONG>
+| loop forever                                                         |<STRONG>16</STRONG>
+|   say 'NNTP@'node' ['i'] &#62; \-'                                      |<STRONG>17</STRONG>
+|   i = i+1                                                            |<STRONG>18</STRONG>
+|   cmd = ask                                                          |<STRONG>19</STRONG>
+|   if cmd = 'quit' | cmd = 'exit' then leave                          |<STRONG>20</STRONG>
+|   so.send(cmd)                                                       |<STRONG>21</STRONG>
+|   line = so.readline()                                               |<STRONG>22</STRONG>
+|   say line                                                           |<STRONG>23</STRONG>
+|   parse cmd cmd rest                                                 |<STRONG>24</STRONG>
+|   if onelineansw.wordpos(cmd) &#60;&#62; 0 then iterate                      |<STRONG>25</STRONG>
+|   parse line cc rest                                                 |<STRONG>26</STRONG>
+|   if cc &#62; 300 then                                                   |<STRONG>27</STRONG>
+|     do                                                               |<STRONG>28</STRONG>
+|       iterate                                                        |<STRONG>29</STRONG>
+|     end                                                              |<STRONG>30</STRONG>
+|   so.receive(",")                                                  |<STRONG>31</STRONG>
+| end                                                                  |<STRONG>32</STRONG>
+|                                                                      |<STRONG>33</STRONG>
+| -- we're done                                                        |<STRONG>34</STRONG>
+| --                                                                   |<STRONG>35</STRONG>
+| so.close()                                                           |<STRONG>36</STRONG>
+| say 'Bye.'                                                           |<STRONG>37</STRONG>
+| exit                                                                 |<STRONG>38</STRONG>
++----------------------------------------------------------------------+
+                                                                nnt1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/nnt1.nrx">Download the  source for the nnt1.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Writing a trivial IMAP client. </H3>
+<P>
+<A NAME="IDX338"></A>
+<A NAME="IDX339"></A>
+<A NAME="IDX340"></A>
+
+</P>
+<P>
+RFC 1064 describes the IMAP protocol. IMAP stands for
+<STRONG>Interactive Mail Access Protocol</STRONG>. The idea is that
+your mail messages are stored into a server. Your client
+connects to the server, so you can read your mail
+using a PC, a UNIX workstation, a MAC or whatever
+without storing the messages locally.
+
+</P>
+<P>
+The protocol is a bit more complicate than the above ones:
+all messages must be prefixed by a TAG that identify the
+command. The TAG is in the format "ANNN".
+
+</P>
+
+<PRE>
+ 
+client                         server
+------                         ------
+
+A001 command1 --------------&#62;
+                               Answer
+                               (...)
+              &#60;--------------  A001 status1
+
+A002 command2 --------------&#62;
+                               Answer
+                               (...)
+              &#60;--------------  A002 status2
+
+ 
+</PRE>
+
+<P>
+The small program that follows implements (again) a trivial
+IMAP client.
+You need to change the <STRONG>mail.cern.ch</STRONG> address with
+the address of the IMAP server of your Organization.
+
+</P>
+<P>
+<A NAME="IDX341"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- simple INTERACTIVE                                                |<STRONG>01</STRONG>
+| -- news client                                                       |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| node = 'mail.cern.ch'  -- change it to your local news server        |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| -- connect to the NEWS server                                        |<STRONG>06</STRONG>
+| --                                                                   |<STRONG>07</STRONG>
+| so = xsock(node,'IMAP')                                              |<STRONG>08</STRONG>
+| say so.readline()                                                    |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+| -- wait for commands                                                 |<STRONG>11</STRONG>
+| --                                                                   |<STRONG>12</STRONG>
+| i = 1                                                                |<STRONG>13</STRONG>
+| loop forever                                                         |<STRONG>14</STRONG>
+|   say 'IMAP@'node' ['i'] &#62; \-'                                      |<STRONG>15</STRONG>
+|   i = i+1                                                            |<STRONG>16</STRONG>
+|   cmd = ask                                                          |<STRONG>17</STRONG>
+|   if cmd = 'help' then                                               |<STRONG>18</STRONG>
+|     do                                                               |<STRONG>19</STRONG>
+|       say 'LOGIN userid passwd'                                      |<STRONG>20</STRONG>
+|       say 'SELECT mailbox        (ex. SELECT INBOX)'                 |<STRONG>21</STRONG>
+|       say 'LOGOUT'                                                   |<STRONG>22</STRONG>
+|       say 'FETCH sequence data   (ex. FETCH 1 RFC822)'               |<STRONG>23</STRONG>
+|       say 'see RFC1064'                                              |<STRONG>24</STRONG>
+|       iterate                                                        |<STRONG>25</STRONG>
+|     end                                                              |<STRONG>26</STRONG>
+|   tag = 'A'||i.right(3,'0')                                          |<STRONG>27</STRONG>
+|   so.send(tag cmd)                                                   |<STRONG>28</STRONG>
+|   loop forever                                                       |<STRONG>29</STRONG>
+|     line = so.readline()                                             |<STRONG>30</STRONG>
+|     say line                                                         |<STRONG>31</STRONG>
+|     parse line atag .                                                |<STRONG>32</STRONG>
+|     if tag = atag then leave                                         |<STRONG>33</STRONG>
+|   end                                                                |<STRONG>34</STRONG>
+|   if cmd = 'logout' then leave                                       |<STRONG>35</STRONG>
+| end                                                                  |<STRONG>36</STRONG>
+|                                                                      |<STRONG>37</STRONG>
+| -- we're done                                                        |<STRONG>38</STRONG>
+| --                                                                   |<STRONG>39</STRONG>
+| so.close()                                                           |<STRONG>40</STRONG>
+| say 'Bye.'                                                           |<STRONG>41</STRONG>
+| exit                                                                 |<STRONG>42</STRONG>
++----------------------------------------------------------------------+
+                                                               imapt.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/imapt.nrx">Download the  source for the imapt.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> URLs and WEB pages </H2>
+<P>
+<A NAME="IDX342"></A>
+<A NAME="IDX343"></A>
+
+
+<H2> <IMG SRC="yellowball.gif"> The basic concepts </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> The URL </H3>
+<P>
+The <STRONG>URL</STRONG> identifies uniquely a document on the Network.
+
+</P>
+<P>
+URL is an acronym. It stands for <STRONG>Uniform Resource Locator</STRONG>;
+it is the address (or if you prefer, the reference) of an Internet
+resource, usually an HTML document.
+
+</P>
+<P>
+You probably saw thousands of URLs when "surfing" the Network, in the
+form of:
+
+</P>
+
+<PRE>
+ 
+  <A href="http://java.sun.com/javastation/jstn.html">http://java.sun.com/javastation/jstn.html</A>
+ 
+</PRE>
+
+<P>
+In this URL, like in all other URLs, we can identify 4 basic components,
+which are:
+
+</P>
+
+<PRE>
+ 
+
+  <A href="http://java.sun.com:80/javastation/jstn.html">http://java.sun.com:80/javastation/jstn.html</A>
+  ----   ------------ -- ---------------------
+   |           |       |         |
+   |           |       |         +------------&#62; filename
+   |           |       |                        (pathname of the file
+   |           |       |                         on the server machine)
+   |           |       |
+   |           |       +---------------&#62; port number
+   |           |                         (default is 80, so you
+   |           |                          can happily ommit :80
+   |           |                          here shown for educational
+   |           |                          purposes)
+   |           |
+   |           +-----------------&#62; host name
+   |                               (the name of the machine
+   |                                where the document is located)
+   |
+   +----------------------&#62; protocol identifier
+                            (can be HTTP,
+                                    FTP
+                                    News
+                                    Gopher
+                                    File  - for local files)
+
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The HTTP daemon </H3>
+<P>
+The most common type of WEB documents are handled by
+<STRONG>HTTP daemons</STRONG>. Those daemons are waiting
+(usually) on port 80, and accept an handfull of
+commands.
+
+</P>
+<P>
+The most common command is <STRONG>GET</STRONG> followed by
+a path name. The daemon will answer sending back
+to the client the selected document.
+
+</P>
+
+<PRE>
+ 
+  +----------+
+  |          |
+  | HTTP     |                          
+  | daemon   |---------+
+  |          | PORT 80 |    &#60;--------   GET Welcome.html
+  +----------+---------+
+
+      (sends                --------&#62;
+       Welcome.html)
+
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Retriving WEB documents, the basic code. </H2>
+
+<P>
+As we saw, the HTTP protocol used by the HTTP daemons is
+something very similar to the protocols we already examined
+for the various socket daemons we encountered so far.
+
+</P>
+<P>
+We can write a small program to retrieve a WEB page, using pure
+sockets:
+
+</P>
+<P>
+<A NAME="IDX344"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- REALLY primitive HTTP client                                      |<STRONG>01</STRONG>
+| -- use basic sockets                                                 |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| class w3dmp public                                                   |<STRONG>04</STRONG>
+|   properties constant                                                |<STRONG>05</STRONG>
+|     DEFAULT_PORT    = int 80;                                        |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+|   method usage public static                                         |<STRONG>08</STRONG>
+|     say "Usage:   java w3dmp URL"                                    |<STRONG>09</STRONG>
+|     say "Example: java w3dmp <A href="http://wwwcn.cern.ch/Welcome.html"">http://wwwcn.cern.ch/Welcome.html"</A>     |<STRONG>10</STRONG>
+|     exit 1                                                           |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>13</STRONG>
+|     -- Get the arguments                                             |<STRONG>14</STRONG>
+|     argsl = Rexx(args)                                               |<STRONG>15</STRONG>
+|     if argsl = '' then                                               |<STRONG>16</STRONG>
+|       do                                                             |<STRONG>17</STRONG>
+|         usage()                                                      |<STRONG>18</STRONG>
+|       end                                                            |<STRONG>19</STRONG>
+|                                                                      |<STRONG>20</STRONG>
+|     -- get the URL components                                        |<STRONG>21</STRONG>
+|     -- very easy with PARSE                                          |<STRONG>22</STRONG>
+|     parse argsl protocol'://'node'/'document                         |<STRONG>23</STRONG>
+|     parse node node':'port                                           |<STRONG>24</STRONG>
+|                                                                      |<STRONG>25</STRONG>
+|     -- basic checks                                                  |<STRONG>26</STRONG>
+|     if protocol &#60;&#62; 'http' then                                       |<STRONG>27</STRONG>
+|       do                                                             |<STRONG>28</STRONG>
+|         say 'Only HTTP protocol, please.'                            |<STRONG>29</STRONG>
+|         exit 1                                                       |<STRONG>30</STRONG>
+|       end                                                            |<STRONG>31</STRONG>
+|     if node = '' then                                                |<STRONG>32</STRONG>
+|       do                                                             |<STRONG>33</STRONG>
+|         say 'Missing server name.'                                   |<STRONG>34</STRONG>
+|         exit 2                                                       |<STRONG>35</STRONG>
+|       end                                                            |<STRONG>36</STRONG>
+|     if port = '' then port = DEFAULT_PORT                            |<STRONG>37</STRONG>
+|                                                                      |<STRONG>38</STRONG>
+|     -- do the real job                                               |<STRONG>39</STRONG>
+|     s = Socket null;                                                 |<STRONG>40</STRONG>
+|     do                                                               |<STRONG>41</STRONG>
+|       s    = Socket(node,port);                                      |<STRONG>42</STRONG>
+|       sin  = DataInputStream(s.getInputStream());                    |<STRONG>43</STRONG>
+|       sout = PrintStream(s.getOutputStream());                       |<STRONG>44</STRONG>
+|                                                                      |<STRONG>45</STRONG>
+|       cmd  = 'GET' '/'||document                                     |<STRONG>46</STRONG>
+|       sout.println(cmd)                                              |<STRONG>47</STRONG>
+|       line = String                                                  |<STRONG>48</STRONG>
+|       loop forever                                                   |<STRONG>49</STRONG>
+|         -- Read a line from the server.                              |<STRONG>50</STRONG>
+|         line = sin.readLine();                                       |<STRONG>51</STRONG>
+|         -- Check if connection is closed (i.e. for EOF)              |<STRONG>52</STRONG>
+|         if (line = null) then leave                                  |<STRONG>53</STRONG>
+|         -- And write the line to the console.                        |<STRONG>54</STRONG>
+|         Say line                                                     |<STRONG>55</STRONG>
+|       end                                                            |<STRONG>56</STRONG>
+|     catch e1=IOException                                             |<STRONG>57</STRONG>
+|       System.err.println(e1)                                         |<STRONG>58</STRONG>
+|     finally                                                          |<STRONG>59</STRONG>
+|       do                                                             |<STRONG>60</STRONG>
+|         if (s \= null) then s.close()                                |<STRONG>61</STRONG>
+|       catch e2=IOException                                           |<STRONG>62</STRONG>
+|        e2=e2                                                         |<STRONG>63</STRONG>
+|       end                                                            |<STRONG>64</STRONG>
+|   end                                                                |<STRONG>65</STRONG>
+|                                                                      |<STRONG>66</STRONG>
+| exit 0                                                               |<STRONG>67</STRONG>
++----------------------------------------------------------------------+
+                                                               w3dmp.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/w3dmp.nrx">Download the  source for the w3dmp.nrx example </A>
+ 
+</PRE>
+
+<P>
+The parsing of the URL components is done (of course) with two
+<STRONG>parse</STRONG> instructions, in order to correctly extract
+the (optional) port number, in case it is different from 80.
+
+</P>
+<P>
+The code can be made even shorter, using the already discussed
+<STRONG>xsock</STRONG> library functions.
+
+</P>
+<P>
+<A NAME="IDX345"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- REALLY primitive HTTP client                                      |<STRONG>01</STRONG>
+| -- use basic sockets (and xsock library)                             |<STRONG>02</STRONG>
+|                                                                      |<STRONG>03</STRONG>
+| -- Get the arguments                                                 |<STRONG>04</STRONG>
+| if arg = '' then                                                     |<STRONG>05</STRONG>
+|   do                                                                 |<STRONG>06</STRONG>
+|     say "Usage:   java w3dmp URL"                                    |<STRONG>07</STRONG>
+|     say "Example: java w3dmp <A href="http://wwwcn.cern.ch/Welcome.html"">http://wwwcn.cern.ch/Welcome.html"</A>     |<STRONG>08</STRONG>
+|     exit 1                                                           |<STRONG>09</STRONG>
+|   end                                                                |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| -- get the URL components                                            |<STRONG>12</STRONG>
+| -- very easy with PARSE                                              |<STRONG>13</STRONG>
+| parse arg protocol'://'node'/'document                               |<STRONG>14</STRONG>
+| parse node node':'port                                               |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+| -- basic checks                                                      |<STRONG>17</STRONG>
+| if protocol &#60;&#62; 'http' then                                           |<STRONG>18</STRONG>
+|   do                                                                 |<STRONG>19</STRONG>
+|     say 'Only HTTP protocol, please.'                                |<STRONG>20</STRONG>
+|     exit 2                                                           |<STRONG>21</STRONG>
+|   end                                                                |<STRONG>22</STRONG>
+| if node = '' then                                                    |<STRONG>23</STRONG>
+|   do                                                                 |<STRONG>24</STRONG>
+|     say 'Missing server name.'                                       |<STRONG>25</STRONG>
+|     exit 3                                                           |<STRONG>26</STRONG>
+|   end                                                                |<STRONG>27</STRONG>
+| if port = '' then port = 'HTTP'                                      |<STRONG>28</STRONG>
+|                                                                      |<STRONG>29</STRONG>
+| -- do the real job                                                   |<STRONG>30</STRONG>
+| so = xsock(node,'HTTP')                                              |<STRONG>31</STRONG>
+| so.send('GET /'document)                                             |<STRONG>32</STRONG>
+| so.receive()                                                         |<STRONG>33</STRONG>
+| so.close()                                                           |<STRONG>34</STRONG>
+|                                                                      |<STRONG>35</STRONG>
+| exit 0                                                               |<STRONG>36</STRONG>
++----------------------------------------------------------------------+
+                                                              w3dmp1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/w3dmp1.nrx">Download the  source for the w3dmp1.nrx example </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+<P>
+<EM>Let's resume what we saw in this chapter.</EM>
+
+</P>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_15.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:51(GMT +2).
+</FONT>
+

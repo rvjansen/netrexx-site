@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Database Operations</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Database Operations </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Database Operations</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Database Operations </H1>
+<P>
+<A NAME="IDX374"></A>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>
+An interface to some primitive database functions is available as
+a NetRexx extension.
+</EM>
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Use NetRexx with JDBC </H2>
+<P>
+<A NAME="IDX375"></A>
+<A NAME="IDX376"></A>
+The following code atom shows how to use NetRexx with JDBC
+
+</P>
+<P>
+<A NAME="IDX377"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- original sample from Gerhard Hofstaetter (hofg@edvg.co.at)       |<STRONG>01</STRONG>
+| -- and posted on ibm-netrexx                                         |<STRONG>02</STRONG>
+| -- use NetRexx with JDBC                                             |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+| import java.net.URL                                                  |<STRONG>05</STRONG>
+| import java.sql.                                                     |<STRONG>06</STRONG>
+| import ibm.sql.                                                      |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+| class jdbct1                                                         |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+|    method jdbct1                                                     |<STRONG>11</STRONG>
+|       class.forName('ibm.sql.DB2Driver')                             |<STRONG>12</STRONG>
+|                                                                      |<STRONG>13</STRONG>
+|    method main( args = string[]) static                              |<STRONG>14</STRONG>
+|       jdbct1()                                                       |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|       -- set database as URL                                         |<STRONG>17</STRONG>
+|       url = 'jdbc:db2:edvr0s3'                                       |<STRONG>18</STRONG>
+|                                                                      |<STRONG>19</STRONG>
+|       -- connect to database                                         |<STRONG>20</STRONG>
+|       connect = DriverManager.getConnection(url)                     |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+|                                                                      |<STRONG>23</STRONG>
+|       -- retrieve data from the database                             |<STRONG>24</STRONG>
+|       say 'Retrieve some data from the database...'                  |<STRONG>25</STRONG>
+|       sqlstmt = connect.createStatement()                            |<STRONG>26</STRONG>
+|       resultset = -                                                  |<STRONG>27</STRONG>
+|          sqlstmt.executeQuery('select tabschema, tabname' -          |<STRONG>28</STRONG>
+|                                      'from syscat.tables')           |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
+|       -- display the result set                                      |<STRONG>31</STRONG>
+|       -- resultset.next() returns false when there are no more rows  |<STRONG>32</STRONG>
+|       say 'Received results:'                                        |<STRONG>33</STRONG>
+|       loop while resultset.next()                                    |<STRONG>34</STRONG>
+|          owner = resultset.getString(1)                              |<STRONG>35</STRONG>
+|          table = resultset.getString(2)                              |<STRONG>36</STRONG>
+|          say 'Owner =' owner 'Table =' table                         |<STRONG>37</STRONG>
+|       end                                                            |<STRONG>38</STRONG>
+|                                                                      |<STRONG>39</STRONG>
+|       resultset.close()                                              |<STRONG>40</STRONG>
+|       sqlstmt.close()                                                |<STRONG>41</STRONG>
+|       connect.close()                                                |<STRONG>42</STRONG>
++----------------------------------------------------------------------+
+                                                              jdbct1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/jdbct1.nrx">Download the  source for the jdbct1.nrx example </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P>
+ 
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_18.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:56(GMT +2).
+</FONT>
+

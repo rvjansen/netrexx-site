@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="outer">
+<div id="header">
+  <h1><a href="#">Community</a></h1>
+  <h2></h2>
+</div>
+<div id="menu">
+	  <%@include file="menu.nsp" %>
+</div>
+<div id="content">
+<div id="tertiaryContent">
+  <%@include file="twitter.nsp" %>
+</div>
+<div id="primaryContentContainer">
+<div id="primaryContent">
+<p>An open source language needs a community of dedicated language users and
+  language developers in order to thrive. NetRexx has both of these and the
+  language has staunch followers since its inception. Since open
+  sourcing the language, development has
+  been taken over by a group of volunteers that insures that the
+  language stays up to date with current JVM developments. Mike
+  Cowlishaw performs the role of language architect in the NetRexx
+  Language Architecture Board (ARB) where designs for changes and
+  additions to the language are discussed.
+</p>
+    <table>
+    <tr class="rowH">
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr class="rowA">
+      <td>Source Code Repository</td>
+      <td><a href="http://sourceforge.net/projects/netrexx">NetRexx SourceForge Project</a></td>
+      <td>
+	The source code repository is located at the SourceForge open source
+    project repository. Here the sourcecode of the language translator
+    and several tools can be browsed online. or downloaded using a
+    <a href="http://git-scm.com">git</a>
+    client. Eclipse-git will work, as do several GUI-type
+	clients like Tortoise-git.
+	Be sure to register a userid with the SourceForce project site
+    if you want to compile your own version of the translator, want to
+    help out or just want to see how it works. NetRexx is written in NetRexx!
+      </td>
+      </tr>
+      <tr class="rowB">
+	<td>The NetRexx Mailing list</td>
+	<td><a href="mailto:ibm-netrexx-subscribe@hursley.ibm.com">ibm-netrexx-subscribe@hursley.ibm.com</a></td>
+	<td>Send an email to the mailing list to subscribe.   <a href="mailingListHelp.nsp">Help</a></td>
+      </tr>
+      <tr class="rowA">
+	<td>The NetRexx Mailing list archive</td>
+	<td><a href="http://ibm-netrexx.215625.n3.nabble.com/">http://ibm-netrexx.215625.n3.nabble.com/</a></td>
+	<td>
+	  All email from the NetRexx Mailing list is archived at this
+	  location. The list can also be followed using the web
+	  interface at this location.
+	</td>
+      </tr>
+    </table>
+
+
+  
+  </div>
+  </div>
+  <div id="secondaryContent">
+    <%@include file="left.nsp" %>
+  </div>
+  <div class="clear"></div>
+  </div>
+  <div id="footer">
+    <%@include file="footer.nsp" %>
+  </div>
+  </div>
+  </body>
+  </html>

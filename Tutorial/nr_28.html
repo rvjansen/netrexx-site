@@ -1,0 +1,761 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - NetRexx for REXXers</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  NetRexx for REXXers </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - NetRexx for REXXers</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> NetRexx for REXXers </H1>
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction </H2>
+<P>
+<EM>In this chapter we analyse the main differences
+between the Classical REXX and the NetRexx languages.</EM>
+
+</P>
+<P>
+<EM>NetRexx is NOT REXX, and this you will see from
+all the following sections.</EM>
+
+</P>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> NetRexx is compiled, and not interpreted. </H2>
+<P>
+<A NAME="IDX451"></A>
+One of the biggest differences that REXX (or ooREXX)
+users will find in NetRexx is the fact that now you need
+to compile your program.
+
+</P>
+<P>
+The usual approach:
+
+</P>
+
+<PRE>
+ 
+LOOP till it works
+  edit program
+  run program
+END
+ 
+</PRE>
+
+<P>
+has now an extra step:
+
+</P>
+
+<PRE>
+ 
+LOOP till it works
+  edit program
+  compile program
+  run program
+END
+ 
+</PRE>
+
+<P>
+Not only, but since the object is a Java class, you also must
+call the program using java.
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Differences. </H2>
+<P>
+<EM>This sections covers all the instructions that
+are changed, between REXX and NetRexx.</EM>
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Continuation Character. </H3>
+<P>
+<A NAME="IDX452"></A>
+<A NAME="IDX453"></A>
+<A NAME="IDX454"></A>
+The continuation character is different in NetRexx. The reason
+is that the "old" REXX one ( the ",") could be difficult
+to read if (as usually happens) you where calling a function
+or a procedure.
+
+</P>
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      result = myfunction( arg1 , ,
+                                arg2 )
+
+<STRONG>NetRexx</STRONG>   result = myfunction( arg1 , -
+                                arg2 )
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Entering Arguments. </H3>
+<P>
+<A NAME="IDX455"></A>
+<A NAME="IDX456"></A>
+In REXX we use the instruction <STRONG>parse pull</STRONG>, or
+the simple <STRONG>pull</STRONG> to get arguments from the keyboard.
+
+</P>
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      say 'Enter Name'
+           parse pull upper name .
+
+<STRONG>NetRexx</STRONG>   say 'Enter Name'
+           parse ask.upper() name .
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> STEMs and ARRAYS. </H3>
+<P>
+<A NAME="IDX457"></A>
+<A NAME="IDX458"></A>
+<A NAME="IDX459"></A>
+The STEMs are present in NetRexx, but they're called with a
+different name. They're are called ARRAYs and the compound
+variable separator is not the "." but the "[ ]" characters.
+Like STEMS, ARRAY should be initialised to a value.
+
+</P>
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      list. = "
+           list.0 = 2
+           list.1 = 'Test'
+           list.2 = 'Toast'
+
+<STRONG>NetRexx</STRONG>   list  = "
+           list[0] = 2
+           list[1] = 'Test'
+           list[2] = 'Toast'
+ 
+</PRE>
+
+<P>
+Dealing with multidimensional arrays use the "," character to separate
+the dimensions; in REXX you still were using the "." .
+
+</P>
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      list.1.2 = 4
+           list.i.j = 6
+
+<STRONG>NetRexx</STRONG>   list[1,2] = 4
+           list[i,j] = 2
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> function calls </H3>
+<P>
+<A NAME="IDX460"></A>
+Any internal NetRexx function is called in
+an Object Oriented fashion.
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      n = abs(n)
+
+<STRONG>NetRexx</STRONG>   n = n.abs()
+
+<STRONG>REXX</STRONG>      sn = right(s,2,'0')
+
+<STRONG>NetRexx</STRONG>   sn = s.right(2,'0')
+ 
+</PRE>
+
+<P>
+ALL the functions are effected.
+<STRONG>NOTE:</STRONG> This is clearly a major change. I had a bit
+of hard time to get used to it, but after an initial rejection,
+I find it more "natural".
+
+</P>
+<P>
+Look at this example:
+
+</P>
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      bin = x2b(c2x(s))
+
+<STRONG>NetRexx</STRONG>   bin = s.c2x.x2b()
+ 
+</PRE>
+
+<P>
+From the second writing it comes very much more evident that
+what I'm trying to do is a:
+
+<PRE>
+ 
+    c2x.x2b
+     =====
+      c2b
+ 
+</PRE>
+
+<P>
+conversion.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> xrange() </H3>
+<P>
+<A NAME="IDX461"></A>
+<A NAME="IDX462"></A>
+There is NO <STRONG>xrange</STRONG> instruction in NetRexx.
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      str = xrange('00'X,'1F'X)
+
+<STRONG>NetRexx</STRONG>   str = '\x00'.sequence('\x1F')
+ 
+</PRE>
+
+<P>
+xrange() is implemented in <STRONG>xstring</STRONG>.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> HEX characters. </H3>
+<P>
+<A NAME="IDX463"></A>
+<A NAME="IDX464"></A>
+<A NAME="IDX465"></A>
+You use a different method to enter HEX quantities in
+NetRexx.
+
+<PRE>
+ 
+<STRONG>REXX</STRONG>      crlf = '0D0A'X
+
+<STRONG>NetRexx</STRONG>   crlf = '\x0D\x0A'
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Missing instructions. </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> find() and index() </H3>
+<P>
+<A NAME="IDX466"></A>
+<A NAME="IDX467"></A>
+The <STRONG>find()</STRONG> and <STRONG>index()</STRONG> functions have always been
+available in the VM/CMS implementation of REXX. Indeed, they've
+never been in the "official" REXX.
+
+</P>
+
+<PRE>
+ 
+REXX:     find(list,item)
+              |
+              V
+NetRexx:  list.wordpos(item)
+ 
+</PRE>
+
+
+<PRE>
+ 
+REXX:     index(string,item)
+              |
+              V
+NetRexx:  list.pos(item)
+ 
+</PRE>
+
+<P>
+Of course you can write your own <STRONG>find()</STRONG> and <STRONG>index()</STRONG>
+that just do <STRONG>pos()</STRONG> and <STRONG>wordpos()</STRONG>.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Additions </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> upper() and lower() </H3>
+<P>
+<A NAME="IDX468"></A>
+<A NAME="IDX469"></A>
+<A NAME="IDX470"></A>
+<A NAME="IDX471"></A>
+The <STRONG>upper()</STRONG> and <STRONG>lower()</STRONG> functions are
+native in NetRexx. They were not available in native REXX.
+
+</P>
+
+<PRE>
+ 
+
+/* */                <STRONG>REXX</STRONG>
+
+str = str.lower()    <STRONG>NetRexx</STRONG>
+str = str.upper()
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Associative Arrays </H3>
+<P>
+<A NAME="IDX472"></A>
+<A NAME="IDX473"></A>
+<A NAME="IDX474"></A>
+<A NAME="IDX475"></A>
+Indexed Strings are used to set up "Associative Arrays" in which the
+sunscript is not necessarily numeric.
+
+</P>
+<P>
+In "classic" REXX you would code:
+<A NAME="IDX476"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| authorizelist = 'BOB JENNY PENNY'                                    |<STRONG>01</STRONG>
+| authorize.jenny = 'list cat'                                         |<STRONG>02</STRONG>
+| authorize.bob  = 'list cat write'                                    |<STRONG>03</STRONG>
+| authorize.penny = 'list'                                             |<STRONG>04</STRONG>
+| list = authorizelist                                                 |<STRONG>05</STRONG>
+| do while list &#60;&#62; ''                                                  |<STRONG>06</STRONG>
+|   parse var list id list                                             |<STRONG>07</STRONG>
+|   say id 'can do "'authorize.id'".'                                  |<STRONG>08</STRONG>
+| end                                                                  |<STRONG>09</STRONG>
+| exit                                                                 |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                                                asar.rex
+</td><td><img src="rexx.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX477"></A>
+<A NAME="IDX478"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| authorize = ''                                                       |<STRONG>01</STRONG>
+| authorize['jenny'] = 'list cat'                                      |<STRONG>02</STRONG>
+| authorize['bob'] = 'list cat write'                                  |<STRONG>03</STRONG>
+| authorize['penny'] = 'list'                                          |<STRONG>04</STRONG>
+| loop id over authorize                                               |<STRONG>05</STRONG>
+|   say id 'can do "'authorize[id]'".'                                 |<STRONG>06</STRONG>
+| end                                                                  |<STRONG>07</STRONG>
+| exit                                                                 |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                                asar.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/asar.nrx">Download the  source for the asar.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Program structure </H2>
+<P>
+  This is probably the biggest difference between
+REXX and NetRexx. Subroutines and procedures
+like you knew them in REXX disappear, and the
+concept of method replaces them.
+
+</P>
+<P>
+The following are some small examples.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Argument passing </H3>
+<P>
+<A NAME="IDX479"></A>
+<A NAME="IDX480"></A>
+
+</P>
+<P>
+<A NAME="IDX481"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* compute the mean value of two numbers                             |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| parse arg n1 n2 .                                                    |<STRONG>03</STRONG>
+| say 'The mean value of' n1 'and' n2 'is:' mean(n1,n2)'.'             |<STRONG>04</STRONG>
+| exit                                                                 |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+| mean: procedure;                                                     |<STRONG>07</STRONG>
+|   parse arg i1 , i2                                                  |<STRONG>08</STRONG>
+|   m = (i1+i2)/2                                                      |<STRONG>09</STRONG>
+|   return m                                                           |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                                                tnr1.rex
+</td><td><img src="rexx.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX482"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- tnr1.nrx                                                          |<STRONG>01</STRONG>
+| --   Show the usage of a function                                    |<STRONG>02</STRONG>
+| class tnr1                                                           |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method mean(i1=Rexx,i2=Rexx) public static                         |<STRONG>05</STRONG>
+|     out = (i1+i2)/2                                                  |<STRONG>06</STRONG>
+|     return out                                                       |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>09</STRONG>
+|     arg = Rexx(args)                                                 |<STRONG>10</STRONG>
+|     parse arg n1 n2 .                                                |<STRONG>11</STRONG>
+|     say 'mean of' n1 'and' n2 'is:' mean(n1,n2)'.'                   |<STRONG>12</STRONG>
+|     exit 0                                                           |<STRONG>13</STRONG>
++----------------------------------------------------------------------+
+                                                                tnr1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tnr1.nrx">Download the  source for the tnr1.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Exposing variables </H3>
+<P>
+<A NAME="IDX483"></A>
+
+</P>
+<P>
+<A NAME="IDX484"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| /* tnr2.rex                                                          |<STRONG>01</STRONG>
+|  */                                                                  |<STRONG>02</STRONG>
+| avar1 = 'MAIN'                                                       |<STRONG>03</STRONG>
+| avar2 = 'MAIN'                                                       |<STRONG>04</STRONG>
+| call sub1                                                            |<STRONG>05</STRONG>
+| say avar1                                                            |<STRONG>06</STRONG>
+| say avar2                                                            |<STRONG>07</STRONG>
+| exit                                                                 |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
+| sub1: procedure expose avar1                                         |<STRONG>10</STRONG>
+|   avar1 = 'SUB1'                                                     |<STRONG>11</STRONG>
+|   avar2 = 'SUB1'                                                     |<STRONG>12</STRONG>
+|   say avar1                                                          |<STRONG>13</STRONG>
+|   say avar2                                                          |<STRONG>14</STRONG>
+|   return                                                             |<STRONG>15</STRONG>
++----------------------------------------------------------------------+
+                                                                tnr2.rex
+</td><td><img src="rexx.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX485"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| class tnr2                                                           |<STRONG>01</STRONG>
+|   properties public static                                           |<STRONG>02</STRONG>
+|     avar1                                                            |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method sub1() public static                                        |<STRONG>05</STRONG>
+|     avar1 = 'SUB1'     -- will be changed                            |<STRONG>06</STRONG>
+|     avar2 = 'SUB1'     -- will NOT be changed                        |<STRONG>07</STRONG>
+|     say avar1                                                        |<STRONG>08</STRONG>
+|     say avar2                                                        |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>11</STRONG>
+|     args = args                                                      |<STRONG>12</STRONG>
+|     avar1 = 'MAIN'                                                   |<STRONG>13</STRONG>
+|     avar2 = 'MAIN'                                                   |<STRONG>14</STRONG>
+|     sub1()                                                           |<STRONG>15</STRONG>
+|     say avar1                                                        |<STRONG>16</STRONG>
+|     say avar2                                                        |<STRONG>17</STRONG>
+|     exit 0                                                           |<STRONG>18</STRONG>
++----------------------------------------------------------------------+
+                                                                tnr2.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tnr2.nrx">Download the  source for the tnr2.nrx example </A>
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> This really got me! </H2>
+<P>
+In this section I collect all "nasty" problems that I found
+in NetRexx, and which probably were due to my REXX background.
+I hope that this collection will avoid you loosing the time
+I did lost to find out why a particular algorithm
+was not working.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Variable and array/stem with the same name. </H3>
+<P>
+In <STRONG>REXX</STRONG> you can have variables that share the
+same name of a STEM. You can happily write:
+
+</P>
+
+<PRE>
+ 
+   line = line.i
+ 
+</PRE>
+
+<P>
+and line (a variable), will get the value of the stem
+variable line.i.
+
+</P>
+<P>
+<A NAME="IDX486"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| line.1 = 'Test line'                                                 |<STRONG>01</STRONG>
+| line.2 = 'another one'                                               |<STRONG>02</STRONG>
+| line.3 = 'last one'                                                  |<STRONG>03</STRONG>
+| do i = 1 to 3                                                        |<STRONG>04</STRONG>
+|   line = line.i                                                      |<STRONG>05</STRONG>
+|   say line                                                           |<STRONG>06</STRONG>
+| end                                                                  |<STRONG>07</STRONG>
+| exit                                                                 |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                                tgm1.rex
+</td><td><img src="rexx.gif">
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+In NetRexx such approach will not work. In the following program,
+infact, the statement:
+
+</P>
+
+<PRE>
+ 
+   line = line[i]
+ 
+</PRE>
+
+<P>
+will just initialise the whole array line[] to line[1]. SO ALL THE
+ARRAY INFORMATION WILL BE OVERWRITTEN.
+
+</P>
+<P>
+<A NAME="IDX487"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| line = Rexx(")                                                      |<STRONG>01</STRONG>
+| line[1] = 'test line'                                                |<STRONG>02</STRONG>
+| line[2] = 'another one'                                              |<STRONG>03</STRONG>
+| line[3] = 'last one'                                                 |<STRONG>04</STRONG>
+| loop i = 1 to 3                                                      |<STRONG>05</STRONG>
+|   line = line[i]                                                     |<STRONG>06</STRONG>
+|   say line                                                           |<STRONG>07</STRONG>
+| end                                                                  |<STRONG>08</STRONG>
++----------------------------------------------------------------------+
+                                                                tgm1.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tgm1.nrx">Download the  source for the tgm1.nrx example </A>
+ 
+</PRE>
+
+<P>
+In REXX, you would have achieved the same result writing:
+
+<PRE>
+ 
+   line. = line.1
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter FAQ. </H2>
+<P>
+<STRONG>Would it be possible to make a REXX to
+NetRexx translator?</STRONG>
+
+</P>
+<P>
+Yes, as you could see a lot of the differences in the
+syntax could be made in an automatic way. It is
+simple to translate an instruction like:
+
+<PRE>
+ 
+   s1 = left(s,3)
+ 
+</PRE>
+
+<P>
+to:
+
+<PRE>
+ 
+   s1 = s.left(3)
+ 
+</PRE>
+
+<P>
+I plan to write some code that will do a 'first step'
+translation. So far I know nobody who did it.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Summary </H2>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_28.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:48:03(GMT +2).
+</FONT>
+

@@ -1,0 +1,19 @@
+package com.rvjansen
+import java.text.
+/**
+ * Class NightlyBuildData implements... 
+ * <BR>
+ * Created on: za, 09, mrt 2013 00:12:50 +0100
+ */
+class NightlyBuildData
+
+  properties indirect
+  out = String
+  /**
+   * Default constructor
+   */
+  method NightlyBuildData() protect
+    f = File('webapps/ROOT/netrexx/netrexxc/trunk/build/lib/NetRexxC.jar')
+    df = SimpleDateFormat("yyyy-MM-dd-HH-mm-ssSS")
+    longdate = Rexx df.format(Date(f.lastmodified()))
+    this.setOut(longdate)

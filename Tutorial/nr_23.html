@@ -1,0 +1,927 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Advanced Networking</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Advanced Networking </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Advanced Networking</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Advanced Networking </H1>
+<P>
+<EM>In this chapter we will analyse some of the most recent
+goodies available in JDK 1.1, and consequently in NetRexx.</EM>
+
+</P>
+<P>
+<EM>In this chapter we will analyse:</EM>
+
+<UL>
+<LI><EM>The Remote Method Invocation (RMI)</EM>
+
+<LI><EM>The Java/NetRexx Servlets</EM>
+
+</UL>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Basic Concepts </H2>
+
+
+<H3> <IMG SRC="yellowball.gif"> Remote Method Invocation </H3>
+<P>
+<A NAME="IDX382"></A>
+<A NAME="IDX383"></A>
+
+</P>
+<P>
+The RMI (Remote Method Invocation) is a technique by which
+an object on SYSTEM A can call a method in an object
+on SYSTEM B, located somewhere else in the network.
+
+</P>
+<P>
+All the sending of parameters, and retrieving of the result
+will happen in a transparent way, so that the user (and,
+before him, the application developper) has the feeling
+that the method was called locally (like any other method
+we saw so far).
+
+</P>
+<P>
+So far we saw how the methods are pieces of code run
+locally by an object:
+
+</P>
+
+<PRE>
+ 
+   MACHINE A
+   ---------
+
+   object OBJ
+
+     method METHOD
+       (...)
+
+       code for METHOD  &#60;--- runs
+                             locally
+
+       (...)                 
+
+ 
+</PRE>
+
+<P>
+Using RMI we move <STRONG>code for METHOD</STRONG> to be remote.
+
+</P>
+
+<PRE>
+ 
+   MACHINE A                 MACHINE B
+   ---------                 ---------
+
+   object OBJ
+
+     method METHOD             method METHOD
+       (...)
+                   ========&#62;
+                                 code for METHOD  &#60;--- runs
+                                                       remote
+                   &#60;=======
+       (...)                                           
+
+ 
+</PRE>
+
+<P>
+This "extention" of the method across the Network is done using sockets;
+but all the programming details are hidden to the programmer,
+who just have to realize that, being the call remote, the
+chances that "something-goes-wrong" are bigger, so he MUST
+be more carefull for error handling.
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> The Client/Server Model </H2>
+
+<P>
+The following picture might help understanding the
+Client/Server in the RMI implementation.
+
+<PRE>
+ 
+
++-----------------------+             +------------------------+
+| CLIENT    rmicl.nrx   |             | SERVER   rmise.nrx     |
+|                       |             |                        |
+| a = obj.method()   +-------+    +-----+                      |
+|                    |rem obj|    |     |                      |
+|                    | method|===&#62;|     |    +---------------+ |
+|                    |       | S  |     |    | actual OBJ    | |
+|                    |       | O  |     |===&#62;|   method      | |
+|                   S|       | C  |     |&#60;===|     return    | |
+|                   T|       | K  |     |    +---------------+ |
+|      return       U| return|&#60;===|     |S                     |
+|                   B|       | E  |     |T                     |
+|                    +-------+ T  +-----+U                     |
+|                       |      S      |  B                     |
++-----------------------+             +------------------------+
+
+ 
+</PRE>
+
+<P>
+As you see, the REAL object exists on the SERVER; from the
+SERVER's point of view, the object IS the SERVER.
+
+</P>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> First example: a time RMI. </H2>
+
+<P>
+This is probably the simplest code you can try, in order
+to implement an application using the Remote Method Invocation.
+
+</P>
+<P>
+We'll write a program to grab the time information from
+another machine (even if, for practical purposes, the example
+will run Client and Server on the same machine).
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Define the remote interface </H3>
+
+<P>
+<A NAME="IDX384"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| class Time public implements java.rmi.Remote interface               |<STRONG>01</STRONG>
+|                                                                      |<STRONG>02</STRONG>
+|   method sayTime() returns String signals java.rmi.RemoteException   |<STRONG>03</STRONG>
++----------------------------------------------------------------------+
+                                                                Time.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/Time.nrx">Download the  source for the Time.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Write the Implementation Class </H3>
+
+<P>
+<A NAME="IDX385"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| import java.rmi.                                                     |<STRONG>01</STRONG>
+| import java.rmi.server.UnicastRemoteObject                           |<STRONG>02</STRONG>
+|                                                                      |<STRONG>03</STRONG>
+| class TimeImpl public extends UnicastRemoteObject implements Time    |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+|   properties private                                                 |<STRONG>06</STRONG>
+|     myname                                                           |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+|   method TimeImpl(s=String) signals RemoteException                  |<STRONG>09</STRONG>
+|     super();                                                         |<STRONG>10</STRONG>
+|     myname = s;                                                      |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|   method sayTime() returns String                                    |<STRONG>13</STRONG>
+|     return 'Hello from' myname 'at' xsys.time('N')                   |<STRONG>14</STRONG>
+|                                                                      |<STRONG>15</STRONG>
+|   method main(a=String[]) public static                              |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+|     -- Create and install a security manager                         |<STRONG>18</STRONG>
+|     System.setSecurityManager(RMISecurityManager());                 |<STRONG>19</STRONG>
+|                                                                      |<STRONG>20</STRONG>
+|     do                                                               |<STRONG>21</STRONG>
+|       obj = TimeImpl("TimeServer");                                  |<STRONG>22</STRONG>
+|       Naming.rebind("//pcl307/TimeServer", obj);                     |<STRONG>23</STRONG>
+|       say "TimeServer bound in registry";                            |<STRONG>24</STRONG>
+|     catch e=Exception                                                |<STRONG>25</STRONG>
+|       say "TimeImpl err: " + e.getMessage();                         |<STRONG>26</STRONG>
+|     end                                                              |<STRONG>27</STRONG>
+|                                                                      |<STRONG>28</STRONG>
++----------------------------------------------------------------------+
+                                                            TimeImpl.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/TimeImpl.nrx">Download the  source for the TimeImpl.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Write an application that uses the Remote Service </H3>
+<P>
+<A NAME="IDX386"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| import java.rmi.         -- MUST be here!                            |<STRONG>01</STRONG>
+|                                                                      |<STRONG>02</STRONG>
+| class TimeCl public                                                  |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+|   method main(arg=String[]) public static                            |<STRONG>05</STRONG>
+|     arg = arg      -- keep NR silent                                 |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+|     do                                                               |<STRONG>08</STRONG>
+|       obj = Time Naming.lookup("//pcl307/TimeServer")                |<STRONG>09</STRONG>
+|       message = obj.sayTime();                                       |<STRONG>10</STRONG>
+|     catch e=Exception                                                |<STRONG>11</STRONG>
+|        say "TimeCl exception:" e.getMessage()                        |<STRONG>12</STRONG>
+|     end                                                              |<STRONG>13</STRONG>
+|     say  message                                                     |<STRONG>14</STRONG>
+|     exit                                                             |<STRONG>15</STRONG>
++----------------------------------------------------------------------+
+                                                              TimeCl.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/TimeCl.nrx">Download the  source for the TimeCl.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Putting all those pieces together </H3>
+<P>
+Provided you have the three above .nrx files stored in the
+same directory, in order to run the example, you have to issue
+the following commands, in your shell
+
+</P>
+<P>
+<A NAME="IDX387"></A>
+<A NAME="IDX388"></A>
+<A NAME="IDX389"></A>
+
+</P>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+.............................................................
+  -- 1. edit the sources and change "pcl307" to your
+  --    node name
+
+&#62; edit TimeCl.nrx
+&#62; edit TimeImpl.nrx
+
+  -- 2. Compile the 3 programs
+  --
+
+&#62; java COM.ibm.netrexx.process.NetRexxC Time.nrx
+&#62; java COM.ibm.netrexx.process.NetRexxC TimeCl.nrx
+&#62; java COM.ibm.netrexx.process.NetRexxC TimeImpl.nrx
+
+  -- 3. Generate the stubs
+  --
+
+&#62; rmic TimeImpl
+
+  -- 4. Start the registry
+  --         (WNT;W95)  start rmiregistry
+  --         (ditto)    javaw rmiregistry
+  --         (UNIX)     rmiregistry &#38;
+
+&#62; start rmiregistry
+
+  -- 5. Start the Server part
+  --
+
+&#62; java TimeImpl
+
+  -- 6. On another window, you can run the
+  --    client
+
+&#62; java TimeCl
+.............................................................
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> First real example: a remote controlled VOLTAGE controller </H2>
+
+<P>
+What we saw so far might appear a little "too much"
+for such a simple application. In fact, it is.
+
+</P>
+<P>
+In the following example we use what we have learnt
+to build an application where objects last LONGER than
+the lifetime of the client application.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The code for Interface, Server and Client </H3>
+
+<P>
+<A NAME="IDX390"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| class volt public implements java.rmi.Remote interface               |<STRONG>01</STRONG>
+|                                                                      |<STRONG>02</STRONG>
+|   method get(ch=int) returns int signals java.rmi.RemoteException    |<STRONG>03</STRONG>
+|   method set(ch=int,value=int) signals java.rmi.RemoteException      |<STRONG>04</STRONG>
++----------------------------------------------------------------------+
+                                                                volt.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/volt.nrx">Download the  source for the volt.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX391"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- voltimpl.nrx                                                      |<STRONG>01</STRONG>
+| -- voltage controller implementation                                 |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| import java.rmi.                                                     |<STRONG>05</STRONG>
+| import java.rmi.server.UnicastRemoteObject                           |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+| class voltimpl public extends UnicastRemoteObject implements volt    |<STRONG>08</STRONG>
+|                                                                      |<STRONG>09</STRONG>
+|   properties private                                                 |<STRONG>10</STRONG>
+|     myname                                                           |<STRONG>11</STRONG>
+|     channel = int[100]                                               |<STRONG>12</STRONG>
+|                                                                      |<STRONG>13</STRONG>
+|   method voltimpl(s=String) signals RemoteException                  |<STRONG>14</STRONG>
+|     super();                                                         |<STRONG>15</STRONG>
+|     myname = s;                                                      |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+|   -- set a channel                                                   |<STRONG>18</STRONG>
+|   method set(ch=int,value=int)                                       |<STRONG>19</STRONG>
+|     say myname 'channel:' ch 'set to:' value                         |<STRONG>20</STRONG>
+|     channel[ch] = value                                              |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+|   -- fetch a value                                                   |<STRONG>23</STRONG>
+|   method get(ch=int) returns int                                     |<STRONG>24</STRONG>
+|     return channel[ch]                                               |<STRONG>25</STRONG>
+|                                                                      |<STRONG>26</STRONG>
+|   -- main method                                                     |<STRONG>27</STRONG>
+|   method main(a=String[]) public static                              |<STRONG>28</STRONG>
+|                                                                      |<STRONG>29</STRONG>
+|     -- Create and install a security manager                         |<STRONG>30</STRONG>
+|     System.setSecurityManager(RMISecurityManager());                 |<STRONG>31</STRONG>
+|                                                                      |<STRONG>32</STRONG>
+|     do                                                               |<STRONG>33</STRONG>
+|       obj = voltimpl("voltageserver");                               |<STRONG>34</STRONG>
+|       Naming.rebind("//pcl307/voltageserver", obj);                  |<STRONG>35</STRONG>
+|       say "voltageserver bound in registry";                         |<STRONG>36</STRONG>
+|     catch e=Exception                                                |<STRONG>37</STRONG>
+|       say "voltimpl err: " + e.getMessage();                         |<STRONG>38</STRONG>
+|     end                                                              |<STRONG>39</STRONG>
+|                                                                      |<STRONG>40</STRONG>
++----------------------------------------------------------------------+
+                                                            voltimpl.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/voltimpl.nrx">Download the  source for the voltimpl.nrx example </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX392"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- voltcl.nrx                                                        |<STRONG>01</STRONG>
+| -- client example                                                    |<STRONG>02</STRONG>
+| --                                                                   |<STRONG>03</STRONG>
+| import java.rmi.         -- MUST be here!                            |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| class voltcl public                                                  |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>08</STRONG>
+|     arg = rexx(args)                                                 |<STRONG>09</STRONG>
+|     parse arg act ch val   -- get args                               |<STRONG>10</STRONG>
+|     act = act.upper()      -- upperacase the action                  |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|     do                                                               |<STRONG>13</STRONG>
+|       -- get the remote object                                       |<STRONG>14</STRONG>
+|       obj = volt Naming.lookup("//pcl307/voltageserver")             |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|       -- do the job                                                  |<STRONG>17</STRONG>
+|       if act = 'SET' then  -- set a channel                          |<STRONG>18</STRONG>
+|         do                                                           |<STRONG>19</STRONG>
+|           obj.set(ch,val)                                            |<STRONG>20</STRONG>
+|           n = obj.get(ch)                                            |<STRONG>21</STRONG>
+|         end                                                          |<STRONG>22</STRONG>
+|       if act = 'GET' then  -- get a channel                          |<STRONG>23</STRONG>
+|         do                                                           |<STRONG>24</STRONG>
+|           n = obj.get(ch)                                            |<STRONG>25</STRONG>
+|         end                                                          |<STRONG>26</STRONG>
+|     catch e=Exception                                                |<STRONG>27</STRONG>
+|        say "voltcl exception:" e.getMessage()                        |<STRONG>28</STRONG>
+|     end                                                              |<STRONG>29</STRONG>
+|     say 'Channel' ch 'value:' n'.'                                   |<STRONG>30</STRONG>
+|     exit 0                                                           |<STRONG>31</STRONG>
++----------------------------------------------------------------------+
+                                                              voltcl.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/voltcl.nrx">Download the  source for the voltcl.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Build it </H3>
+<P>
+We saw already how to build an RMI application, so I
+just show again the commands.
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+.............................................................
+&#62; edit voltcl.nrx
+&#62; edit voltimpl.nrx
+&#62; java COM.ibm.netrexx.process.NetRexxC volt.nrx
+&#62; java COM.ibm.netrexx.process.NetRexxC voltCl.nrx
+&#62; java COM.ibm.netrexx.process.NetRexxC voltimpl.nrx
+&#62; rmic voltimpl
+&#62; start rmiregistry
+&#62; java voltimpl
+&#62; java voltcl set 2 33
+&#62; java voltcl get 2
+  33         &#60;===  This is MAGIC!
+.............................................................
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Remote File Access </H2>
+<P>
+Let's now analyse a real case study. We want to implement some
+(tough primitive) file access method. Our client application
+will then be capable to access a Server's file just like if
+the file was local.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> The files </H3>
+<P>
+For this project we again need 4 files, which are:
+
+<PRE>
+ 
+ rfile.nrx         - the Interface
+ rfileimpl.nrx     - the Implementation
+ rfileserv.nrx     - the Server's part
+ rfileclie.nrx     - the Client's part
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Interface </H3>
+<P>
+<A NAME="IDX393"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- rfile.nrx                                                         |<STRONG>01</STRONG>
+| --    Remote File Access                                             |<STRONG>02</STRONG>
+| --    Interface part                                                 |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| class rfile public implements java.rmi.Remote interface              |<STRONG>06</STRONG>
+|   method setfilename(s=String) signals java.rmi.RemoteException      |<STRONG>07</STRONG>
+|   method exists() returns int signals java.rmi.RemoteException       |<STRONG>08</STRONG>
+|   method list() returns String[] signals java.rmi.RemoteException    |<STRONG>09</STRONG>
+|   method cat() returns String[] signals java.rmi.RemoteException     |<STRONG>10</STRONG>
++----------------------------------------------------------------------+
+                                                               rfile.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/rfile.nrx">Download the  source for the rfile.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Implementation </H3>
+<P>
+<A NAME="IDX394"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- rfileimpl.nrx                                                     |<STRONG>01</STRONG>
+| --   Remote File Access                                              |<STRONG>02</STRONG>
+| --   Implementation part                                             |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| import java.rmi.                                                     |<STRONG>06</STRONG>
+| import java.rmi.server.UnicastRemoteObject                           |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+| class rfileimpl public extends UnicastRemoteObject implements rfile  |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+|   --                                                                 |<STRONG>11</STRONG>
+|   properties private                                                 |<STRONG>12</STRONG>
+|     myname                                                           |<STRONG>13</STRONG>
+|     fid = File                                                       |<STRONG>14</STRONG>
+|     fname                                                            |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|   -- constructor                                                     |<STRONG>17</STRONG>
+|   method rfileimpl(s=String) signals RemoteException                 |<STRONG>18</STRONG>
+|     super();                                                         |<STRONG>19</STRONG>
+|     myname = s;                                                      |<STRONG>20</STRONG>
+|                                                                      |<STRONG>21</STRONG>
+|   -- set the filename                                                |<STRONG>22</STRONG>
+|   method setfilename(fn=String)                                      |<STRONG>23</STRONG>
+|     say myname 'selects' fn                                          |<STRONG>24</STRONG>
+|     fname = fn                                                       |<STRONG>25</STRONG>
+|     fid = File(fn)                                                   |<STRONG>26</STRONG>
+|                                                                      |<STRONG>27</STRONG>
+|   -- check if file exists                                            |<STRONG>28</STRONG>
+|   method exists() returns int                                        |<STRONG>29</STRONG>
+|     return fid.exists()                                              |<STRONG>30</STRONG>
+|                                                                      |<STRONG>31</STRONG>
+|   -- list a directory                                                |<STRONG>32</STRONG>
+|   method list() returns String[]                                     |<STRONG>33</STRONG>
+|     return fid.list()                                                |<STRONG>34</STRONG>
+|                                                                      |<STRONG>35</STRONG>
+|   -- cat a file                                                      |<STRONG>36</STRONG>
+|   method cat() returns String[]                                      |<STRONG>37</STRONG>
+|     d = xfile(fname)        -- use xfile                             |<STRONG>38</STRONG>
+|     rc = d.read()           --                                       |<STRONG>39</STRONG>
+|     say '(cat) File "'fname'" read rc:' rc'.'                        |<STRONG>40</STRONG>
+|                                                                      |<STRONG>41</STRONG>
+|     -- I need this till I cannot return REXX                         |<STRONG>42</STRONG>
+|     nl = d.lines                                                     |<STRONG>43</STRONG>
+|     s = String[nl]                                                   |<STRONG>44</STRONG>
+|     loop i = 1 to d.line[0]                                          |<STRONG>45</STRONG>
+|       s[i-1] = d.line[i]                                             |<STRONG>46</STRONG>
+|     end                                                              |<STRONG>47</STRONG>
+|     return s                                                         |<STRONG>48</STRONG>
++----------------------------------------------------------------------+
+                                                           rfileimpl.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/rfileimpl.nrx">Download the  source for the rfileimpl.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Server </H3>
+<P>
+<A NAME="IDX395"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- rfileserv.nrx                                                     |<STRONG>01</STRONG>
+| --   Remote File Access                                              |<STRONG>02</STRONG>
+| --   Server code                                                     |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+|                                                                      |<STRONG>05</STRONG>
+| import java.rmi.                                                     |<STRONG>06</STRONG>
+| import java.rmi.server.UnicastRemoteObject                           |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+| class rfileserv public                                               |<STRONG>09</STRONG>
+|                                                                      |<STRONG>10</STRONG>
+|   -- main method                                                     |<STRONG>11</STRONG>
+|   method main(a=String[]) public static                              |<STRONG>12</STRONG>
+|                                                                      |<STRONG>13</STRONG>
+|     myname = "remfileaccess"                                         |<STRONG>14</STRONG>
+|     mynode = "pcl307"                                                |<STRONG>15</STRONG>
+|                                                                      |<STRONG>16</STRONG>
+|     -- Create and install a security manager                         |<STRONG>17</STRONG>
+|     System.setSecurityManager(RMISecurityManager());                 |<STRONG>18</STRONG>
+|                                                                      |<STRONG>19</STRONG>
+|     do                                                               |<STRONG>20</STRONG>
+|       obj = rfileimpl(myname);                                       |<STRONG>21</STRONG>
+|       Naming.rebind('//'mynode'/'myname, obj);                       |<STRONG>22</STRONG>
+|       say 'Bind of' myname 'OK.'                                     |<STRONG>23</STRONG>
+|       say 'Node is' mynode '.'                                       |<STRONG>24</STRONG>
+|       say 'SERVER now ready for connections.'                        |<STRONG>25</STRONG>
+|       say 'HIT CNTRL-C to ABORT'                                     |<STRONG>26</STRONG>
+|     catch e=Exception                                                |<STRONG>27</STRONG>
+|       say 'rfileserv error:' + e.getMessage();                       |<STRONG>28</STRONG>
+|     end                                                              |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
++----------------------------------------------------------------------+
+                                                           rfileserv.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/rfileserv.nrx">Download the  source for the rfileserv.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Client </H3>
+<P>
+<A NAME="IDX396"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- rfileclie.nrx                                                     |<STRONG>01</STRONG>
+| --   Remote file Access                                              |<STRONG>02</STRONG>
+| --   Client part                                                     |<STRONG>03</STRONG>
+| --                                                                   |<STRONG>04</STRONG>
+| import java.rmi.         -- MUST be here!                            |<STRONG>05</STRONG>
+|                                                                      |<STRONG>06</STRONG>
+| class rfileclie public                                               |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+|   properties public static                                           |<STRONG>09</STRONG>
+|     fn                                                               |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+|   method help() public static                                        |<STRONG>12</STRONG>
+|     say 'implemented commands are:'                                  |<STRONG>13</STRONG>
+|     say 'java rfileclie ls &#60;FILE&#62;'                                   |<STRONG>14</STRONG>
+|     say '               state &#60;FILE&#62;'                                |<STRONG>15</STRONG>
+|     say '               cat &#60;FILE&#62;'                                  |<STRONG>16</STRONG>
+|     exit 6                                                           |<STRONG>17</STRONG>
+|                                                                      |<STRONG>18</STRONG>
+|   method ls(fid=rfile) public static                                 |<STRONG>19</STRONG>
+|     if fid.exists() = 0 then                                         |<STRONG>20</STRONG>
+|       do                                                             |<STRONG>21</STRONG>
+|         say 'Sorry: remote file "'fn'" does not exist.'              |<STRONG>22</STRONG>
+|         exit 1                                                       |<STRONG>23</STRONG>
+|       end                                                            |<STRONG>24</STRONG>
+|     dd = String[]                                                    |<STRONG>25</STRONG>
+|     dd = fid.list()                                                  |<STRONG>26</STRONG>
+|     loop i = 0 to dd.length - 1                                      |<STRONG>27</STRONG>
+|       say dd[i]                                                      |<STRONG>28</STRONG>
+|     end                                                              |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
+|   method cat(fid=rfile) public static                                |<STRONG>31</STRONG>
+|     if fid.exists() = 0 then                                         |<STRONG>32</STRONG>
+|       do                                                             |<STRONG>33</STRONG>
+|         say 'Sorry: remote file "'fn'" does not exist.'              |<STRONG>34</STRONG>
+|         exit 1                                                       |<STRONG>35</STRONG>
+|       end                                                            |<STRONG>36</STRONG>
+|     dd = String[]                                                    |<STRONG>37</STRONG>
+|     dd = fid.cat()                                                   |<STRONG>38</STRONG>
+|     loop i = 0 to dd.length - 1                                      |<STRONG>39</STRONG>
+|       say dd[i]                                                      |<STRONG>40</STRONG>
+|     end                                                              |<STRONG>41</STRONG>
+|                                                                      |<STRONG>42</STRONG>
+|                                                                      |<STRONG>43</STRONG>
+|   method main(args=String[]) public static                           |<STRONG>44</STRONG>
+|     arg = rexx(args)                                                 |<STRONG>45</STRONG>
+|     parse arg cmd fn                                                 |<STRONG>46</STRONG>
+|                                                                      |<STRONG>47</STRONG>
+|     if cmd = 'help' then                                             |<STRONG>48</STRONG>
+|       do                                                             |<STRONG>49</STRONG>
+|         help()                                                       |<STRONG>50</STRONG>
+|       end                                                            |<STRONG>51</STRONG>
+|     do                                                               |<STRONG>52</STRONG>
+|       -- get the remote object                                       |<STRONG>53</STRONG>
+|       fid = rfile Naming.lookup("//pcl307/remfileaccess")            |<STRONG>54</STRONG>
+|                                                                      |<STRONG>55</STRONG>
+|       -- do the job                                                  |<STRONG>56</STRONG>
+|       if fn = '' then fn = '.'                                       |<STRONG>57</STRONG>
+|       fid.setfilename(fn)                                            |<STRONG>58</STRONG>
+|       select                                                         |<STRONG>59</STRONG>
+|         when cmd = 'ls' then ls(fid)                                 |<STRONG>60</STRONG>
+|         when cmd = 'cat' then cat(fid)                               |<STRONG>61</STRONG>
+|         otherwise say 'Unimplemented command.'                       |<STRONG>62</STRONG>
+|       end                                                            |<STRONG>63</STRONG>
+|     catch e=Exception                                                |<STRONG>64</STRONG>
+|        say "rfileclie exception:" e.getMessage()                     |<STRONG>65</STRONG>
+|     end                                                              |<STRONG>66</STRONG>
+|     exit 0                                                           |<STRONG>67</STRONG>
++----------------------------------------------------------------------+
+                                                           rfileclie.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/rfileclie.nrx">Download the  source for the rfileclie.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Additional sources of documentation. </H2>
+<P>
+RMI is a rather new topic (at least it is in June 1997).
+You might find some additional information at:
+
+</P>
+
+<PRE>
+ 
+<A href="http://chatsubo.javasoft.com/current/doc/tutorial/getstart.doc.html">http://chatsubo.javasoft.com/current/doc/tutorial/getstart.doc.html</A>
+<A href="http://www.widget.com/ggainey/java/rmi_talk/rmi_talk.html">http://www.widget.com/ggainey/java/rmi_talk/rmi_talk.html</A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Problems and limitations </H2>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> Stubs not updated. </H3>
+<P>
+<A NAME="IDX397"></A>
+<A NAME="IDX398"></A>
+<A NAME="IDX399"></A>
+
+</P>
+<P>
+If you forget to update the stubs, since you forgot to run
+"rmic IMPLEMENTATION_FILE", you get a message like:
+
+</P>
+
+<PRE>
+ 
+java.lang.IllegalAccessError: unimplemented interface method
+  at ...
+  (... follows tracedump ...)
+  ...
+ 
+</PRE>
+
+<P>
+You should then run rmic IMPLEMENTATION_FILE to have the
+correct interface.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> rmiregistry problem </H3>
+<P>
+<A NAME="IDX400"></A>
+
+</P>
+<P>
+You might get an error like:
+
+<PRE>
+ 
+java.lang.NumberFormatException: SERVER error
+  at (TRACE)
+ 
+</PRE>
+
+<P>
+You usually clear it stopping and restarting the rmiregistry
+program.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Method returning REXX variable </H3>
+<P>
+<A NAME="IDX401"></A>
+<A NAME="IDX402"></A>
+
+</P>
+<P>
+There are currently problems if the method returns a REXX
+type. The message you get is something like:
+
+</P>
+
+<PRE>
+ 
+client exception:
+  Error unmarshaling return
+  nested exception is:
+  java.io.NotSerializableException: netrexx.lang.Rexx
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_23.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:59(GMT +2).
+</FONT>
+

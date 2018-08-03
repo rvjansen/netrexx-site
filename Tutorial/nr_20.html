@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Applets</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Applets </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Applets</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Applets </H1>
+<P>
+<A NAME="IDX378"></A>
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Creating and running your first Applet. </H2>
+
+<P>
+I want to show you how to create and run a very simple Applet.
+As in the "Hello World!" example, the issue is not really the
+code (that giving the colours I use I think you'll just run 
+only one time), but the whole procedure.
+
+</P>
+<P>
+The steps can be resumed:
+
+<UL>
+<LI>step 1: Create a <STRONG>class</STRONG> that extends
+
+  the Java <STRONG>Applet</STRONG>. You'll need to define
+  <STRONG>at least</STRONG> two methods: an <STRONG>init</STRONG> method
+  and a <STRONG>paint</STRONG> method.
+  This class will be the usual <STRONG>.nrx</STRONG> file that
+  you know how to compile.
+<LI>step 2: Create an <STRONG>html</STRONG> file with the
+
+  right applet definitions.
+<LI>step 3: run <STRONG>appletviewer</STRONG> over the
+
+  above HTML file.
+</UL>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The Applet. </H3>
+<P>
+<A NAME="IDX379"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- Your very first applet                                            |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| class aphello extends Applet                                         |<STRONG>03</STRONG>
+|   properties private                                                 |<STRONG>04</STRONG>
+|     fo = Font                                                        |<STRONG>05</STRONG>
+|     XMAX = 500                                                       |<STRONG>06</STRONG>
+|     YMAX = 500                                                       |<STRONG>07</STRONG>
+|                                                                      |<STRONG>08</STRONG>
+|   method init                                                        |<STRONG>09</STRONG>
+|     resize(XMAX,YMAX)                                                |<STRONG>10</STRONG>
+|     fo = Font("Helvetica",fo.BOLD,36)                                |<STRONG>11</STRONG>
+|                                                                      |<STRONG>12</STRONG>
+|   method paint(g=graphics)                                           |<STRONG>13</STRONG>
+|     g.setFont(fo)                       -- set font                  |<STRONG>14</STRONG>
+|     g.setColor(Color.Pink)              -- all pink, pls             |<STRONG>15</STRONG>
+|     g.fillrect(0,0,XMAX,YMAX)           --                           |<STRONG>16</STRONG>
+|     g.setColor(Color.Yellow)            -- write yellow              |<STRONG>17</STRONG>
+|     g.drawString('Hello there!',10,200) -- message                   |<STRONG>18</STRONG>
++----------------------------------------------------------------------+
+                                                             aphello.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/aphello.nrx">Download the  source for the aphello.nrx example </A>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The HTML. </H3>
+<P>
+<A NAME="IDX380"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| &#60;html&#62;                                                               |<STRONG>01</STRONG>
+| test                                                                 |<STRONG>02</STRONG>
+| &#60;applet code="aphello.class" height=100 width=100 length=100&#62;        |<STRONG>03</STRONG>
+| &#60;/applet&#62;                                                            |<STRONG>04</STRONG>
+| &#60;/html&#62;                                                              |<STRONG>05</STRONG>
++----------------------------------------------------------------------+
+                                                            aphello.html
+</td></tr>
+</table>
+ 
+</PRE>
+
+
+
+<H3> <IMG SRC="yellowball.gif"> The full procedure as typed in. </H3>
+
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+             --
+             -- build the Applet
+             --
+rsl3pm1 (68) <STRONG>edit aphello.nrx</STRONG>
+
+             --
+             -- compile it
+             -
+rsl3pm1 (69) <STRONG>java COM.ibm.netrexx.process.NetRexxC aphello</STRONG>
+
+             --
+             -- edit the HTML
+             --
+rsl3pm1 (70) <STRONG>edit aphello.html</STRONG>
+
+             --
+             -- try it out
+             --
+rsl3pm1 (71) <STRONG>appletviewer aphello.html</STRONG>
+....................................................................
+
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_20.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:57(GMT +2).
+</FONT>
+

@@ -1,0 +1,5 @@
+# robots.txt for http://netrexx.org/
+
+User-agent: *
+Disallow: /netrexx/ #deep and with .svn info
+

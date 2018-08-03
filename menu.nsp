@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ul>
+  <li class="first"><a href="index.nsp" accesskey="1" title="">Home</a></li>
+  <li><a href="downloads.nsp" accesskey="2"
+	 title="">Downloads</a></li>
+    <!-- <li><a href="dailybuilds.nsp" accesskey="3" -->
+    <!-- 	 title="">Daily builds</a></li> -->
+  <li><a href="documentation.nsp" accesskey="4" title="">Documents</a></li>
+  <li><a href="examples.nsp" accesskey="5" title="">Examples</a></li>
+  <li><a href="community.nsp" accesskey="6" title="">Community</a></li>
+  <li><a href="contact.nsp" accesskey="7" title="">Contact Us</a></li>
+</ul>

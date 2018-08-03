@@ -1,0 +1,1421 @@
+<HTML>
+<HEAD>
+
+<TITLE>NetRexx Tutorial - Control Structures</TITLE>
+<table cellpadding=7>
+<tr valign=top>
+<td><img src="NetRexx.gif" width=64 height=64 alt=""></td>
+<td>
+<font size=6 color=darkblue><strong>The NetRexx Tutorial
+<br>
+<IMG SRC="l_red.gif"> -  Control Structures </font></strong>
+</td></tr></table>
+<TITLE>NetRexx Tutorial - Control Structures</TITLE>
+</HEAD>
+<BODY>
+<P><HR><P>
+
+
+<H1> Control Structures </H1>
+
+
+<H2> <IMG SRC="yellowball.gif"> Introduction. </H2>
+<P>
+<EM>
+No algorithmic language would be complete without instructions that
+allow the execution of statements depending on certain conditions
+for performing iterations and selections. NetRexx has many
+such instructions for allowing program flow control. Probably
+the most important is the <STRONG>do...end</STRONG> construct.
+</EM>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Statement Block. </H2>
+<P>
+<A NAME="IDX171"></A>
+A <STRONG>statement block</STRONG> is a sequence of statements enclosed by
+a <STRONG>do (...) end</STRONG>. A statement block looks like this:
+
+<PRE>
+ 
+<STRONG>do</STRONG>
+<EM>   statement_1</EM>
+<EM>   statement_2</EM>
+<EM>   (...)</EM>
+<EM>   statement_N</EM>
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+NetRexx executes these statements in sequence Ñ from
+the first to the last. Syntactically, a block
+of statements is accepted in place of any
+single statement.
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> if/then/else. </H2>
+<P>
+<A NAME="IDX172"></A>
+The <STRONG>if/then/else</STRONG> construct is used to conditionally
+execute an instruction or a group of instructions.
+The <STRONG>if/then/else</STRONG> construct
+can also be used to select between two alternatives.
+ 
+
+<PRE>
+ 
+<STRONG>if</STRONG> <EM>expression</EM>
+  <STRONG>then</STRONG> <EM>instruction</EM>
+  <STRONG>else</STRONG> <EM>instruction</EM>
+ 
+</PRE>
+
+<P>
+ 
+The <STRONG>expression</STRONG> is evaluated, and MUST result in '0' or '1'.
+Thus, as you can imagine:
+ 
+
+<PRE>
+ 
+<STRONG>if</STRONG> <EM>expression</EM>
+  <STRONG>then</STRONG> <EM>instruction</EM>   <STRONG>if expression results to 1</STRONG>
+  <STRONG>else</STRONG> <EM>instruction</EM>   <STRONG>if expression results to 0</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> NOP </H2>
+<P>
+<A NAME="IDX173"></A>
+It is usually difficult to do 'nothing'. However,
+the <STRONG>nop</STRONG> instruction was created for just such
+a purpose: it is a dummy instruction.
+ 
+
+<PRE>
+ 
+<STRONG>NOP</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+It is useful as target for a <STRONG>then</STRONG> or <STRONG>else</STRONG>
+clause:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+   if a = 3
+     then NOP
+     else say 'a is NOT 3.'
+--------------------------------------------------------
+                                          example of NOP
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> loop for (with a repetitor) </H2>
+<P>
+<A NAME="IDX174"></A>
+The <STRONG>loop</STRONG> instruction is used (as we have already seen), to group a
+set of instructions, and to execute (optionally) more than once.
+In its easier case, the <STRONG>loop for</STRONG> looks suspiciously like
+the C-language <STRONG>for</STRONG> statement.
+ 
+Let us consider a first case:
+
+<PRE>
+ 
+<STRONG>loop for expression</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+In this case, <STRONG>expression</STRONG> - an expression that evaluates
+a number - tells NetRexx 'how many times to execute the loop'.
+ 
+Here is an example:
+
+<PRE>
+ 
+--------------------------------------------------------
+/* this statement will be executed 3 times */
+loop for 3
+  say 'Hello'
+end
+--------------------------------------------------------
+                                            do N example
+ 
+</PRE>
+
+<P>
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   Hello
+   Hello
+   Hello
+ 
+</PRE>
+
+
+<PRE>
+ 
+--------------------------------------------------------
+list = 'MARTIN JOE PAULA'
+/* this statement will be executed 3 times */
+loop for list.words()
+  parse list name list
+  say 'Hi!' name
+end
+--------------------------------------------------------
+                                     second do N example
+ 
+</PRE>
+
+<P>
+ 
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   Hi MARTIN
+   Hi JOE
+   Hi PAULA
+ 
+</PRE>
+
+<P>
+Of course, you can use a variable (which we will regard as an index)
+to run the iteration. This is a 'controlled repetitive loop'.
+A more complex case is the following:
+ 
+
+<PRE>
+ 
+<STRONG>loop name = expr1 to expr2</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Examples:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 1 to 5
+  say i
+end
+--------------------------------------------------------
+                                            loop example
+ 
+</PRE>
+
+<P>
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   1
+   2
+   3
+   4
+   5
+ 
+</PRE>
+
+
+<PRE>
+ 
+--------------------------------------------------------
+cols   = 2
+rows   = 3
+loop i = 1 to cols
+  loop j = 1 to rows
+    say j
+  end
+end
+--------------------------------------------------------
+                                     loop with 2 indices
+ 
+</PRE>
+
+<P>
+ 
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   1
+   2
+   3
+   1
+   2
+   3
+ 
+</PRE>
+
+<P>
+ 
+In the above examples, we always incremented by a positive quantity
+(+1). What about when your increment is NOT +1?
+The solution is again a <STRONG>do</STRONG>, but now with a
+<STRONG>by</STRONG> statement. Our <STRONG>do</STRONG> loop will then look like:
+ 
+
+<PRE>
+ 
+<STRONG>loop varname = expr1 to expr2 by expr3</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+And here are some examples:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 2 to -1 by -1
+  say i
+end
+--------------------------------------------------------
+                                              by example
+ 
+</PRE>
+
+<P>
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   2
+   1
+   0
+  -1
+ 
+</PRE>
+
+
+<PRE>
+ 
+--------------------------------------------------------
+x1 = 2.1
+x2 = 2.5
+increment = .1
+loop x = x1 to x2 by increment
+  say x
+end
+--------------------------------------------------------
+                                              by example
+ 
+</PRE>
+
+<P>
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   2.1
+   2.2
+   2.3
+   2.4
+   2.5
+ 
+</PRE>
+
+<P>
+ 
+You can even add a repetition counter, which sets a limit to the
+number of iterations if the loop is not terminated by other
+conditions. Our <STRONG>loop</STRONG> loop will then look like
+the following:
+ 
+
+<PRE>
+ 
+<STRONG>loop varname = expr1 to expr2 by expr3 for expr4</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+Example:
+
+<PRE>
+ 
+--------------------------------------------------------
+y_start = .9
+y_end = 2.7
+loop y = y_start to y_end by .9 for 2
+  say y
+end
+--------------------------------------------------------
+                                             for example
+ 
+</PRE>
+
+<P>
+<EM>Will print on your screen:</EM>
+
+<PRE>
+ 
+   .9
+   1.8
+ 
+</PRE>
+
+<P>
+ 
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> loop/while/until. </H2>
+<P>
+<A NAME="IDX175"></A>
+The <STRONG>while</STRONG> and <STRONG>until</STRONG> constructs commonly found in
+other programming languages are also available in NetRexx,
+as a condition to the ubiquitous <STRONG>loop</STRONG> statement.
+ 
+Here is how to build a simple <STRONG>while</STRONG> loop:
+ 
+
+<PRE>
+ 
+<STRONG>loop while expression</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+And here is how to build a simple <STRONG>until</STRONG> loop:
+ 
+
+<PRE>
+ 
+<STRONG>loop until expression</STRONG>
+  statement_1
+  statement_2
+  (...)
+  statement_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+ 
+Consider the example:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+i = 1
+loop while i &#60; 7
+  say i '\-'
+  i = i+1
+end
+--------------------------------------------------------
+                                           while example
+ 
+</PRE>
+
+<P>
+---&#62; The previous code will print: <STRONG>1 2 3 4 5 6 </STRONG>
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+i = 1
+loop until i &#62; 6
+  say i '\-'
+  i = i+1
+end
+--------------------------------------------------------
+                                                   until
+ 
+</PRE>
+
+<P>
+---&#62; Will print: <STRONG>1 2 3 4 5 6 </STRONG>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> do resume. </H2>
+<P>
+A nice NetRexx feature is that you can combine the
+<STRONG>loop</STRONG> in its <STRONG>repetitive</STRONG> form with the
+<STRONG>loop</STRONG> in its <STRONG>conditional</STRONG> form (i.e. the
+while/until construct we just considered).
+ 
+This can lead to constructs that look like:
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 1 to 10 while i &#60; 6
+  say i '\-'
+end
+--------------------------------------------------------
+                                        combined example
+ 
+</PRE>
+
+<P>
+---&#62; This code will print: <STRONG>1 2 3 4 5</STRONG>.
+ 
+There is a nice 'side effect' to this feature, and that is the possibility
+of building a while/until loop without incrementing (or decrementing)
+the control variable yourself. Consider the case we just looked at:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+i = 1.0
+loop while i &#60; 3
+  say i '\-'
+  i = i+.5
+end
+--------------------------------------------------------
+                                        do while example
+ 
+</PRE>
+
+<P>
+---&#62; This code will produce: <STRONG>1.0 1.5 2.0 2.5</STRONG>
+ 
+We need to define the start value <STRONG>i = 1.0</STRONG>, and define
+the step increment <STRONG>i = i+.5</STRONG>. All this can be avoided with
+the following construct:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 1.0 by .5 while i &#60; 3
+  say i '\-'
+end
+--------------------------------------------------------
+                                     do by while example
+ 
+</PRE>
+
+<P>
+---&#62; Will print: <STRONG>1.0 1.5 2.0 2.5</STRONG>
+ 
+This code is much more compact.
+ 
+A resume' of what we have seen so far on the <STRONG>do</STRONG> instruction:
+<A NAME="IDX176"></A>
+
+<PRE>
+ 
+----------------------------------------------------------------------
+ 
+loop repetitor conditional
+     --------- -----------
+          |         |
+          |         +----------&#60; _ WHILE expr_w
+          |                      _ UNTIL expr_u
+          |
+          +------------&#60; _ var = expr_i TO expr_t BY expt_b FOR expr_f
+                         _ expr_r
+                         _ FOREVER
+ 
+   instruction_1
+   instruction_2
+   (...)
+   instruction_N
+end
+ 
+----------------------------------------------------------------------
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> select. </H2>
+<P>
+<A NAME="IDX177"></A>
+The <STRONG>select</STRONG> instruction is used to execute one of several
+alternative instructions.
+ 
+The format is:
+
+<PRE>
+ 
+<STRONG>select</STRONG>
+  <STRONG>when</STRONG> expression_1 <STRONG>then</STRONG> instruction_1
+  <STRONG>when</STRONG> expression_2 <STRONG>then</STRONG> instruction_2
+  <STRONG>when</STRONG> expression_3 <STRONG>then</STRONG> instruction_3
+  (...)
+  <STRONG>otherwise</STRONG> instruction_N
+<STRONG>end</STRONG>
+ 
+</PRE>
+
+<P>
+What NetRexx does is evaluate the expressions
+after the <STRONG>when</STRONG>. If the result is '1', then what
+follows the corresponding <STRONG>then</STRONG> is executed
+(this can be anything Ñ a single instruction, a set
+of instructions inside a <STRONG>do ... end</STRONG> clause,
+etc.). Upon return, the control will pass
+directly to the <STRONG>end</STRONG> instruction.
+ 
+If none of the <STRONG>when</STRONG> expressions result in a
+'1', then the  <STRONG>otherwise</STRONG> instruction is executed.
+ 
+NOTE: the <STRONG>otherwise</STRONG> clause is NOT mandatory, but
+if  none of the <STRONG>when</STRONG> expressions results in a '1',
+and the <STRONG>otherwise</STRONG> is not present, you will get a
+'SYNTAX error'. It is thus wise to ALWAYS add
+an <STRONG>otherwise</STRONG> clause at the end of a <STRONG>select</STRONG>,
+usually with a <STRONG>NOP</STRONG> instruction.
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+(...)
+/* this will print a flag corresponding to the */
+/* inactivity time of a terminal:              */
+ 
+/* the table is the following                  */
+/* hour    0...1...2...3...4...5...6...7...8   */
+/* flag    ****;;;;::::::::.................   */
+ 
+/* where 'hour' is since how many hours the    */
+/* terminal is inactive, and flag is the       */
+/* flag we want to display                     */
+ 
+/*   inactive: time (in hours)   a terminal */
+/*             has been inactive            */
+select
+  when inactive &#60; 1 then flag = '*'
+  when inactive &#60; 2 then flag = ';'
+  when inactive &#60; 4 then flag = ':'
+  otherwise flag = '.'
+end
+(...)
+--------------------------------------------------------
+                                          select example
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> iterate. </H2>
+<P>
+<A NAME="IDX178"></A>
+Use the <STRONG>iterate</STRONG> instruction to alter the flow of control
+within a repetitive <STRONG>do</STRONG> loop (i.e. any <STRONG>do</STRONG>
+construct which is NOT a plain <STRONG>do</STRONG>).
+ 
+The syntax is:
+
+<PRE>
+ 
+do (expression)
+  statement_1
+  (...)
+  statement_N
+  (condition) <STRONG>iterate [name]</STRONG>
+  statement_N+1
+  (...)
+  statement_M
+end
+ 
+</PRE>
+
+<P>
+If program flow reaches the <STRONG>iterate</STRONG> instruction, the control
+is passed back to the <STRONG>do</STRONG> instruction, so that the statements
+<STRONG>statement_N+1,...statement_M</STRONG> are NOT executed.
+ 
+Here is an example:
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 1 to 5
+  say '* \-'
+  if i = 3 then iterate
+  say i '\-'
+end
+--------------------------------------------------------
+                                         iterate example
+ 
+</PRE>
+
+<P>
+---&#62; This will print: <STRONG>* 1 * 2 * * 4 * 5</STRONG>
+ 
+The <STRONG>iterate</STRONG> instruction also supports a 'name' following
+it, and <STRONG>name</STRONG> (if present) must be the variable name of a current
+active loop.
+ 
+Consider this following code atom:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+num = 7
+loop i = 1 to num
+  line = "
+  loop j = 1 to num
+    if i = j then
+      do
+        say line
+        iterate i
+      end
+    line = line j
+  end
+end
+--------------------------------------------------------
+                                      iterate example II
+ 
+</PRE>
+
+<P>
+This code will print:
+
+<PRE>
+ 
+
+<STRONG> </STRONG>
+<STRONG> 1</STRONG>
+<STRONG> 1 2</STRONG>
+<STRONG> 1 2 3</STRONG>
+<STRONG> 1 2 3 4</STRONG>
+<STRONG> 1 2 3 4 5</STRONG>
+<STRONG> 1 2 3 4 5 6</STRONG>
+
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> leave. </H2>
+<P>
+<A NAME="IDX179"></A>
+ 
+Use the <STRONG>leave</STRONG> instruction to exit immediately from a <STRONG>do</STRONG>
+loop.
+ 
+The syntax is:
+
+<PRE>
+ 
+loop (expression)
+  statement_1
+  (...)
+  statement_N
+  (condition) <STRONG>leave [name]</STRONG>
+  statement_N+1
+  (...)
+  statement_M
+end
+ 
+</PRE>
+
+<P>
+The flow of control is passed to the instruction that FOLLOWS the
+corresponding <STRONG>end</STRONG> in the <STRONG>loop</STRONG> loop.
+ 
+Here is an example:
+
+<PRE>
+ 
+--------------------------------------------------------
+loop i = 1 to 5
+  say '* \-'
+  if i = 3 then leave
+  say i '\-'
+end
+--------------------------------------------------------
+ 
+</PRE>
+
+<P>
+---&#62; The above code will produce the output: <STRONG>* 1 * 2 *</STRONG>
+ 
+You should note that
+<STRONG>leave</STRONG> is similar, in a certain sense, to the
+<STRONG>iterate</STRONG> instruction: like it, <STRONG>leave</STRONG>
+'breaks' the normal flow of control in the <STRONG>do</STRONG> loop.
+ 
+Pictorially:
+
+</P>
+
+<PRE>
+ 
+loop           &#60;------+
+  (...)               |
+  (...)           (back to beginning)
+  (...)               |
+      iterate  -------+
+      leave    -------+
+  (...)               |
+  (...)           (jump past the end)
+  (...)               |
+end                   |
+               &#60;------+
+ 
+</PRE>
+
+<P>
+ 
+ 
+
+</P>
+
+
+<H2> <IMG SRC="yellowball.gif"> Real Examples. </H2>
+<P>
+As usual, we now present some 'real-life' examples.
+
+</P>
+
+
+<H3> <IMG SRC="yellowball.gif"> Simulating the 'foreach' instruction. </H3>
+<P>
+<A NAME="IDX180"></A>
+ 
+As you may have noticed, the <STRONG>foreach</STRONG> instruction
+does not exist
+in NetRexx. And if you are a shell
+programmer, you may well also be without it.
+However, here is a trick for simulating it with a minimum of effort:
+ 
+
+<PRE>
+ 
+--------------------------------------------------------
+loop while list ^= "       | -&#62; foreach item (list)
+  parse list item list      |
+  (...)                     |
+end                         |    end
+--------------------------------------------------------
+                                         foreach example
+ 
+</PRE>
+
+<P>
+The only thing you need to remember is that the <STRONG>list</STRONG>
+variable, at the end of the do loop, will be NULL; remember
+to save it if you plan to use it later.
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Reading a 'stanza' file. </H3>
+<P>
+<A NAME="IDX181"></A>
+
+</P>
+<P>
+Configuration files are usually divided in the UNIX terminology
+into 'stanzas'. A 'stanza' is a uniquely identified portion
+of the file that contains the parameters for a specified entity.
+VM programmers may identify a 'stanza' as a single entry in a
+NAMES file: an identifier marks the start of a stanza,
+and a set of parameters follows, until a new stanza (or an
+End_of_File) is reached.
+ 
+Let us look at a 'stanza' example:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| # comment line                                                   |
+| node: rsl3pm1              #  first stanza                       |
+|   machine: rs6000          #  defines node                       |
+|   vendor: IBM              #    rsl3pm1                          |
+|   location: b32r035        #                                     |
+|                                                                  |
+| node: sgl3pm1              #  second one                         |
+|   machine: Indigo2         #  defines node                       |
+|   vendor: SGI              #     sgl3pm1                         |
+|   location: b11r023        #                                     |
+|                                                                  |
+| node: hpl3sn05                                                   |
+|   machine: 730/50                                                |
+|   vendor: H/P                                                    |
+|   location: b71r233                                              |
++------------------------------------------------------------------+
+                                            Source file: test.stanza
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+You should note that:
+
+<UL>
+<LI>the character <STRONG>#</STRONG> is used as a comment. If a line
+
+  starts with a <STRONG>#</STRONG>, it is ignored, and if a line
+  contains a <STRONG>#</STRONG>, all what follows it is also ignored;
+<LI>blank lines are ignored.
+
+</UL>
+
+<P>
+The following program is composed of a small call to a routine that
+does the job of:
+
+<UL>
+<LI>reading the configuration file that contains all the
+
+  stanzas;
+<LI>finding out the one we are looking for;
+
+<LI>setting the output variable to the required values for
+
+  the selected stanza.
+</UL>
+
+<P>
+As you can see, the function is a good example of utilisation of
+the <STRONG>do, leave, iterate</STRONG> instructions.
+
+</P>
+
+<P>
+<A NAME="IDX182"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- readst.nrx                                                        |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+| parse arg nodeid .                                                   |<STRONG>03</STRONG>
+|                                                                      |<STRONG>04</STRONG>
+| --                                                                   |<STRONG>05</STRONG>
+| --                                                                   |<STRONG>06</STRONG>
+|                                                                      |<STRONG>07</STRONG>
+| -- read the file                                                     |<STRONG>08</STRONG>
+| --                                                                   |<STRONG>09</STRONG>
+| infid = xFile('test.stanza')                                         |<STRONG>10</STRONG>
+| rc = infid.rd_file()                                                 |<STRONG>11</STRONG>
+| if rc &#60;&#62; 0 then                                                      |<STRONG>12</STRONG>
+|   do                                                                 |<STRONG>13</STRONG>
+|     say 'problem reading "'infid.name'".'                            |<STRONG>14</STRONG>
+|     exit 1                                                           |<STRONG>15</STRONG>
+|   end                                                                |<STRONG>16</STRONG>
+|                                                                      |<STRONG>17</STRONG>
+| output = ''                                                          |<STRONG>18</STRONG>
+| found  = 0                                                           |<STRONG>19</STRONG>
+| loop i = 1 to infid.line[0]                                          |<STRONG>20</STRONG>
+|   if infid.line[i] = '' then iterate                                 |<STRONG>21</STRONG>
+|   parse infid.line[i] key rest '#' .                                 |<STRONG>22</STRONG>
+|   if key = '#' then iterate                                          |<STRONG>23</STRONG>
+|   if key = 'node:' then                                              |<STRONG>24</STRONG>
+|     do                                                               |<STRONG>25</STRONG>
+|       if found then leave                                            |<STRONG>26</STRONG>
+|       if rest = nodeid then                                          |<STRONG>27</STRONG>
+|         do                                                           |<STRONG>28</STRONG>
+|           found = 1                                                  |<STRONG>29</STRONG>
+|           iterate                                                    |<STRONG>30</STRONG>
+|         end                                                          |<STRONG>31</STRONG>
+|     end                                                              |<STRONG>32</STRONG>
+|   if found = 0 then iterate                                          |<STRONG>33</STRONG>
+|   parse infid.line[i] line '#' .                                     |<STRONG>34</STRONG>
+|   output = output line                                               |<STRONG>35</STRONG>
+| end                                                                  |<STRONG>36</STRONG>
+| out = output.space()                                                 |<STRONG>37</STRONG>
+| if out = ''                                                          |<STRONG>38</STRONG>
+|   then say 'Not found.'                                              |<STRONG>39</STRONG>
+|   else say output.space()                                            |<STRONG>40</STRONG>
+|                                                                      |<STRONG>41</STRONG>
+| exit 0                                                               |<STRONG>42</STRONG>
++----------------------------------------------------------------------+
+                                                              readst.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/readst.nrx">Download the  source for the readst.nrx example </A>
+ 
+</PRE>
+
+<P>
+<STRONG>NOTEs:</STRONG>
+
+<UL>
+<LI><STRONG>line 16:</STRONG> we read the configuration file containing
+
+  ALL the stanzas;
+<LI><STRONG>line 21:</STRONG> we ignore empty lines;
+
+<LI><STRONG>line 23:</STRONG> we ignore comment lines as well;
+
+<LI><STRONG>line 24:</STRONG> check if this keyword identifies a new stanza;
+
+<LI><STRONG>line 26:</STRONG> if we have already found the stanza we wanted,
+
+  there is no need to continue further;
+<LI><STRONG>line 27:</STRONG> if this is the stanza we wanted,
+
+  remember that we found it, and iterate;
+<LI><STRONG>line 33:</STRONG> up to now we have not found the stanza,
+
+  so iterate;
+</UL>
+
+<P>
+Run this program and here is the result you will get:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (182) <STRONG>java readst sgl3pm1</STRONG>
+machine: Indigo2 vendor: SGI location: b11r023
+rsl3pm1 (183) <STRONG>java readst rsl3pm1</STRONG>
+machine: rs6000 vendor: IBM location: b32r035
+rsl3pm1 (184)
+....................................................................
+                                                       readst.output
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H3> <IMG SRC="yellowball.gif"> Expanding a list. </H3>
+<P>
+<A NAME="IDX183"></A>
+The following problem might appear totally 'academic'. It
+did to me until I encountered the following problem.
+ 
+A directory contained a set of files (more than 20 000), each
+identified by a number (as filename). To make the problem clearer,
+my directory contained these files:
+ 
+
+<PRE>
+ 
+  10000      10001      10002       10003
+  10004      10005      10006       10007
+  (...)
+  33002      33003      33004       33005
+ 
+</PRE>
+
+<P>
+ 
+The user needed to perform operations on a subset of the files Ñ for example:
+ 
+
+<PRE>
+ 
+    10000 10981 10982 10983 21900 21901
+or: 30291 30292
+or: 67234 67235 67236 67237 77889 88974 88975
+ 
+</PRE>
+
+<P>
+The user had to start from N and continue until item
+M, or from item J for K files.
+ 
+There was no easy solution with UNIX standard wild-cards. And the
+only solution was to write the items one by one.
+ 
+The small program (and routine) that follows is a possible
+solution to the problem Ñ it expands a pattern according to
+a very simple syntax:
+ 
+
+<PRE>
+ 
+  first-last
+  first.how_many
+ 
+</PRE>
+
+<P>
+ 
+The expansion is then of the type:
+ 
+
+<PRE>
+ 
+ 
+  10020-10022  -&#62; 10020 10021 10022
+  30452.4      -&#62; 30452 30453 30454 30455
+ 
+ 
+</PRE>
+
+<P>
+The program will accept any combination of items containing
+'.' or '-', or simple single items.
+ 
+The program is really very simple:
+ 
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++------------------------------------------------------------------+
+| parse arg teststr                                                |01
+| say expandlist(teststr)                                          |02
+| exit 0                                                           |03
++------------------------------------------------------------------+
+                                                         explist.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/explist.nrx">Download the  source for the explist.nrx example </A>
+ 
+</PRE>
+
+<P>
+And of course requires this small function:
+(I present it separately so that you can
+quickly put it inside a bigger program if you like it).
+
+</P>
+<P>
+<A NAME="IDX184"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: listexpand                                          |<STRONG>72</STRONG>
+| -- purpose.....:                                                     |<STRONG>73</STRONG>
+| --                                                                   |<STRONG>74</STRONG>
+|   method listexpand(il=Rexx) public static                           |<STRONG>75</STRONG>
+|     ol = ''                                                          |<STRONG>76</STRONG>
+|     loop while il &#60;&#62; ''                                              |<STRONG>77</STRONG>
+|       parse il it il                                                 |<STRONG>78</STRONG>
+|       if it.pos('.') &#60;&#62; 0 then                                       |<STRONG>79</STRONG>
+|         do                                                           |<STRONG>80</STRONG>
+|           parse it f'.'n                                             |<STRONG>81</STRONG>
+|           loop i = f to f+n-1                                        |<STRONG>82</STRONG>
+|             if ol.pos(i) &#60;&#62; 0 then iterate i                         |<STRONG>83</STRONG>
+|             ol = ol i                                                |<STRONG>84</STRONG>
+|           end                                                        |<STRONG>85</STRONG>
+|           iterate                                                    |<STRONG>86</STRONG>
+|         end                                                          |<STRONG>87</STRONG>
+|       if it.pos('-') &#60;&#62; 0 then                                       |<STRONG>88</STRONG>
+|         do                                                           |<STRONG>89</STRONG>
+|           parse it f'-'l                                             |<STRONG>90</STRONG>
+|           loop i = f to l                                            |<STRONG>91</STRONG>
+|             if ol.pos(i) &#60;&#62; 0 then iterate i                         |<STRONG>92</STRONG>
+|             ol = ol i                                                |<STRONG>93</STRONG>
+|           end                                                        |<STRONG>94</STRONG>
+|           iterate                                                    |<STRONG>95</STRONG>
+|         end                                                          |<STRONG>96</STRONG>
+|        if ol.pos(it) &#60;&#62; 0 then iterate                               |<STRONG>97</STRONG>
+|        ol = ol it                                                    |<STRONG>98</STRONG>
+|     end                                                              |<STRONG>99</STRONG>
+|     Return ol                                                        |<STRONG>00</STRONG>
+|                                                                      |<STRONG>01</STRONG>
++----------------------------------------------------------------------+
+                                          xstring.nrx(Method:listexpand)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+Here is what you can use it for:
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="80%" BGCOLOR="707070">
+<tr><td>
+<PRE>
+....................................................................
+rsl3pm1 (9) <STRONG>explist 2000 3045.3 7002-7003</STRONG>
+2000 3045 3046 3047 7002 7003
+ 
+rsl3pm1 (11) <STRONG>echo `explist 20000 30890-30900`</STRONG>
+20000 30890 30891 30892 30893 30894
+30895 30896 30897 30898 30899 30900
+ 
+rsl3pm1 (12) <STRONG> ls -la `explist 20000 30890-30900`</STRONG>
+(...)
+ 
+rsl3pm1 (13) <STRONG>cat `explist 20000.7 30890-30900` &#62; toto</STRONG>
+(...)
+....................................................................
+                                                         explist.out
+</td></tr>
+</table>
+ 
+</PRE>
+
+<P>
+ 
+
+
+<H2> <IMG SRC="yellowball.gif"> Operation on arrays. </H2>
+<P>
+It is sometimes usefull to convert information from an array,
+to a string, and viceversa.
+
+</P>
+<P>
+<A NAME="IDX185"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: a2s                                                 |<STRONG>31</STRONG>
+| -- purpose.....: converts a Rexx array to a string                   |<STRONG>32</STRONG>
+| --                                                                   |<STRONG>33</STRONG>
+|   method a2s(a=Rexx) public static                                   |<STRONG>34</STRONG>
+|     a = a                                                            |<STRONG>35</STRONG>
+|     out = ''                                                         |<STRONG>36</STRONG>
+|     loop i = 1 to a[0]                                               |<STRONG>37</STRONG>
+|       out = out a[i]                                                 |<STRONG>38</STRONG>
+|     end                                                              |<STRONG>39</STRONG>
+|     return out                                                       |<STRONG>40</STRONG>
+|                                                                      |<STRONG>41</STRONG>
++----------------------------------------------------------------------+
+                                                 xstring.nrx(Method:a2s)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+<A NAME="IDX186"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- method......: s2a                                                 |<STRONG>18</STRONG>
+| -- purpose.....: converts a string to an array                       |<STRONG>19</STRONG>
+| --                                                                   |<STRONG>20</STRONG>
+|   method s2a(str=Rexx,a=Rexx) public static                          |<STRONG>21</STRONG>
+|     a = a                                                            |<STRONG>22</STRONG>
+|     i = 0                                                            |<STRONG>23</STRONG>
+|     loop while str &#60;&#62; ''                                             |<STRONG>24</STRONG>
+|       parse str nn str                                               |<STRONG>25</STRONG>
+|       i = i+1                                                        |<STRONG>26</STRONG>
+|       a[i] = nn                                                      |<STRONG>27</STRONG>
+|     end                                                              |<STRONG>28</STRONG>
+|     a[0] = i                                                         |<STRONG>29</STRONG>
+|                                                                      |<STRONG>30</STRONG>
++----------------------------------------------------------------------+
+                                                 xstring.nrx(Method:s2a)
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../library/xstring.nrx">Download the complete source for the xstring.nrx library </A>
+ 
+</PRE>
+
+<P>
+The following example will show the utilization of such functions.
+
+</P>
+<P>
+<A NAME="IDX187"></A>
+
+<PRE>
+ 
+</PRE>
+<table border cellpadding=5 cellspacing=0  width="88%" BGCOLOR="FFFFFF">
+<tr valign=top>
+<td>
+<PRE>
++----------------------------------------------------------------------+
+| -- simple test of a2s and s2a                                        |<STRONG>01</STRONG>
+| --                                                                   |<STRONG>02</STRONG>
+|                                                                      |<STRONG>03</STRONG>
+| -- convert a string to an array                                      |<STRONG>04</STRONG>
+| --                                                                   |<STRONG>05</STRONG>
+| b = rexx(")                                                         |<STRONG>06</STRONG>
+| xstring.s2a('52 45 66 3 4',b)                                        |<STRONG>07</STRONG>
+| loop i = 1 to b[0]                                                   |<STRONG>08</STRONG>
+|   say i ':' b[i]                                                     |<STRONG>09</STRONG>
+| end                                                                  |<STRONG>10</STRONG>
+|                                                                      |<STRONG>11</STRONG>
+| -- convert an array to a string                                      |<STRONG>12</STRONG>
+| --                                                                   |<STRONG>13</STRONG>
+| c = rexx(")                                                         |<STRONG>14</STRONG>
+| c[0] = 3                                                             |<STRONG>15</STRONG>
+| c[1] = 'This is a test'                                              |<STRONG>16</STRONG>
+| c[2] = 'another el.'                                                 |<STRONG>17</STRONG>
+| c[3] = 'LAST ONE.'                                                   |<STRONG>18</STRONG>
+|                                                                      |<STRONG>19</STRONG>
+| s = xstring.a2s(c)                                                   |<STRONG>20</STRONG>
+| say s                                                                |<STRONG>21</STRONG>
+|                                                                      |<STRONG>22</STRONG>
+| exit 0                                                               |<STRONG>23</STRONG>
++----------------------------------------------------------------------+
+                                                              tarray.nrx
+</td><td><img src="netrexx.gif">
+</td></tr>
+</table>
+
+<IMG SRC="resource.gif"> <A href="../examples/tarray.nrx">Download the  source for the tarray.nrx example </A>
+ 
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter FAQ </H2>
+<P>
+<A NAME="IDX188"></A>
+ 
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+
+
+<H2> <IMG SRC="yellowball.gif"> Chapter Summary </H2>
+<P>
+<EM>A resume' of some of the concepts we've encountered in this chapter:</EM>
+
+<PRE>
+ 
+_ block of instructions           | <EM>do (...) end</EM>
+                                  | - ex.: <STRONG>do</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>end</STRONG>
+                                  |
+_ 'for' loop                      |  <EM>loop for n=n1 to n2 (...) end</EM>
+                                  | - ex.: <STRONG>loop i = 1 to 6</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>end</STRONG>
+                                  |
+_ 'while' loop                    |  <EM>loop while expr (...) end</EM>
+                                  | - ex.: <STRONG>loop while i &#60; 6</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>  instructions</STRONG>
+                                  |        <STRONG>end</STRONG>
+                                  |
+ 
+</PRE>
+
+
+<PRE>
+ 
+<B> *** This section is: </B>
+<B> <img src="underc.gif"> </B>
+<B> *** and will be available in next releases</B>
+
+</PRE>
+
+<P><HR><P>
+</BODY>
+</HTML>
+<PRE>
+File: nr_9.html.
+</PRE>
+<HR>
+<FONT SIZE=-1 COLOR="4D4DFF">
+The contents of this WEB page are Copyright &copy 1997 by Pierantonio Marchesini / ETH Zurich.<P>
+Last update was done on 18 May 1998 21:47:43(GMT +2).
+</FONT>
+

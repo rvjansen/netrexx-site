@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<jsp:useBean id="clock" class="java.util.Date" />
+<div id="outer">
+<div id="header">
+  <h1><a href="#">NetRexx</a></h1>
+</div>
+<div id="menu">
+  <%@include file="menu.nsp" %>
+</div>
+<div id="content">
+<div id="tertiaryContent">
+  <%@include file="right.nsp" %>
+</div>
+<div id="primaryContentContainer">
+<div id="primaryContent">
+  <h2>Welcome to the NetRexx Programming Language!</h2>
+  <p><strong>NetRexx</strong> is a general-purpose programming
+  language inspired by two very different programming languages, Rexx
+  and Java. It is designed for people, not computers. In this respect
+  it follows Rexx closely, with many of the concepts and most of the
+  syntax taken directly from Rexx or its object-oriented version,
+  Object Rexx. From Java it derives static typing, binary arithmetic,
+  the object model, and exception handling. "A smart language designed
+  for real people, and vice versa." Originally a product from the IBM
+  Hursley Software Lab, NetRexx has always been free software and is
+  free and open
+  source since June 11th, 2011. It is the first alternative language
+  for the Java Virtual Machine (JVM).
+  <h3>Why NetRexx?</h3>
+  <ul>
+    <li>NetRexx makes programming easy, and fun again</li>
+    <li>The Rexx type, combining numeric and string processing in one
+    class</li>
+    <li>Unlimited precision arithmetic built into the language</li>
+    <li>Interpret your code or compile to JVM .class files</li>
+    <li>Lightning fast performance compared to other JVM scripting languages</li>
+    <li>Seamless integration to all JVM libraries</li>
+    <li>Built-in luxurious parsing and tracing</li>
+  </ul>
+  
+  <h3>Hursley Labs</h3>
+  <blockquote>
+  Hursley, located near Winchester in the UK, is the place
+  where many famous products originate.  Incidentally, in Hursley <b>
+  <jsp:useBean id="clocktime" class="com.rvjansen.qtime" />
+  <jsp:getProperty name="clocktime" property="out" /></b>, according to
+  the <a href="netrexx/netrexxc/examples/ibm-historic/qtime.nrx">qtime</a> program, one of the first-ever Rexx programs, dating from
+  1979. This is the NetRexx version from 1996, which is almost
+  identical. Being British, NetRexx listens to both <i>center</i>
+  and <i>centre</i> method spellings.
+  </blockquote>
+  <h3>MFC on NetRexx</h3>
+  <blockquote>
+  <p>The seamless integration of types into what was previously an essentially typeless language does seem to have been a success, offering the advantages of strong typing while preserving the ease of use and speed of development that Rexx programmers have enjoyed.
+  The end result of adding Java typing capabilities to the Rexx language is a single language that has both the Rexx strengths for scripting and for writing macros for applications and the Java strengths of robustness, good efficiency, portability, and security for application development.</p>
+  <p>-- Mike Cowlishaw</p>
+  </blockquote>
+</table>
+</div>
+</div>
+<div id="secondaryContent">
+  <%@include file="left.nsp" %>
+</div>
+<div class="clear"></div>
+</div>
+<div id="footer">
+  <%@include file="footer.nsp" %>
+</div>
+</div>
+</body>
+</html>

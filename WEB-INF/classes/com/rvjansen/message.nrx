@@ -1,0 +1,33 @@
+options binary
+package com.rvjansen
+import javax.servlet.jsp.
+/**
+ * Class message implements the message to send from the webpage 
+ * <BR>
+ * Created on: di, 12, mrt 2013 12:13:28 +0100
+ */
+class message
+  properties indirect
+  firstname = String
+  lastname  = String
+  emailaddr = String
+  message_  = String
+  pc        = PageContext
+
+  /**
+   * Default constructor
+   */
+  method message()
+
+  method doit() protect
+    out = PrintWriter(BufferedWriter(FileWriter('messages.txt',1)))
+    out.println(Date())
+    out.println(pc.getRequest().getRemoteAddr())
+    out.println(this.getFirstname())
+    out.println(this.getLastname())
+    out.println(this.getEmailaddr())
+    out.println(this.getMessage_())
+    out.println('-----------------------')
+    out.close()
+    return ''
+    

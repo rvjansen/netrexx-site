@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>NetRexx.org</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="outer">
+<div id="header">
+  <h1><a href="#">Downloads</a></h1>
+  <h2></h2>
+</div>
+<div id="menu">
+  <%@include file="menu.nsp" %>
+</div>
+<div id="content">
+<div id="tertiaryContent">
+  <%@include file="right.nsp" %>
+</div>
+<div id="primaryContentContainer">
+<div id="primaryContent">
+
+  <h3>NetRexx Current Releases</h3>
+  <table>
+    <tr class="rowH">
+      <th></th>
+      <th>Package</th>
+      <th>Description</th>
+    </tr>
+    <tr class="rowA">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.06-GA.zip">NetRexx 3.06 GA</a></td>
+      <td>RexxLA NetRexx 3.06 GA release Archive, December 11th,
+  2017
+    </tr>
+     <tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.05GA.zip">NetRexx 3.05 GA</a></td>
+      <td>RexxLA NetRexx 3.05 GA release Archive, April 27th,
+  2017
+    </tr>
+  </tr>
+    </table>
+
+   
+  <h3>NetRexx Historic Releases</h3>
+  <table>
+    <tr class="rowH">
+      <th></th>
+      <th>Package</th>
+      <th>Description</th>
+    </tr>
+      <tr class="rowA">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.04GA.zip">NetRexx 3.04 GA</a></td>
+      <td>RexxLA NetRexx 3.04 GA release Archive, July 1st,
+  2015
+    </tr>
+    <tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/nrxInstall-3.03GA.jar">nrxInstall-3.03GA.jar</a></td>
+      <td>RexxLA NetRexx 3.03 GA Installer package, June 11th,
+  2014. This may be double clicked, or installed from the command line
+  with: <b>$ java -jar nrxInstall-3.03GA.jar</b></td>
+    </tr>
+    <tr class="rowA">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.03GA.zip">NetRexx 3.03 GA</a></td>
+      <td>RexxLA NetRexx 3.03 Archive,
+  June 11th, 2014.
+    </tr>
+    <tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/nrxInstall-3.02.jar">NetRexx 3.02 GA</a></td>
+      <td>RexxLA NetRexx 3.02 GA Installer package, July 19th,
+  2013. This may be double clicked, or installed from the command line
+  with: <b>$ java -jar nrxInstall-3.02.jar</b></td>
+    </tr>
+    <tr class="rowA">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.02GA.zip">NetRexx 3.02 GA</a></td>
+      <td>RexxLA NetRexx 3.02 GA release archive, June 25th, 2013.</td>
+    </tr>
+    <tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.01.zip">NetRexx 3.01 GA</a></td>
+      <td>RexxLA NetRexx 3.01 GA release archive, August 23, 2012.</td>
+    </tr>
+    <tr class="rowA">
+      <td><img src="images/ibm_logo.gif" height=64></td>
+      <td><a href="files/NetRexxC-2.05.jar">NetRexx 2.05 GA</td>
+      <td>IBM's last NetRexx release, suitable for JVM versions 1.5
+	and below (NetRexxC.jar only, minimum JVM level is 1.02 for
+	interpreter functionality, 1.01 for compiler only
+  functionality). <red>Only use when needed for back-releases of
+  Java</red></td>
+      </tr>
+    </table>
+    
+    <!-- <h3>NetRexx Automatic Trunk Build</h3> -->
+    <!-- <table> -->
+    <!--   <tr class="rowH"> -->
+    <!-- 	<th></th> -->
+    <!-- 	<th>Package</th> -->
+    <!-- 	<th>Description</th> -->
+    <!--   </tr> -->
+    <!--   <tr class="rowA"> -->
+    <!-- 	<td><img src="images/netrexx.gif" height=64></td> -->
+    <!-- 	<td><a -->
+    <!-- 	  href="netrexx/netrexxc/trunk/build/lib/NetRexxC.jar">NetRexxC.jar</td> -->
+    <!-- 	  <jsp:useBean id="buildtime" class="com.rvjansen.NightlyBuildData" /> -->
+    <!-- 	  <td>NetRexxC.jar from development trunk, automatically built -->
+    <!-- 	    on <b>West Virginia, US</b> build server date/time: -->
+    <!-- 	    <b><jsp:getProperty name="buildtime" property="out" /> UTC/Zulu Time</b></td> -->
+    <!-- 	  </tr> -->
+    <!-- 	</table> -->
+    <!-- 	<h3>Test report for this build</h3> -->
+    <!-- 	<jsp:useBean id="tests" class="com.rvjansen.tests" /> -->
+    <!-- 	<b><jsp:getProperty name="tests" property="out" /> </b></td> -->
+    	</div>
+	</div>
+	<div id="secondaryContent">
+	  <%@include file="left.nsp" %>
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div id="footer">
+	  <%@include file="footer.nsp" %>
+	</div>
+	</div>
+	</body>
+	</html>
+	
+	
