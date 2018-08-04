@@ -30,18 +30,19 @@
       <th>Package</th>
       <th>Description</th>
     </tr>
+	<tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.07-BETA.zip">NetRexx 3.07 BETA</a></td>
+      <td>RexxLA NetRexx 3.07 BETA release Archive, August 4th,
+  2018
+    </tr>
     <tr class="rowA">
       <td><img src="images/netrexx.gif" height=64></td>
       <td><a href="files/NetRexx-3.06-GA.zip">NetRexx 3.06 GA</a></td>
       <td>RexxLA NetRexx 3.06 GA release Archive, December 11th,
   2017
     </tr>
-     <tr class="rowB">
-      <td><img src="images/netrexx.gif" height=64></td>
-      <td><a href="files/NetRexx-3.05GA.zip">NetRexx 3.05 GA</a></td>
-      <td>RexxLA NetRexx 3.05 GA release Archive, April 27th,
-  2017
-    </tr>
+     
   </tr>
     </table>
 
@@ -52,6 +53,12 @@
       <th></th>
       <th>Package</th>
       <th>Description</th>
+    </tr>
+	<tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.05GA.zip">NetRexx 3.05 GA</a></td>
+      <td>RexxLA NetRexx 3.05 GA release Archive, April 27th,
+  2017
     </tr>
       <tr class="rowA">
       <td><img src="images/netrexx.gif" height=64></td>
