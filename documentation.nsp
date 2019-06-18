@@ -82,20 +82,20 @@
 	 The Prentice Hall publication that contains the Language
     Definition and introduced NetRexx to the world.</td>
 	</tr>
-	<tr class="rowB">
-	  <td><img src="images/redbookfrontispice.jpg" height=300></td>
-	  <td><a href="files/docs/sg242216.pdf">Creating Java Applications Using NetRexx</a></td>
-	  <td><p><b>IBM Form Number SG24-2216-00 </b></p>
-Produced by an IBM RedBook team, this book from 1997 goes into details of how to
-    interface with Java, and was the starting point for many in their
-   Java/NetRexx careers.</td>
-	  </tr>
-	  <tr class="rowA">
-	<td><img src="images/vmredbookfrontispice.jpg" height=300></td>
-	<td><a href="files/docs/sg245148.pdf">VM/ESA Network Computing with Java and NetRexx</td>
-	<td><p><b>IBM Form Number SG24-5148-00</b></p>
-	Produced in 1998, concentrating on the VM/ESA operating system and the then nascent Java technology on the platform.</td>
-      </tr>
+<!-- 	<tr class="rowB"> -->
+<!-- 	  <td><img src="images/redbookfrontispice.jpg" height=300></td> -->
+<!-- 	  <td><a href="files/docs/sg242216.pdf">Creating Java Applications Using NetRexx</a></td> -->
+<!-- 	  <td><p><b>IBM Form Number SG24-2216-00 </b></p> -->
+<!-- Produced by an IBM RedBook team, this book from 1997 goes into details of how to -->
+<!--     interface with Java, and was the starting point for many in their -->
+<!--    Java/NetRexx careers.</td> -->
+<!-- 	  </tr> -->
+<!-- 	  <tr class="rowA"> -->
+<!-- 	<td><img src="images/vmredbookfrontispice.jpg" height=300></td> -->
+<!-- 	<td><a href="files/docs/sg245148.pdf">VM/ESA Network Computing with Java and NetRexx</td> -->
+<!-- 	<td><p><b>IBM Form Number SG24-5148-00</b></p> -->
+<!-- 	Produced in 1998, concentrating on the VM/ESA operating system and the then nascent Java technology on the platform.</td> -->
+<!--       </tr> -->
     </table>
     
   </div>
