@@ -32,8 +32,8 @@
     </tr>
 	<tr class="rowB">
       <td><img src="images/netrexx.gif" height=64></td>
-      <td><a href="files/NetRexx-3.07-GA.zip">NetRexx 3.07 GA</a></td>
-      <td>RexxLA NetRexx 3.07 GA release Archive, October 1st,
+      <td><a href="files/NetRexx-3.08-BETA.zip">NetRexx 3.08 BETA</a></td>
+      <td>RexxLA NetRexx 3.08 BETA release Archive, October 1st,
   2018
     </tr>
      
@@ -48,6 +48,13 @@
       <th></th>
       <th>Package</th>
       <th>Description</th>
+    </tr>
+
+    <tr class="rowB">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-3.07-GA.zip">NetRexx 3.07 GA</a></td>
+      <td>RexxLA NetRexx 3.07 GA release Archive, October 1st,
+  2018
     </tr>
 
     <tr class="rowA">
