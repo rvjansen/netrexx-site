@@ -9,7 +9,7 @@ rel="stylesheet" type="text/css" /> </head> <body> <div id="outer">
 <h2></h2> </div> <div id="menu"> <%@include file="menu.nsp" %> </div>
 <div id="content"> <div id="tertiaryContent"> <%@include
 file="right.nsp" %> </div> <div id="primaryContentContainer"> <div
-  id="primaryContent"> Changes for NetRexx 3.04 are: <ul>
+  id="primaryContent"> Changes for NetRexx 3.11 are: <ul>
   <li>First release after Kermit Kiser's passing. He will be remembered fondly for all his work.
 <li>NetRexx has moved to Git on SourceForge for version management
 <li>A new level of the Eclipse Java Compiler in NetRexxF.jar
