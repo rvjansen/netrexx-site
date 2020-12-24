@@ -38,8 +38,8 @@
      </tr>
 	<tr class="rowA">
       <td><img src="images/netrexx.gif" height=64></td>
-      <td><a href="files/NetRexx-4.01-beta.zip">NetRexx 4.01 beta</a></td>
-      <td>RexxLA NetRexx 4.01 beta release Archive, Dec 23rd, 2020. NOTE: Use for Java >= 9. Use on JDK - ecj compiler does not work.
+      <td><a href="files/NetRexx-4.01-beta2.zip">NetRexx 4.01 beta2</a></td>
+      <td>RexxLA NetRexx 4.01 beta2 release Archive, Dec 24th, 2020. NOTE: Use for Java >= 9. For ecj compiles, use JDK8.
     </tr>
   </tr>
     </table>
