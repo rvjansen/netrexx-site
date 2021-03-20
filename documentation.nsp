@@ -38,7 +38,7 @@
     </tr>
     <tr class="rowA">
       <td><img src="images/qsfrontispice.jpg" height=300></td>
-      <td><a href="documents/NetRexx 3.08-GA QuickStart Guide.pdf">NetRexx Quick Start Guide</a></td>
+      <td><a href="documents/NetRexx 4.01-GA QuickStart Guide.pdf">NetRexx Quick Start Guide</a></td>
       <td><p><b>ISBN 978-90-819090-2-0</b></p>
 	This guide is meant for an audience that has done some
   programming and wants to start quickly. It starts with a quick tour
@@ -50,7 +50,7 @@
       </tr>
       <tr class="rowB">
 	<td><img src="images/npgfrontispice.jpg" height=300></td>
-	<td><a href="documents/NetRexx 3.08-GA Programming Guide.pdf">NetRexx Programming Guide</a></td>
+	<td><a href="documents/NetRexx 4.01-GA Programming Guide.pdf">NetRexx Programming Guide</a></td>
 	<td><p><b>ISBN 978-90-819090-0-6</b></p>
 	  The Programming Guide is the one manual that at the same
   time teaches programming, shows lots of examples as they occur in
@@ -60,13 +60,13 @@
       </tr>
       <tr class="rowA">
 	<td><img src="images/nrl3frontispice.jpg" height=300></td>
-	<td><a href="documents/NetRexx 3.08-GA Language Reference.pdf">NetRexx Language Reference</a></td>
+	<td><a href="documents/NetRexx 4.01-GA Language Reference.pdf">NetRexx Language Reference</a></td>
 	<td><p><b>ISBN 978-90-819090-1-3</b></p>
 	Referred to as the NRL, this is the formal definition of the language, documenting its syntax and semantics, and prescribing minimal functionality for language implementors. It is the definitive answer to any question on the language, and as such, is subject to approval of the NetRexx Architecture Review Board on any release of the language (including its NRL).</td>
 	</tr>
       <tr class="rowB">
 	<td><img src="images/npipesfrontispice.png" height=300></td>
-	<td><a href="documents/NetRexx 3.09-GA Pipelines Quick Start Guide.pdf">Pipelines for NetRexx QuickStart Guide</a></td>
+	<td><a href="documents/NetRexx 4.01-GA Pipelines Guide and Reference.pdf">Pipelines for NetRexx QuickStart Guide</a></td>
 	<td><p><b>ISBN 978-90-819090-1-3</b></p>
 The Data Flow oriented companion to NetRexx, compatile with its z/VM CMS Pipelines sibling.
 	</td>
