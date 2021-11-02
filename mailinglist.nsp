@@ -53,7 +53,10 @@ file="right.nsp" %> </div> <div id="primaryContentContainer"> <div
   </div>
 </form>
 </div>
+    </div>
+    </div>
 </div>
+
   <div id="secondaryContent">
     <%@include file="left.nsp" %>
   </div>
