@@ -30,7 +30,15 @@
       <th>Package</th>
       <th>Description</th>
      </tr>
-	<tr class="rowB">
+
+	<tr class="rowA">
+      <td><img src="images/netrexx.gif" height=64></td>
+      <td><a href="files/NetRexx-4.01-GA.zip">NetRexx 4.01 GA</a></td>
+      <td>RexxLA NetRexx 4.01 GA release Archive, Mar 20th, 2021. NOTE: Use for Java 8,9-17
+      </tr>
+          </tr>
+
+<tr class="rowB">
       <td><img src="images/netrexx.gif" height=64></td>
       <td><a href="files/NetRexx-4.01-GA.zip">NetRexx 4.01 GA</a></td>
       <td>RexxLA NetRexx 4.01 GA release Archive, Mar 20th, 2021. NOTE: Use for Java 8,9-17

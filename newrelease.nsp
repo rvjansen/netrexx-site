@@ -9,18 +9,23 @@ rel="stylesheet" type="text/css" /> </head> <body> <div id="outer">
 <h2></h2> </div> <div id="menu"> <%@include file="menu.nsp" %> </div>
 <div id="content"> <div id="tertiaryContent"> <%@include
 file="right.nsp" %> </div> <div id="primaryContentContainer"> <div
-  id="primaryContent"> Changes for NetRexx 3.11 are: <ul>
-  <li>First release after Kermit Kiser's passing. He will be remembered fondly for all his work.
-<li>NetRexx has moved to Git on SourceForge for version management
-<li>A new level of the Eclipse Java Compiler in NetRexxF.jar
-<li>A build error on IBM's J9 JVM's was fixed
-<li>The org.netrexx.address package was added as a foundation for OS shell interaction
-<li>New documentary comments in nrc.bat and NetRexxC.bat for windows (Kermit Kiser)
-<li>Java2Nrx and sysutils tools moved from contrib repository to tools (Marc Remes)
-<li>All examples are now versioned under the master branch
-<li>A fix for the RexxComparator class
-<li>Various fixes and additions to documents.
-</ul>
+  id="primaryContent"> Changes for NetRexx 4.02 are: <ul>
+
+<li> for building NetRexx 4.0.2, Java 8 is now the lowest supported version
+<li> tested and buildable from Java 8 up to and including Java 19ea
+<li> including a fix for building on Java >=18
+<li> NetRexx option (no)annotate to turn off pass through annotations
+<li> NetRexxC.jar and NetRexxF.jar now contain the ANT task for NetRexx
+<li> The ANT task is modified for the new <li>annotations option
+<li> The ANT task is modified for the new <li>address option
+<li> ANT in the source code repository upgraded to 1.10 for building NetRexx
+<li> a new chapter in the Programming Guide documenting two ANT scenarios
+<li> new special word asknoecho to request console input without echo, e.g. for passwords
+<li> NetRexx option MOD for generation of tailored source representations (Jason Martin)
+<li> documentation additions and corrections (numerous)
+<li> the base font for all documents is now an open source version of Palatino (TeX Gyre Pagella , due to font copyright issues
+
+      </ul>
 <br>
 
 <br>
