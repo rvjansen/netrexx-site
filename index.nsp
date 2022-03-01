@@ -53,7 +53,7 @@
   where many famous products originate.  Incidentally, in Hursley <b>
   <jsp:useBean id="clocktime" class="com.rvjansen.qtime" />
   <jsp:getProperty name="clocktime" property="out" /></b>, according to
-  the <a href="netrexx/netrexxc/examples/ibm-historic/qtime.nrx">qtime</a> program, one of the first-ever Rexx programs, dating from
+  the <a href="files/qtime.nrx">qtime</a> program, one of the first-ever Rexx programs, dating from
   1979. This is the NetRexx version from 1996, which is almost
   identical. Being British, NetRexx listens to both <i>center</i>
   and <i>centre</i> method spellings.
