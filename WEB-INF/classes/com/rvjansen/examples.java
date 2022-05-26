@@ -1,4 +1,4 @@
-/* Generated from 'examples.nrx' 9 Jun 2015 19:56:08 [v3.04] *//* Options: Comments Compact Decimal Java Logo Replace Sourcedir Trace2 UTF8 Verbose3 */package com.rvjansen;
+/* Generated from 'examples.nrx' 26 May 2022 23:42:57 [v4.04] *//* Options: Annotations Comments Compact Decimal Java Logo Replace Sourcedir Trace2 UTF8 Verbose3 */package com.rvjansen;
 
 /**
  * Class examples implements... 
@@ -13,35 +13,37 @@ private javax.servlet.http.HttpServletRequest request;
 /**
  * Default constructor
  */
+@SuppressWarnings("unchecked")
 public synchronized java.lang.String doit(){java.lang.String context;
 context=this.request.getContextPath();
 {try{
 output.println("<h3>RosettaCode Examples for NetRexx</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/rosettacode"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/rosettacode"));
 
 output.println("<h3>QuickTour Examples for NetRexx (from the QuickStart Guide)</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/quicktour"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/quicktour"));
 
 output.println("<h3>Original IBM Examples for NetRexx</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/ibm-historic"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/ibm-historic"));
 
 output.println("<h3>Windows example for NetRexx</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/windows"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/windows"));
 
 output.println("<h3>Examples for NetRexx 3.01</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/new-3.01"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/new-3.01"));
 
 output.println("<h3>MQTT examples for NetRexx</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/mqtt"));
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/enterprise/mqtt"));
 
 output.println("<h3>WebSphere MQ examples for NetRexx</h3>");
-perDirectory(netrexx.lang.Rexx.toRexx("/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/wmq"));}
+perDirectory(netrexx.lang.Rexx.toRexx("/home/netrexx/website/netrexx/netrexxc/examples/enterprise/wmq"));}
 
 catch (java.io.IOException $1){
 netrexx.lang.RexxIO.Say("some io error happened in examples.nrx");
 }}
 return "";}
 
+@SuppressWarnings("unchecked")
 public synchronized void perDirectory(netrexx.lang.Rexx dirName_) throws java.io.IOException,java.io.FileNotFoundException{netrexx.lang.Rexx context;java.io.File f;java.io.BufferedReader in=null;netrexx.lang.Rexx line=null;netrexx.lang.Rexx filename=null;netrexx.lang.Rexx explanation=null;netrexx.lang.Rexx linkDir;java.io.File files[];netrexx.lang.Rexx i=null;netrexx.lang.Rexx endDelim=null;netrexx.lang.Rexx fileName2=null;netrexx.lang.Rexx link=null;java.lang.Object expl=null;
 
 context=new netrexx.lang.Rexx(this.request.getContextPath());

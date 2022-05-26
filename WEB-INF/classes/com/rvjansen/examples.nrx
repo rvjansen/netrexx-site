@@ -17,25 +17,25 @@ class examples
     context = this.request.getContextPath()
     do
       output.println('<h3>RosettaCode Examples for NetRexx</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/rosettacode')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/rosettacode')
 
       output.println('<h3>QuickTour Examples for NetRexx (from the QuickStart Guide)</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/quicktour')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/quicktour')
 
       output.println('<h3>Original IBM Examples for NetRexx</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/ibm-historic')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/ibm-historic')
 
       output.println('<h3>Windows example for NetRexx</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/windows')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/windows')
 
       output.println('<h3>Examples for NetRexx 3.01</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/new-3.01')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/new-3.01')
 
       output.println('<h3>MQTT examples for NetRexx</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/mqtt')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/enterprise/mqtt')
 
       output.println('<h3>WebSphere MQ examples for NetRexx</h3>')
-      perDirectory('/home/ec2-user/website/netrexx/netrexxc/examples/enterprise/wmq')
+      perDirectory('/home/netrexx/website/netrexx/netrexxc/examples/enterprise/wmq')
 
     catch IOException
       say 'some io error happened in examples.nrx'
