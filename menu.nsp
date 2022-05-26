@@ -6,7 +6,7 @@
     <!-- <li><a href="dailybuilds.nsp" accesskey="3" -->
     <!-- 	 title="">Daily builds</a></li> -->
   <li><a href="documentation.nsp" accesskey="4" title="">Documents</a></li>
-  <li><a href="examples.nsp" accesskey="5" title="">Examples</a></li>
+  <!-- <li><a href="examples.nsp" accesskey="5" title="">Examples</a></li> -->
   <li><a href="mailinglist.nsp" accesskey="6" title="">Community</a></li>
   <li><a href="contact.nsp" accesskey="7" title="">Contact Us</a></li>
 </ul>
