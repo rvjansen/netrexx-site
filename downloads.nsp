@@ -31,33 +31,33 @@
       <th>Description</th>
      </tr>
 
-	<tr class="rowA">
+    <tr class="rowA">
       <td><img src="images/netrexx.gif" height=64></td>
-      <td><a href="files/NetRexx-4.03-BETA.zip">NetRexx 4.03-BETA</a></td>
-      <td>RexxLA NetRexx 4.03-BETA release Archive, March 1st, 2022. NOTE: Use for Java 8,9-19
+      <td><a href="files/NetRexx-4.03-GA.zip">NetRexx 4.03-GA</a></td>
+      <td>RexxLA NetRexx 4.03-GA release Archive, May 3rd, 2022. NOTE: Use for Java 8,9-19
       </tr>
-          </tr>
-
-	<tr class="rowB">
+      </tr>
+      
+    <tr class="rowB">
       <td><img src="images/netrexx.gif" height=64></td>
       <td><a href="files/NetRexx-4.02-GA.zip">NetRexx 4.02 GA</a></td>
       <td>RexxLA NetRexx 4.02 GA release Archive, Jan 24th, 2022. NOTE: Use for Java 8,9-19
       </tr>
-          </tr>
-
-<tr class="rowA">
+      </tr>
+      
+    <tr class="rowA">
       <td><img src="images/netrexx.gif" height=64></td>
       <td><a href="files/NetRexx-4.01-GA.zip">NetRexx 4.01 GA</a></td>
       <td>RexxLA NetRexx 4.01 GA release Archive, Mar 20th, 2021. NOTE: Use for Java 8,9-17
       </tr>
-          </tr>
-	<tr class="rowB">
+      </tr>
+    <tr class="rowB">
       <td><img src="images/netrexx.gif" height=64></td>
       <td><a href="files/NetRexx-3.11-GA.zip">NetRexx 3.11 GA</a></td>
       <td>RexxLA NetRexx 3.11 GA release Archive, Dec 23rd, 2020. NOTE: Use for Java 8
-    </tr>
-
-  </tr>
+      </tr>
+      
+      </tr>
     </table>
 
    
